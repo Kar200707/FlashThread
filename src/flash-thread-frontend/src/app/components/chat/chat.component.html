@@ -1,0 +1,25 @@
+<div class="main-div">
+    <div class="selected_chat_user">
+      <img src="" alt="user img">
+      <h2>kafsdhu</h2>
+    </div>
+  <div #messagesScrollBox appResizeHeight [size]="90" class="messages_scroll_box">
+    <div *ngFor="let item of messages, let i = index" class="message_box">
+      <div class="message">{{ item }}</div>
+    </div>
+  </div>
+  <div class="message_sending_panel">
+    <button [disabled]="form.invalid" class="send_button" (click)="send()">
+      <mat-icon [class]="form.valid ? 'send_button_icon-anim' : ''">arrow_upward</mat-icon>
+    </button>
+    <form [formGroup]="form" (ngSubmit)="send()">
+      <input
+        matInput
+        formControlName="message"
+        placeholder="Send Your Message"
+        name="message"
+        class="message_input"
+        type="text">
+    </form>
+  </div>
+</div>

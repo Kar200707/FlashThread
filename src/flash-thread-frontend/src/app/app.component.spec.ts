@@ -14,7 +14,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'flash-thread-frontend' title`, () => {
+  it(`should have the 'flash-thread' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('flash-thread-frontend');

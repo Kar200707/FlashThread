@@ -1,0 +1,17 @@
+<div class="container">
+  <div>
+    <app-chat-lists (click)="isOpenedUserDetails = false" style="width: 30%"></app-chat-lists>
+  </div>
+  <div (click)="isOpenedUserDetails = false" style="width: 100%">
+    <router-outlet></router-outlet>
+  </div>
+  <div (click)="isOpenedUserDetails = !isOpenedUserDetails" class="user_img_box">
+    <img [src]="userData.avatar" [title]="userData.name" alt="user image">
+  </div>
+  <app-user-details
+    [userData]="userData"
+    [style.right]="isOpenedUserDetails ? '40px' : '-7%'"
+    [style.top]="isOpenedUserDetails ? '90px' : '-24%'"
+    [style.opacity]="isOpenedUserDetails ? '1' : '0'"
+    [style.scale]="isOpenedUserDetails ? '1' : '0'"></app-user-details>
+</div>

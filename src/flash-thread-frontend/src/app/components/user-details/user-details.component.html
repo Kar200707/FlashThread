@@ -1,0 +1,18 @@
+<div appResizeHeight [size]="200" class="main-div">
+  <h2 class="name">{{ userData.name }}</h2>
+  <p class="email">{{ userData.email }}</p>
+  <div class="buttons_box">
+    <button mat-button class="profile">
+      Profile
+      <mat-icon style="font-size: 20px">person</mat-icon>
+    </button>
+    <button style="margin-top: 10px" mat-button class="profile">
+      Settings
+      <mat-icon style="font-size: 20px">settings</mat-icon>
+    </button>
+    <button (click)="logout()" color="warn" style="margin-top: 10px" mat-button class="profile">
+      Logout
+      <mat-icon color="warn" style="font-size: 20px">logout</mat-icon>
+    </button>
+  </div>
+</div>

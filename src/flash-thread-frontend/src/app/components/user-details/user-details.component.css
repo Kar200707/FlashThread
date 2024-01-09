@@ -1,0 +1,42 @@
+mat-icon {
+  margin: 0 0 2px 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-div {
+  width: 300px;
+  background-color: #2a2a2a;
+  overflow-y: scroll;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.name {
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.email {
+  max-width: 250px;
+  overflow: hidden;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.47);
+  margin-top: 5px;
+  user-select: text;
+}
+
+.buttons_box {
+  margin-top: 20px;
+}
+
+.profile {
+  color: white;
+  background-color: white;
+  font-size: 15px;
+  width: 100%;
+  font-family: 'Rubik Glitch', system-ui;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

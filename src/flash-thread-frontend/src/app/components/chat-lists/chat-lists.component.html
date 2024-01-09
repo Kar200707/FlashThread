@@ -1,0 +1,17 @@
+<div appResizeHeight [size]="1" class="main-div">
+  <div class="box">
+    <input
+      [style.width]="search.value != '' ? '400px' : '300px'"
+      #search (input)="searchValue()"
+      placeholder="Search User" type="text" class="search">
+  </div>
+  <ng-container *ngFor="let item of searchData">
+    <div (click)="setChat(item.id)" style="margin-top: 20px" class="list">
+      <img [src]="item.avatar" [alt]="'avatar ' + item.name">
+      <div style="margin-left: 20px">
+        <h2>{{ item.name }}</h2>
+        <p>{{ item.bio }}</p>
+      </div>
+    </div>
+  </ng-container>
+</div>

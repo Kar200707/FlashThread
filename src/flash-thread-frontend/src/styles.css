@@ -1,1 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Asap+Condensed:wght@500&display=swap');
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.container {
+  width: 1200px;
+  margin: auto;
+}
+
+app-chat {
+  width: 100%;
+}
+
+::-moz-selection {
+  color: red;
+  background: yellow;
+}
+
+::selection {
+  color: #efefef;
+  background: rgba(77, 77, 77, 0.67);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-drag: none;
+}
+
+mat-icon {
+  display: block;
+}
+
+::-webkit-scrollbar {
+  background-color: transparent;
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(245, 245, 220, 0.15);
+  border-radius: 20px;
+}
+
+body {
+  background-color: #232323;
+}
+
+:root {
+  --main-color1: rgba(152, 46, 131, 0.18);
+  --main-color2: rgba(0, 51, 153, 0.2);
+}

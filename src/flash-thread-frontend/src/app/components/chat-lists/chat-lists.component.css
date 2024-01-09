@@ -1,0 +1,62 @@
+.main-div {
+  background-image: linear-gradient(to left,var(--main-color1), var(--main-color2));
+  overflow-y: scroll;
+  padding: 20px;
+  width: 100%;
+}
+
+.list {
+  padding: 10px;
+  width: 100%;
+  background-color: #232323;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.list > img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.list > div > h2,
+.list > div > p {
+  color: white;
+}
+
+header {
+  background-image: linear-gradient(to left, var(--main-color1), var(--main-color2));
+  width: 400px;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.side-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.search {
+  outline: none;
+  color: rgba(255, 255, 255, 0.4);
+  background-color: transparent;
+  border: 1px solid;
+  height: 15px;
+  font-family: 'Rubik Glitch', system-ui;
+  font-weight: bolder;
+  border-radius: 7px;
+  padding: 20px 15px;
+  transition: .3s;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 3px 6px, rgba(0, 0, 0, 0.13) 0px 3px 6px;
+}
+
+.search:focus {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  border-color: #003399;
+}
