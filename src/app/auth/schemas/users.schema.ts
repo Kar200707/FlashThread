@@ -22,6 +22,14 @@ export class Users {
 
   @Prop({ required: false })
   bio: string
+
+  @Prop({ required: true, type: { day: Number, month: Number, year: Number } })
+  last_connection: {
+    day: number,
+    month: number,
+    year: number,
+
+  }
 }
 
 export const UsersSchema = SchemaFactory.createForClass(Users);

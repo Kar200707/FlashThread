@@ -1,11 +1,11 @@
 import { Component, ElementRef, ViewChild } from "@angular/core";
 import { ResizeHeightDirective } from "../../directives/resize-height.directive";
-import { SearchInfoService } from "../../services/search-info.service";
 import { User } from "../../models/user.model";
 import { NgForOf, NgIf } from "@angular/common";
 import { RequestService } from "../../services/request.service";
 import { environment } from "../../../environment/environment";
 import { SetChatService } from "../../services/set-chat.service";
+import { Router, RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-chat-lists',
@@ -13,7 +13,8 @@ import { SetChatService } from "../../services/set-chat.service";
   imports: [
     ResizeHeightDirective,
     NgForOf,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   providers: [
     RequestService,
@@ -28,6 +29,7 @@ export class ChatListsComponent {
   searchData: User[] = [];
 
   constructor(
+    private router: Router,
     private setChatService: SetChatService,
     private reqService: RequestService) {}
 

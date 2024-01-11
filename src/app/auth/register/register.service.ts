@@ -22,11 +22,18 @@ export class RegisterService {
 
       // console.log();
 
+      const date:Date = new Date();
+
       let sendObj = {
         email: body.email,
         password: hash,
         name: body.name,
         avatar: !body.avatar ? `/uploads/images/default-user.jpg` : body.avatar,
+        last_connection: {
+          day: date.getDate(),
+          month: date.getMonth(),
+          year: date.getFullYear()
+        },
         l_name: "",
         bio: ""
       }

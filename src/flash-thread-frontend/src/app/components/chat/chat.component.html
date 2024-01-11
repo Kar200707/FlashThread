@@ -1,8 +1,10 @@
 <div class="main-div">
+  @if (userInfo) {
     <div class="selected_chat_user">
-      <img src="" alt="user img">
-      <h2>kafsdhu</h2>
+      <img [src]="userInfo.avatar" alt="user img">
+      <h2>{{ userInfo.name }}</h2>
     </div>
+  }
   <div #messagesScrollBox appResizeHeight [size]="90" class="messages_scroll_box">
     <div *ngFor="let item of messages, let i = index" class="message_box">
       <div class="message">{{ item }}</div>
