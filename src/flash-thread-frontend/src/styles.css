@@ -13,8 +13,8 @@ app-chat {
 }
 
 ::-moz-selection {
-  color: red;
-  background: yellow;
+  color: #efefef;
+  background: rgba(77, 77, 77, 0.67);
 }
 
 ::selection {
@@ -52,4 +52,10 @@ body {
 :root {
   --main-color1: rgba(152, 46, 131, 0.18);
   --main-color2: rgba(0, 51, 153, 0.2);
+}
+
+@media screen and (max-width: 1250px) {
+  .container {
+    width: 95%;
+  }
 }

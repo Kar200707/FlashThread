@@ -5,6 +5,9 @@ export type UsersDocument = Users & Document;
 
 @Schema({ collection: 'users' })
 export class Users {
+  @Prop()
+  isOnline: boolean
+
   @Prop({ required: true })
   email: string
 
@@ -23,12 +26,23 @@ export class Users {
   @Prop({ required: false })
   bio: string
 
-  @Prop({ required: true, type: { day: Number, month: Number, year: Number } })
+  @Prop({ required: true,
+    type: {
+      day: Number,
+      month: Number,
+      year: Number,
+      date: Number,
+      hours: Number,
+      minutes: Number
+    }
+  })
   last_connection: {
     day: number,
     month: number,
     year: number,
-
+    date: number,
+    hours: number,
+    minutes: number
   }
 }
 

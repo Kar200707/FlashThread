@@ -3,6 +3,7 @@ import { ChatController } from './chat.controller';
 import { ChatService } from './chat.service';
 import { MongooseModule } from "@nestjs/mongoose";
 import { Chat, ChatSchema } from "./schemas/chat.schema";
+import { Users, UsersSchema } from '../auth/schemas/users.schema';
 
 @Module({
   controllers: [ChatController],
@@ -10,6 +11,9 @@ import { Chat, ChatSchema } from "./schemas/chat.schema";
   imports: [
     MongooseModule.forFeature([
       { name: Chat.name, schema: ChatSchema }
+    ]),
+    MongooseModule.forFeature([
+      { name: Users.name, schema: UsersSchema }
     ])
   ]
 })

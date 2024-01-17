@@ -5,24 +5,24 @@
     <div class="images_box">
       <img class="messgae_image" src="assets/images/message.gif">
     </div>
-    <div class="login_block">
+    <div class="block">
       <form #formDirective="ngForm" [formGroup]="form" (ngSubmit)="send(formDirective)">
         <h1>Register</h1>
-        <mat-form-field style="margin-top: 30px" class="login_input" appearance="outline">
+        <mat-form-field style="margin-top: 30px" class="input" appearance="outline">
           <mat-label>Name</mat-label>
           <input autofocus name="name" formControlName="name" matInput placeholder="enter your name">
           @if (this.form.invalid) {
             <mat-error>name is required</mat-error>
           }
         </mat-form-field>
-        <mat-form-field class="login_input" appearance="outline">
+        <mat-form-field class="input" appearance="outline">
           <mat-label>Email</mat-label>
           <input autofocus name="email" formControlName="email" matInput placeholder="enter your email">
           @if (this.form.invalid) {
             <mat-error>email is required</mat-error>
           }
         </mat-form-field>
-        <mat-form-field class="login_input" appearance="outline">
+        <mat-form-field class="input" appearance="outline">
           <mat-label>Password</mat-label>
           <input name="password" [type]="hide ? 'password' : 'text'" formControlName="password" type="password" matInput placeholder="enter your password">
           <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">

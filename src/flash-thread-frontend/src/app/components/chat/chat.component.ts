@@ -29,6 +29,7 @@ import { environment } from "../../../environment/environment";
   styleUrl: './chat.component.css'
 })
 export class ChatComponent implements OnInit {
+
   @ViewChild('messagesScrollBox') messagesBoxScroll?: ElementRef<HTMLDivElement>;
 
   messages: string[] = [];

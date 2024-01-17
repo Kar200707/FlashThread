@@ -10,5 +10,4 @@ export class ChatController {
   addChat(@Body() body: ChatInterface) {
     return this.chatService.addChat(body);
   }
-
 }

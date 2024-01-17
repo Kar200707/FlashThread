@@ -1,7 +1,7 @@
 export interface ChatInterface {
-  usersId: {
-    user: string
-  }
+  clientToken?: string;
+
+  usersId: string[]
 
   messages: [
     {
@@ -11,6 +11,9 @@ export interface ChatInterface {
         day: number,
         month: number,
         year: number,
+        date: number,
+        hours: number,
+        minutes: number
       }
     }
   ]

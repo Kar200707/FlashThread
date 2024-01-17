@@ -1,8 +1,21 @@
 <div class="main-div">
   @if (userInfo) {
     <div class="selected_chat_user">
-      <img [src]="userInfo.avatar" alt="user img">
-      <h2>{{ userInfo.name }}</h2>
+      <div class="img_box">
+        <img [src]="userInfo.avatar" alt="user img">
+        <div [class]="userInfo.isOnline ? 'online' : ''"></div>
+      </div>
+      <div>
+        <h2>{{ userInfo.name }}</h2>
+        @if (!userInfo.isOnline) {
+          <p>Last connection {{ userInfo.last_connection?.hours + ':' + userInfo.last_connection?.minutes }}</p>
+        } @else {
+          <p>
+            Online
+            <mat-icon>online</mat-icon>
+          </p>
+        }
+      </div>
     </div>
   }
   <div #messagesScrollBox appResizeHeight [size]="90" class="messages_scroll_box">

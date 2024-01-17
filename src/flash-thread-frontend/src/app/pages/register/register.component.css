@@ -51,25 +51,25 @@ h1 {
   z-index: 99;
 }
 
-.login_block {
+.block {
   border-radius: 20px;
   padding: 30px;
   background-color: #ffffff;
 }
 
-.login_block > form {
+.block > form {
   display: flex;
   flex-direction: column;
 }
 
-.login_input {
+.input {
   width: 400px;
   font-size: 20px;
   border-radius: 10px;
   outline: none;
 }
 
-.login_input:focus {
+.input:focus {
   border-color: #7100ff;
 }
 
@@ -92,4 +92,44 @@ h1 {
 .send_button:disabled {
   background-color: #7c47be;
   opacity: 0.7;
+}
+
+/* media */
+
+@media screen and (max-width: 1030px) {
+  .images_box,
+  .withe_layer {
+    display: none;
+  }
+
+  .main_div > .container {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .side_image {
+    width: 40px;
+    filter: drop-shadow(2px 2px 0 rgba(91, 38, 141, 0.53));
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .main_div {
+    background: white;
+  }
+
+  .block {
+    width: 100%;
+  }
+
+  .input {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .block {
+    padding: 5px;
+  }
 }

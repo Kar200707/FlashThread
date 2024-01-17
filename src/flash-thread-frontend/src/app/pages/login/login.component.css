@@ -93,3 +93,44 @@ h1 {
   background-color: #7c47be;
   opacity: 0.7;
 }
+
+
+/* media */
+
+@media screen and (max-width: 1030px) {
+  .images_box,
+  .withe_layer {
+    display: none;
+  }
+
+  .main_div > .container {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .side_image {
+    width: 40px;
+    filter: drop-shadow(2px 2px 0 rgba(91, 38, 141, 0.53));
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .main_div {
+    background: white;
+  }
+
+  .login_block {
+    width: 100%;
+  }
+
+  .login_input {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .login_block {
+    padding: 5px;
+  }
+}
