@@ -5,7 +5,7 @@ export type ChatDocumnet = Chat & Document;
 
 @Schema({ collection: 'chats' })
 export class Chat {
-  @Prop({ type: { user: String } })
+  @Prop()
   usersId: string[];
 
   @Prop()
@@ -18,7 +18,7 @@ export class Chat {
         month: number,
         year: number,
         hours: number,
-        minutes: number
+        minutes: number,
         date: number
       }
     }

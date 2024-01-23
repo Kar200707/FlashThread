@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ResizeHeightDirective } from "../../directives/resize-height.directive";
 import { User } from "../../models/user.model";
 import { NgForOf, NgIf } from "@angular/common";
@@ -23,8 +23,10 @@ import { Router, RouterLink } from "@angular/router";
   templateUrl: './chat-lists.component.html',
   styleUrl: './chat-lists.component.css'
 })
-export class ChatListsComponent {
+export class ChatListsComponent implements OnInit {
   @ViewChild('search') input?: ElementRef<HTMLInputElement>
+  tokenUser!: User;
+  token: string | null = localStorage.getItem('token');
 
   searchData: User[] = [];
 
@@ -32,6 +34,17 @@ export class ChatListsComponent {
     private router: Router,
     private setChatService: SetChatService,
     private reqService: RequestService) {}
+
+  ngOnInit() {
+    const obj:any = {
+      token: this.token
+    }
+
+    this.reqService.post<User>(environment.getUserByToken, obj)
+      .subscribe((data: User) => {
+        this.tokenUser = data;
+      })
+  }
 
   searchValue() {
     const obj: any = { name: this.input?.nativeElement.value.split('').filter(e => e.trim().length).join('') };

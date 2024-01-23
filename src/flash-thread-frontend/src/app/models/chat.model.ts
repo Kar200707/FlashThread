@@ -1,4 +1,6 @@
 export interface ChatInterface {
+  id?: number
+
   usersId: {
     user: string
   }

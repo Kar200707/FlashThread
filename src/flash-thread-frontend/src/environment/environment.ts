@@ -4,5 +4,9 @@ export const environment = {
   signUp: host + 'reg',
   getUser: host + 'client_info',
   search: host + 'search-user',
-  getUserById: host + 'get-user-by-id'
+  getUserById: host + 'get-user-by-id',
+  getUserByToken: host + 'get-user-by-token',
+  checkChat: host + 'chat/check',
+  chat: host + 'chat',
+  getChat: host + 'chat/get'
 }

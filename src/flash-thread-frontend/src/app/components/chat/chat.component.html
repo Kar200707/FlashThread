@@ -19,8 +19,12 @@
     </div>
   }
   <div #messagesScrollBox appResizeHeight [size]="90" class="messages_scroll_box">
-    <div *ngFor="let item of messages, let i = index" class="message_box">
-      <div class="message">{{ item }}</div>
+    <div *ngIf="chatMessaging != undefined">
+      <div
+        *ngFor="let item of chatMessaging.messages, let i = index"
+        [class]="thisUser.id !== item.userId ? 'message_box_reverce' : 'message_box'">
+        <div class="message">{{ item.message }}</div>
+      </div>
     </div>
   </div>
   <div class="message_sending_panel">

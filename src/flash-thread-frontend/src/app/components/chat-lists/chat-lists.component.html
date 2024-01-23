@@ -6,7 +6,7 @@
       placeholder="Search User" type="text" class="search">
   </div>
   <ng-container *ngFor="let item of searchData">
-    <div [routerLink]="['/messenger/chat', item.id]" (click)="setChat(item.id)" style="margin-top: 20px" class="list">
+    <div *ngIf="tokenUser.id !== item.id" [routerLink]="['/messenger/chat', item.id]" (click)="setChat(item.id)" style="margin-top: 20px" class="list">
       <img [src]="item.avatar" [alt]="'avatar ' + item.name">
       <div style="margin-left: 20px">
         <h2>{{ item.name }}</h2>
