@@ -20,4 +20,9 @@ export class ChatController {
   getChat(@Body() body) {
     return this.chatService.getChat(body);
   }
+
+  @Post('/get-active-chats')
+  getClientActiveChats(@Body() body) {
+    return this.chatService.getClientActiveChats(body);
+  }
 }

@@ -1,0 +1,5 @@
+<p>profile-edit works!</p>
+<form [formGroup]="form" (ngSubmit)="send(inputFile)">
+  <input #inputFile formControlName="file" type="file">
+  <button>save</button>
+</form>

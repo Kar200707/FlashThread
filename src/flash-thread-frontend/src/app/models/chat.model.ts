@@ -1,18 +1,16 @@
 export interface ChatInterface {
   id?: number
 
-  usersId: {
-    user: string
-  }
+  usersId: string[];
 
   messages: [
     {
-      message: string,
-      userId: string,
+      message: string;
+      userId: string;
       date: {
-        day: number,
-        month: number,
-        year: number,
+        day: number;
+        month: number;
+        year: number;
       }
     }
   ]

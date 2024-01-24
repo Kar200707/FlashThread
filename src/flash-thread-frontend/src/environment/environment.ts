@@ -8,5 +8,7 @@ export const environment = {
   getUserByToken: host + 'get-user-by-token',
   checkChat: host + 'chat/check',
   chat: host + 'chat',
-  getChat: host + 'chat/get'
+  getChat: host + 'chat/get',
+  getActiveChats: host + 'chat/get-active-chats',
+  userEdit: host + 'user/edit'
 }

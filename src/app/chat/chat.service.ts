@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Body, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from "@nestjs/mongoose";
 import { Chat, ChatDocumnet } from "./schemas/chat.schema";
 import { Model } from "mongoose";
@@ -103,5 +103,35 @@ export class ChatService {
     }
 
     return new HttpException('chat not with is ids', HttpStatus.BAD_REQUEST);
+  }
+
+  async getClientActiveChats(@Body() body) {
+    const { token } = body;
+
+    if (!token) {
+      throw new HttpException('not selected id', HttpStatus.BAD_REQUEST);
+    }
+
+    const userData = await this.usersModel.findOne({ password: token });
+
+    if (!userData) {
+      throw new HttpException('not valid token', HttpStatus.BAD_REQUEST);
+    }
+
+    const userID: string = userData.id;
+
+    const chats = await this.chatModel.find();
+
+    let modifiedChats = [];
+
+    chats.forEach((item, i) => {
+      item.usersId.forEach(id => {
+        if (id === userID) {
+          modifiedChats[i] = item;
+        }
+      })
+    })
+
+    return modifiedChats;
   }
 }

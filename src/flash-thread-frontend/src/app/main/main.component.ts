@@ -9,7 +9,6 @@ import { MatButtonModule } from "@angular/material/button";
 import { environment } from "../../environment/environment";
 import { User } from "../models/user.model";
 import { UserDetailsComponent } from "../components/user-details/user-details.component";
-import { SetChatService } from "../services/set-chat.service";
 import { WebSocketService } from "../web-socket.service";
 import { RouterOutlet } from "@angular/router";
 

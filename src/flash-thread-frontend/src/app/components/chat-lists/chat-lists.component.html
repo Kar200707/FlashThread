@@ -1,17 +1,76 @@
 <div appResizeHeight [size]="1" class="main-div">
   <div class="box">
-    <input
-      [style.width]="search.value != '' ? '400px' : '300px'"
-      #search (input)="searchValue()"
-      placeholder="Search User" type="text" class="search">
-  </div>
-  <ng-container *ngFor="let item of searchData">
-    <div *ngIf="tokenUser.id !== item.id" [routerLink]="['/messenger/chat', item.id]" (click)="setChat(item.id)" style="margin-top: 20px" class="list">
-      <img [src]="item.avatar" [alt]="'avatar ' + item.name">
-      <div style="margin-left: 20px">
-        <h2>{{ item.name }}</h2>
-        <p>{{ item.bio }}</p>
-      </div>
+    <div (click)="isOpenedUserDetails = !isOpenedUserDetails" class="user_img_box">
+      <img [src]="userData.avatar" [title]="userData.name" alt="user image">
     </div>
-  </ng-container>
+    <app-user-details
+      [userData]="userData"
+      [style.left]="isOpenedUserDetails ? '40px' : '-7%'"
+      [style.top]="isOpenedUserDetails ? '75px' : '-24%'"
+      [style.opacity]="isOpenedUserDetails ? '1' : '0'"
+      [style.scale]="isOpenedUserDetails ? '1' : '0'"></app-user-details>
+    <div
+      (mouseleave)="isOpenedSearchBlock = false"
+      (click)="isOpenedSearchBlock = true" class="search_box">
+      <input
+        (focus)="isOpenedSearchBlock = true"
+        [style.width]="isOpenedSearchBlock ? '400px' : '300px'"
+        #search (input)="searchValue()"
+        placeholder="Search User" type="text" class="search">
+      @if (isOpenedSearchBlock) {
+        <div class="search_list_block">
+          @if (searchData.length == 0 && search.value != '') {
+            <div class="loading_list">
+              <div
+                style="margin-top: 20px"
+                class="list">
+                <div
+                  style="
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background-color: #2a2a2a;
+              "
+                ></div>
+                <div
+                  style="
+                margin-left: 20px;
+                width: 70%;
+                height: 20px;
+                border-radius: 5px;
+                background-color: #2a2a2a;
+              ">
+                </div>
+              </div>
+            </div>
+          }
+          <ng-container *ngFor="let item of searchData">
+            <div *ngIf="tokenUser.id !== item.id"
+                 [routerLink]="['/messenger/chat', item.id]"
+                 style="margin-top: 20px"
+                 class="list">
+              <img [src]="item.avatar" [alt]="'avatar ' + item.name">
+              <div style="margin-left: 20px">
+                <h2>{{ item.name }}</h2>
+                <p>{{ item.bio }}</p>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      }
+    </div>
+  </div>
+  <div class="chat_block">
+    <ng-container *ngFor="let chatUser of chatUsersData, let i = index">
+      <div
+        [routerLink]="['/messenger/chat', chatUser.id]"
+        *ngIf="chatUser != null" class="chat">
+        <img [src]="chatUser.avatar" alt="chat">
+        <div>
+          <h3>{{ chatUser.name }}</h3>
+          <p>{{ chatsData[i].messages[chatsData[i].messages.length - 1].message }}</p>
+        </div>
+      </div>
+    </ng-container>
+  </div>
 </div>

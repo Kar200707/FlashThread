@@ -1,17 +1,14 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { ResizeHeightDirective } from "../../directives/resize-height.directive";
 import { MatIconModule } from "@angular/material/icon";
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { WebSocketService } from "../../web-socket.service";
 import { NgForOf, NgIf } from '@angular/common';
 import { MatInputModule } from "@angular/material/input";
-import { SetChatService } from "../../services/set-chat.service";
-import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { RequestService } from "../../services/request.service";
 import { User } from "../../models/user.model";
-import { environment } from "../../../environment/environment";
-import { HttpErrorResponse } from '@angular/common/http';
-import { response } from 'express';
+import { environment } from "../../../environment/environment";;
 import { ChatInterface } from '../../models/chat.model';
 
 @Component({
@@ -26,9 +23,7 @@ import { ChatInterface } from '../../models/chat.model';
     FormsModule,
     NgIf,
   ],
-  providers: [
-    SetChatService
-  ],
+  providers: [],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })

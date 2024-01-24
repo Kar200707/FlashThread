@@ -7,11 +7,22 @@
 
 .list {
   padding: 10px;
-  width: 100%;
-  background-color: #232323;
+  background-color: #3d3d3d;
   border-radius: 10px;
   display: flex;
   align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.search_list_block {
+  width: 100%;
+  padding: 0 20px 20px 20px;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 3px 6px, rgba(0, 0, 0, 0.13) 0px 3px 6px;
+  position: absolute;
+  top: 35px;
+  background-color: #232323;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .list > img {
@@ -59,4 +70,82 @@ header {
 .search:focus {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
   border-color: #003399;
+}
+
+app-user-details {
+  position: absolute;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  top: 10px;
+  left: 20px;
+  transition: 0.2s;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.user_img_box {
+  width: 45px;
+  height: 45px;
+  margin-right: 10px;
+  background-color: #3d3d3d;
+  top: 20px;
+  right: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  transition: .2s;
+}
+
+.user_img_box:active {
+  scale: 0.95;
+}
+
+.user_img_box > img {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.chat_block {
+  margin-top: 20px;
+}
+
+.chat_block > .chat {
+  width: 100%;
+  padding: 10px;
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.chat_block > .chat > div {
+  margin-left: 15px;
+}
+
+.chat_block > .chat > div > h3 {
+  color: white;
+  font-family: "Rubik Glitch", system-ui;
+  font-size: 25px;
+}
+
+.chat_block > .chat > div > p {
+  color: rgba(255, 255, 255, 0.49);
+}
+
+.chat_block > .chat > img {
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.search_box {
+  position: relative;
 }

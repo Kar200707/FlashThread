@@ -1,11 +1,13 @@
 .main-div {
   background-image: url("/assets/images/backgrounds/chat-background.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
   height: 100vh;
   box-shadow:  inset rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 0 20px;
+  padding: 90px 20px 0 20px;
   position: relative;
 }
 
@@ -128,13 +130,15 @@
 }
 
 .selected_chat_user {
-  padding: 20px;
+  padding: 15px 25px;
   background-color: #2a2a2a;
   position: absolute;
   left: 0;
-  border-bottom-right-radius: 20px;
+  top: 0;
+  width: 100%;
   display: flex;
   align-items: center;
+  border-bottom: 1px solid rgba(117, 117, 117, 0.42);
 }
 
 .selected_chat_user > .img_box {
