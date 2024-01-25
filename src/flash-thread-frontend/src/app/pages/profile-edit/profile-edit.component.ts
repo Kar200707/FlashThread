@@ -19,8 +19,9 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './profile-edit.component.css'
 })
 export class ProfileEditComponent implements OnInit {
+  token:any = localStorage.getItem('token');
   form: FormGroup = new FormGroup({
-    file: new FormControl('',  Validators.required),
+    avatar: new FormControl('',  Validators.required),
   })
 
   constructor(private reqService: RequestService) {  }
@@ -30,11 +31,14 @@ export class ProfileEditComponent implements OnInit {
   send (e: any) {
     let formData:FormData = new FormData();
 
-    // const obj:any = {
-    //   file: ,
-    //   karen: 'sdasd'
-    // }
-    formData.set('file', e.files[0])
+    formData.set('file', e.files[0]);
+    formData.set('email', 'test#wff');
+    formData.set('name', 'nasd');
+    formData.set('l_name', 'dsfgs');
+    formData.set('avatar', 'sdfsdf');
+    formData.set('bio', 'assssss');
+    formData.set('id', 'karen');
+    formData.set('token', this.token);
 
     this.reqService.put<User>(environment.userEdit, formData)
       .subscribe((data) => {})

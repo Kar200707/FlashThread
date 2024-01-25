@@ -4,7 +4,7 @@ import { User } from "../../models/user.model";
 import { NgForOf, NgIf } from "@angular/common";
 import { RequestService } from "../../services/request.service";
 import { environment } from "../../../environment/environment";
-import { RouterLink } from "@angular/router";
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { UserDetailsComponent } from '../user-details/user-details.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
@@ -21,6 +21,7 @@ import { ChatInterface } from '../../models/chat.model';
     UserDetailsComponent,
     MatAutocompleteModule,
     MatInputModule,
+    RouterLinkActive,
   ],
   providers: [
     RequestService,

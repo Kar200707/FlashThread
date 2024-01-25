@@ -44,6 +44,12 @@ export class Users {
     hours: number,
     minutes: number
   }
+
+  @Prop()
+  devices: string[];
+
+  @Prop()
+  device: string;
 }
 
 export const UsersSchema = SchemaFactory.createForClass(Users);

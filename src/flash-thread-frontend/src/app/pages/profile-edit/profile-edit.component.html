@@ -1,5 +1,5 @@
 <p>profile-edit works!</p>
-<form [formGroup]="form" (ngSubmit)="send(inputFile)">
-  <input #inputFile formControlName="file" type="file">
+<form [formGroup]="form" (ngSubmit)="send(avatarFile)">
+  <input #avatarFile formControlName="avatar" name="avatar" type="file">
   <button>save</button>
 </form>

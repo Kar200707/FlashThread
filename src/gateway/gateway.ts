@@ -13,6 +13,7 @@ import { Users, UsersDocument } from '../app/auth/schemas/users.schema';
 import { Model } from 'mongoose';
 import { User } from '../app/models/user.model';
 import { Chat, ChatDocumnet } from '../app/chat/schemas/chat.schema';
+import { HttpService } from '@nestjs/axios';
 
 @WebSocketGateway({ cors: true })
 export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -21,6 +22,7 @@ export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect {
   server;
 
   constructor(
+    private httpService: HttpService,
     @InjectModel(Chat.name) private readonly chatModel: Model<ChatDocumnet>,
     @InjectModel(Users.name) private readonly userModel: Model<UsersDocument>,
     private gatewayService: GatewayService) {  }
@@ -55,8 +57,33 @@ export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     const updatedChat = await this.chatModel.findByIdAndUpdate(chatId, obj, { new: true })
 
+    const headersRequest = {
+      'Authorization': `key=AAAAzx6jK8E:APA91bFpbSR3Uw6xH4aKn4BjwLBF1r7dk9xC0ogrOwtkKplhdirkmkxFXSNzhxRDZ1dY9uo0oEWHO23NCCbpVHl9QAu14cne28lf2kpRnaifYCN3znPqCoEiKnZHgRm_96Pw_5tf2dHV`,
+    };
+
     chat.usersId.forEach((item: string, i: number) => {
         this.server.in(item).emit('message', updatedChat);
+
+        if (item != clientId) {
+          async function sendNotification (userModel, httpService) {
+            const senderUser:any = await userModel.findById(clientId);
+            const receiverUser:any = await userModel.findById(item);
+
+            const message = {
+              notification: {
+                title: senderUser.name.toString(),
+                body: body.message.toString()
+              },
+              to : receiverUser.device.toString()
+            }
+
+            httpService.post('https://fcm.googleapis.com/fcm/send',  message,
+              { headers: headersRequest }).subscribe((data) => {
+              console.log(data);
+            })
+          }
+          sendNotification(this.userModel, this.httpService);
+        }
     })
   }
 

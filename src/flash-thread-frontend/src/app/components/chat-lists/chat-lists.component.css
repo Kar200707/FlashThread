@@ -110,18 +110,41 @@ app-user-details {
 }
 
 .chat_block {
-  margin-top: 20px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .chat_block > .chat {
   width: 100%;
   padding: 10px;
-  background-color: #2a2a2a;
+  background: rgba(42, 42, 42, 0.59);
   border-radius: 10px;
   margin-bottom: 15px;
+  fill: white;
   display: flex;
   align-items: center;
   border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: .2s scale;
+  outline: none;
+}
+
+.active-chat.active-chat.active-chat {
+  background: rgb(68, 68, 68);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  scale: 1.02;
+}
+
+.active-chat.active-chat.active-chat:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: rgb(68, 68, 68);
+  border-top-right-radius: 6px;
+  rotate: 45deg;
+  right: -10px;
 }
 
 .chat_block > .chat > div {

@@ -14,4 +14,6 @@ export interface User {
     hours: number,
     minutes: number
   };
+  device?: string;
+  devices?: string[];
 }

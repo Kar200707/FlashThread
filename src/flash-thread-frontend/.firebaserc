@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "flash-thread": {
+      "hosting": {
+        "flash-thread": [
+          "flash-thread"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "flash-thread"
+  }
+}

@@ -63,6 +63,7 @@
   <div class="chat_block">
     <ng-container *ngFor="let chatUser of chatUsersData, let i = index">
       <div
+        routerLinkActive="active-chat"
         [routerLink]="['/messenger/chat', chatUser.id]"
         *ngIf="chatUser != null" class="chat">
         <img [src]="chatUser.avatar" alt="chat">
@@ -72,5 +73,6 @@
         </div>
       </div>
     </ng-container>
+
   </div>
 </div>

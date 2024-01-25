@@ -1,11 +1,16 @@
-import { Body, Controller, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { User } from '../models/user.model';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import e from 'express';
+import { UserService } from './user.service';
+import { HttpService } from '@nestjs/axios';
 
 @Controller('api/user')
 export class UserController {
+  constructor(
+    private httpService: HttpService,
+    private userService: UserService) {  }
 
   @Put('edit')
   @UseInterceptors(FileInterceptor('file', {
@@ -21,7 +26,13 @@ export class UserController {
     })
   }))
   edit(@Body() body: User, @UploadedFile() file: Express.Multer.File) {
-    console.log(file);
-  }
+    const modifiedData: User = body;
+    if (file) {
+      modifiedData.avatar = '/uploads/images/user/' + file.filename;
+    } else {
+      modifiedData.avatar = '/uploads/images/default-user.jpg';
+    }
 
+    return this.userService.edit(modifiedData);
+  }
 }

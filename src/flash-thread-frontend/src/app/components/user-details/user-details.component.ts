@@ -3,7 +3,7 @@ import { ResizeHeightDirective } from "../../directives/resize-height.directive"
 import { User } from "../../models/user.model";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
-import { Router } from "@angular/router";
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-details',
@@ -11,7 +11,8 @@ import { Router } from "@angular/router";
   imports: [
     ResizeHeightDirective,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    RouterLink,
   ],
   templateUrl: './user-details.component.html',
   styleUrl: './user-details.component.css'

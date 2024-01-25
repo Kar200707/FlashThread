@@ -34,7 +34,7 @@ import { UserModule } from './app/user/user.module';
     GetUserByIdModule,
     ChatModule,
     GetUserByTokenModule,
-    UserModule
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

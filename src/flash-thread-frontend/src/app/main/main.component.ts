@@ -11,6 +11,7 @@ import { User } from "../models/user.model";
 import { UserDetailsComponent } from "../components/user-details/user-details.component";
 import { WebSocketService } from "../web-socket.service";
 import { RouterOutlet } from "@angular/router";
+import { MessagingService } from '../services/messaging.service';
 
 @Component({
   selector: 'app-main',
@@ -58,12 +59,7 @@ export class MainComponent implements  OnInit {
       .subscribe((user:User) => {
         this.userData = user;
       })
-  }
 
-  // send(e:any) {
-  //   let formData = new FormData();
-  //   formData.set("file", e.files[0])
-  //
-  //   this.reqService.post<any>('http://localhost:3000/api/reg', formData).subscribe(data => {})
-  // }
+
+  }
 }

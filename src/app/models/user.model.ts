@@ -17,4 +17,6 @@ export interface User {
   bio: string;
   __v?: string;
   _id?: string;
+  devices?: string[];
+  device?: string;
 }

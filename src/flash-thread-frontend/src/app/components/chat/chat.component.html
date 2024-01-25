@@ -23,7 +23,12 @@
       <div
         *ngFor="let item of chatMessaging.messages, let i = index"
         [class]="thisUser.id !== item.userId ? 'message_box_reverce' : 'message_box'">
-        <div class="message">{{ item.message }}</div>
+        <div class="message">
+          @if (chatMessaging.usersId.length === 2 && thisUser.id !== item.userId) {
+<!--            <img class="in-chat-user-avatar" [src]="userInfo.avatar" alt="user img">-->
+          }
+          {{ item.message }}
+        </div>
       </div>
     </div>
   </div>

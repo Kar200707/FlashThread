@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ResizeHeightDirective } from "../../directives/resize-height.directive";
 import { MatIconModule } from "@angular/material/icon";
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
@@ -27,7 +27,7 @@ import { ChatInterface } from '../../models/chat.model';
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, AfterViewInit {
 
   @ViewChild('messagesScrollBox') messagesBoxScroll?: ElementRef<HTMLDivElement>;
 
@@ -55,9 +55,6 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.messagesBoxScroll?.nativeElement.scrollTo(0, this.messagesBoxScroll?.nativeElement.scrollHeight)
-    }, 800)
     this.activatedRoute.params.subscribe((params: any) => {
       const userId: string = params.id;
 
@@ -105,6 +102,11 @@ export class ChatComponent implements OnInit {
     })
   }
 
+  ngAfterViewInit() {
+
+    this.messagesBoxScroll?.nativeElement.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+  }
+
   send() {
     if (this.form.value.message) {
       const obj = {
@@ -117,5 +119,21 @@ export class ChatComponent implements OnInit {
     }
     this.form.reset();
     this.messagesBoxScroll?.nativeElement.scrollTo(0, this.messagesBoxScroll?.nativeElement.scrollHeight)
+  }
+
+  getChatUsers(id: string) {
+    const obj: any = {
+      token: this.token,
+      id: id
+    }
+
+    let userChatInfo!: User;
+
+    this.reqService.post<User>(environment.getUserById, obj)
+      .subscribe((data: User) =>{
+        userChatInfo = data;
+      })
+
+    return userChatInfo
   }
 }
