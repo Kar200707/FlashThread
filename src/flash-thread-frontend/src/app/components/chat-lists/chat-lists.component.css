@@ -80,6 +80,7 @@ app-user-details {
   transition: 0.2s;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.09);
+  z-index: 999;
 }
 
 .user_img_box {

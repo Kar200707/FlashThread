@@ -35,6 +35,20 @@ export class UserService {
       modifiedData.email = body.email;
     }
 
-    const updatedUser = await this.userModel.findByIdAndUpdate(user.id, modifiedData);
+    const updatedUser = await this.userModel.findByIdAndUpdate(user.id, modifiedData, { new: true });
+
+    return updatedUser;
+  }
+
+  async logout(token) {
+    const logoutUser = await this.userModel.findOne({ password: token });
+
+    let modifiedData = logoutUser.toObject();
+
+    modifiedData.device = "";
+
+    const update = await this.userModel.findByIdAndUpdate(logoutUser.id, modifiedData);
+
+    return 'logout successfully';
   }
 }

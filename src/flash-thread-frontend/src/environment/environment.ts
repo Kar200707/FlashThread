@@ -1,3 +1,4 @@
+export const wsHost = 'ws://localhost:3000'
 export const host = 'http://localhost:3000/api/';
 export const environment = {
   signIn: host + 'login',
@@ -10,5 +11,6 @@ export const environment = {
   chat: host + 'chat',
   getChat: host + 'chat/get',
   getActiveChats: host + 'chat/get-active-chats',
-  userEdit: host + 'user/edit'
+  userEdit: host + 'user/edit',
+  userLogout: host + 'user/logout'
 }

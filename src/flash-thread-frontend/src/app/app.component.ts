@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { MainComponent } from "./main/main.component";
 import { LayoutComponent } from "./layout/layout.component";
-import { WebSocketService } from "./web-socket.service";
 import { MessagingService } from './services/messaging.service';
 import { AngularFireMessaging, AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 import { MessagingModule } from '@angular/fire/messaging';

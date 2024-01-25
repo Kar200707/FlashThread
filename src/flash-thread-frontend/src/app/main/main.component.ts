@@ -12,6 +12,8 @@ import { UserDetailsComponent } from "../components/user-details/user-details.co
 import { WebSocketService } from "../web-socket.service";
 import { RouterOutlet } from "@angular/router";
 import { MessagingService } from '../services/messaging.service';
+import { AngularFireMessaging, AngularFireMessagingModule } from '@angular/fire/compat/messaging';
+import { MessagingModule } from '@angular/fire/messaging';
 
 @Component({
   selector: 'app-main',
@@ -24,9 +26,15 @@ import { MessagingService } from '../services/messaging.service';
     ReactiveFormsModule,
     MatButtonModule,
     UserDetailsComponent,
-    RouterOutlet
+    RouterOutlet,
+    AngularFireMessagingModule,
+    MessagingModule,
   ],
-  providers: [RequestService],
+  providers: [
+    RequestService,
+    MessagingService,
+    AngularFireMessaging,
+  ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
 })
@@ -43,6 +51,7 @@ export class MainComponent implements  OnInit {
   }
 
   constructor(
+    private messagingService: MessagingService,
     private webSocket: WebSocketService,
     private reqService: RequestService) {
     this.webSocket.socket = this.webSocket.io(this.webSocket.uri, {
@@ -53,6 +62,14 @@ export class MainComponent implements  OnInit {
   }
 
   ngOnInit() {
+    this.messagingService.callRequestPermission.subscribe((token) => {
+      if (token) {
+        this.reqService.put(environment.userEdit, { device: token, token: this.token }).subscribe(() => {
+          console.log('put socssefuly');
+        })
+      }
+    })
+
     const obj:any = { token: this.token }
 
     this.reqService.post<User>(environment.getUser,  obj)

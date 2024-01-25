@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { User } from '../models/user.model';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -34,5 +34,10 @@ export class UserController {
     }
 
     return this.userService.edit(modifiedData);
+  }
+
+  @Post('logout')
+  logout(@Body() body) {
+    return this.userService.logout(body.token);
   }
 }

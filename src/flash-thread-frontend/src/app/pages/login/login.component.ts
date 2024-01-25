@@ -7,6 +7,7 @@ import { RequestService } from "../../services/request.service";
 import { environment } from "../../../environment/environment";
 import { HttpClientModule } from "@angular/common/http";
 import { MatIconModule } from "@angular/material/icon";
+import { MessagingService } from '../../services/messaging.service';
 
 @Component({
   selector: 'app-login',
@@ -43,6 +44,7 @@ export class LoginComponent {
       this.requestService.post<any>(environment.signIn, this.form.value).subscribe((d) => {
         localStorage.setItem('token', d.access_token);
         this.router.navigate(['./']);
+
       }, (error) => {
         if (error.status == 401) {
           this.isFalseLogin = true;
