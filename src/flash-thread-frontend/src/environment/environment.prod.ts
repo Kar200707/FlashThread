@@ -1,4 +1,4 @@
-export const wsHost = 'ws://flashthread.adaptable.app'
+export const wsHost = 'wss://flashthread.adaptable.app';
 export const host = 'https://flashthread.adaptable.app/api/';
 export const environment = {
   signIn: host + 'login',

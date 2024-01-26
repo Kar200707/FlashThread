@@ -47,6 +47,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
     private webSocket: WebSocketService) {
     this.webSocket.listen('message').subscribe((data: any) => {
       this.chatMessaging = data;
+      console.log(data);
 
       setTimeout(() => {
         this.messagesBoxScroll?.nativeElement.scrollTo(0, this.messagesBoxScroll?.nativeElement.scrollHeight)
@@ -109,6 +110,23 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
   send() {
     if (this.form.value.message) {
+      const date:Date =new Date();
+
+      const newMesage = {
+        message: this.form.value.message,
+        userId: this.thisUser.id ? this.thisUser.id : '',
+        date: {
+          day: date.getDay(),
+          month: date.getMonth(),
+          year: date.getFullYear(),
+          hours: date.getHours(),
+          minutes: date.getMinutes(),
+          date: date.getDate()
+        }
+      }
+
+      this.chatMessaging.messages.push(newMesage);
+
       const obj = {
         message: this.form.value.message,
         chatId: this.chatInfo.id,

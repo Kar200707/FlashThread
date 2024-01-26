@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
 import { Observable } from "rxjs";
-import { wsHost } from '../environment/environment.prod';
+import { wsHost } from '../environment/environment';
 
 @Injectable({
   providedIn: 'root'

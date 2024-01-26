@@ -11,6 +11,9 @@ export interface ChatInterface {
         day: number;
         month: number;
         year: number;
+        hours: number;
+        minutes: number;
+        date: number;
       }
     }
   ]
