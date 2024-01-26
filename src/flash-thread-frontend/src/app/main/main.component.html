@@ -1,7 +1,9 @@
 <div class="container">
-  <div>
-    <app-chat-lists [chat]="chatBlock" (click)="isOpenedUserDetails = false" style="width: 30%"></app-chat-lists>
-  </div>
+  @if (windowSize > 940) {
+    <div>
+      <app-chat-lists [chat]="chatBlock" (click)="isOpenedUserDetails = false" style="width: 30%"></app-chat-lists>
+    </div>
+  }
   <div #chatBlock (click)="isOpenedUserDetails = false" style="width: 100%">
     <router-outlet></router-outlet>
   </div>

@@ -1,0 +1,187 @@
+.main-div {
+  background-image: linear-gradient(to left,var(--main-color1), var(--main-color2));
+  overflow-y: scroll;
+  padding: 20px;
+  width: 100%;
+}
+
+.list {
+  padding: 10px;
+  background-color: #3d3d3d;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.search_list_block {
+  width: 100%;
+  padding: 0 20px 20px 20px;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 3px 6px, rgba(0, 0, 0, 0.13) 0px 3px 6px;
+  position: absolute;
+  top: 35px;
+  background-color: #232323;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.list > img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.list > div > h2,
+.list > div > p {
+  color: white;
+}
+
+header {
+  background-image: linear-gradient(to left, var(--main-color1), var(--main-color2));
+  width: 400px;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.side-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.search {
+  outline: none;
+  color: rgba(255, 255, 255, 0.4);
+  background-color: transparent;
+  border: 1px solid;
+  height: 15px;
+  font-family: 'Rubik Glitch', system-ui;
+  font-weight: bolder;
+  border-radius: 7px;
+  padding: 20px 15px;
+  transition: .3s;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 3px 6px, rgba(0, 0, 0, 0.13) 0px 3px 6px;
+}
+
+.search:focus {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  border-color: #003399;
+}
+
+app-user-details {
+  position: absolute;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  top: 10px;
+  left: 20px;
+  transition: 0.2s;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  z-index: 999;
+}
+
+.user_img_box {
+  width: 45px;
+  height: 45px;
+  margin-right: 10px;
+  background-color: #3d3d3d;
+  top: 20px;
+  right: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  transition: .2s;
+}
+
+.user_img_box:active {
+  scale: 0.95;
+}
+
+.user_img_box > img {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.chat_block {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.chat_block > .chat {
+  width: 100%;
+  padding: 10px;
+  background: rgba(42, 42, 42, 0.59);
+  border-radius: 10px;
+  margin-bottom: 15px;
+  fill: white;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: .2s scale;
+  outline: none;
+}
+
+.active-chat.active-chat.active-chat {
+  background: rgb(68, 68, 68);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  scale: 1.02;
+}
+
+.active-chat.active-chat.active-chat:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: rgb(68, 68, 68);
+  border-top-right-radius: 6px;
+  rotate: 45deg;
+  right: -10px;
+}
+
+.chat_block > .chat > div {
+  margin-left: 15px;
+}
+
+.chat_block > .chat > div > h3 {
+  color: white;
+  font-family: "Rubik Glitch", system-ui;
+  font-size: 25px;
+}
+
+.chat_block > .chat > div > p {
+  color: rgba(255, 255, 255, 0.49);
+}
+
+.chat_block > .chat > img {
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.search_box {
+  position: relative;
+}
+
+/* media */
+
+@media screen and (max-width: 520px) {
+  .search {
+    width: 100%;
+  }
+
+  .box {
+    justify-content: center;
+  }
+}

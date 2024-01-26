@@ -146,6 +146,18 @@
   border-bottom: 1px solid rgba(117, 117, 117, 0.42);
 }
 
+.selected_chat_user > a {
+  margin-right: 10px;
+  display: none;
+  width: 25px;
+}
+
+.selected_chat_user > a > mat-icon {
+  color: white;
+  display: block;
+  font-size: 25px;
+}
+
 .selected_chat_user > .img_box {
   width: 50px;
   height: 50px;
@@ -197,4 +209,115 @@
   display: block;
   position: absolute;
   left: -40px;
+}
+
+.first_message_block {
+  background: linear-gradient(to left, rgba(152, 46, 131, 0.18), rgba(0, 51, 153, 0.2));
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 84px;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.first_message_block > h3 {
+  font-size: 35px;
+  color: white;margin-bottom: 30px;
+}
+
+.first_message_block > div > form > input {
+  font-size: 40px;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 40px;
+  outline: 5px solid #363636;
+  background-color: #3d3d3d;
+  font-family: 'Asap Condensed', sans-serif;
+  letter-spacing: 2px;
+  width: 500px;
+  color: white;
+}
+
+.first_message_block > div {
+  position: relative;
+}
+
+.first_message_block > div > form > input:focus {
+  outline: 5px solid #5c13a4;
+}
+
+.first_message_block > div > button > mat-icon {
+  font-size: 35px;
+  width: 33px;
+  height: 31px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.first_message_block > div > button {
+  border: none;
+  background-color: rebeccapurple;
+  padding: 15px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 3px;
+  top: 3px;
+}
+
+@media screen and (max-width: 940px) {
+  .selected_chat_user {
+    padding: 10px;
+  }
+
+  .selected_chat_user > a {
+    display: block;
+  }
+
+  .message_sending_panel {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 594px) {
+  .first_message_block > div > form > input {
+    width: 100%;
+  }
+  .first_message_block > div {
+    width: 90%;
+  }
+
+  .messages_scroll_box {
+    width: 100%;
+  }
+
+  .message_box {
+    margin-top: 5px;
+  }
+
+  .message {
+    scale: 0.9;
+  }
+
+  .main-div {
+    padding: 90px 5px 0 5px;
+  }
+}
+
+@media screen and (max-width: 574px) {
+  .first_message_block > h3 {
+    font-size: 30px;
+    text-align: center;
+    max-width: 90%;
+  }
 }

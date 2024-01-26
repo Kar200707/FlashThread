@@ -5,8 +5,14 @@ import { mainPageGuard } from "./guards/main-page.guard";
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'messenger',
+    redirectTo: innerWidth > 940 ? 'messenger' : 'chats-menu',
     pathMatch: 'full'
+  },
+  {
+    title: 'FlashThread Chats',
+    canActivate: [mainPageGuard],
+    loadComponent: () => import('./pages/chats-menu/chats-menu.component').then(x => x.ChatsMenuComponent),
+    path: 'chats-menu',
   },
   {
     canActivate: [mainPageGuard],

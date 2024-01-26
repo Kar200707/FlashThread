@@ -5,7 +5,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { WebSocketService } from "../../web-socket.service";
 import { NgForOf, NgIf } from '@angular/common';
 import { MatInputModule } from "@angular/material/input";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { RequestService } from "../../services/request.service";
 import { User } from "../../models/user.model";
 import { environment } from "../../../environment/environment";;
@@ -22,12 +22,13 @@ import { ChatInterface } from '../../models/chat.model';
     MatInputModule,
     FormsModule,
     NgIf,
+    RouterLink,
   ],
   providers: [],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
-export class ChatComponent implements OnInit, AfterViewInit {
+export class ChatComponent implements OnInit {
 
   @ViewChild('messagesScrollBox') messagesBoxScroll?: ElementRef<HTMLDivElement>;
 
@@ -35,10 +36,15 @@ export class ChatComponent implements OnInit, AfterViewInit {
   userInfo!: User;
   chatInfo!: ChatInterface;
   thisUser!: User;
+  idParam!: string;
+  isChackChatValid: boolean = true;
   token: string | null = localStorage.getItem('token');
 
   form: FormGroup = new FormGroup({
     message: new FormControl('', Validators.required)
+  })
+  firstMessageForm: FormGroup = new FormGroup({
+    message: new FormControl('Hi!')
   })
 
   constructor(
@@ -47,7 +53,13 @@ export class ChatComponent implements OnInit, AfterViewInit {
     private webSocket: WebSocketService) {
     this.webSocket.listen('message').subscribe((data: any) => {
       this.chatMessaging = data;
-      console.log(data);
+
+      if (this.thisUser.id != data.messages[data.messages.length - 1].userId) {
+        const audio = new Audio();
+        audio.src = './assets/audios/notifiaction/tones.mp3'
+        audio.load();
+        audio.play();
+      }
 
       setTimeout(() => {
         this.messagesBoxScroll?.nativeElement.scrollTo(0, this.messagesBoxScroll?.nativeElement.scrollHeight)
@@ -61,6 +73,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
     })
 
     this.activatedRoute.params.subscribe((params: any) => {
+      this.idParam = params.id;
       const userId: string = params.id;
 
       const obj: any = {
@@ -88,33 +101,15 @@ export class ChatComponent implements OnInit, AfterViewInit {
               this.chatMessaging = data;
               this.chatInfo = data;
 
-              if (data.status === 400) {
-                const chatObj = {
-                  clientToken: this.token,
-                  usersId: [
-                    userId,
-                    userData.id
-                  ],
-                  messages: []
-                }
-
-                this.reqService.post<any>(environment.chat, chatObj).subscribe(chatData => {
-                  console.log(chatData);
-                })
-              }
+              this.isChackChatValid = data.status !== 400;
             })
         })
     })
   }
 
-  ngAfterViewInit() {
-
-    this.messagesBoxScroll?.nativeElement.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
-  }
-
   send() {
     if (this.form.value.message) {
-      const date:Date =new Date();
+      const date:Date = new Date();
 
       const newMesage = {
         message: this.form.value.message,
@@ -143,6 +138,38 @@ export class ChatComponent implements OnInit, AfterViewInit {
     this.messagesBoxScroll?.nativeElement.scrollTo(0, this.messagesBoxScroll?.nativeElement.scrollHeight)
   }
 
+  addNewChat() {
+    const userId:string = this.idParam;
+    const date:Date = new Date();
+    const chatObj = {
+      clientToken: this.token,
+      usersId: [
+        userId,
+        this.thisUser.id
+      ],
+      messages: [
+        {
+          userId: this.thisUser.id,
+          message: this.firstMessageForm.get('message')?.value,
+          date: {
+            day: date.getDay(),
+            month: date.getMonth(),
+            year: date.getFullYear(),
+            hours: date.getHours(),
+            minutes: date.getMinutes(),
+            date: date.getDate()
+          }
+        }]
+    }
+
+    this.reqService.post<any>(environment.chat, chatObj).subscribe(chatData => {
+      this.chatMessaging = chatData;
+    })
+    this.firstMessageForm.reset();
+
+    this.isChackChatValid = true;
+  }
+
   getChatUsers(id: string) {
     const obj: any = {
       token: this.token,
@@ -158,4 +185,6 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
     return userChatInfo
   }
+
+  protected readonly innerWidth = innerWidth;
 }

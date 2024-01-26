@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ChatListsComponent } from "../components/chat-lists/chat-lists.component";
 import { ResizeHeightDirective } from "../directives/resize-height.directive";
 import { ChatComponent } from "../components/chat/chat.component";
@@ -39,6 +39,14 @@ import { MessagingModule } from '@angular/fire/messaging';
   styleUrl: './main.component.css',
 })
 export class MainComponent implements  OnInit {
+  windowSize = innerWidth;
+
+  @HostListener('window:resize')
+  resize() {
+    this.windowSize = innerWidth;
+    console.log('asd');
+  }
+
   isOpenedUserDetails:boolean = false;
 
   token: string | null = localStorage.getItem('token');
@@ -80,4 +88,6 @@ export class MainComponent implements  OnInit {
 
 
   }
+
+  protected readonly innerWidth = innerWidth;
 }
