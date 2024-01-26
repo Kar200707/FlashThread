@@ -1,5 +1,6 @@
 export const wsHost = 'ws://localhost:3000'
 export const host = 'http://localhost:3000/api/';
+
 export const environment = {
   signIn: host + 'login',
   signUp: host + 'reg',

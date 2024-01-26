@@ -54,11 +54,12 @@ export class MainComponent implements  OnInit {
     private messagingService: MessagingService,
     private webSocket: WebSocketService,
     private reqService: RequestService) {
+
     this.webSocket.socket = this.webSocket.io(this.webSocket.uri, {
       auth: {
         token: this.webSocket.token
       }
-    });
+    })
   }
 
   ngOnInit() {

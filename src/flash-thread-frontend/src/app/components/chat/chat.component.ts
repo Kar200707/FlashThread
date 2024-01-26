@@ -56,6 +56,10 @@ export class ChatComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.webSocket.listen('connect').subscribe((data) => {
+      this.webSocket.emit('join', { id: this.thisUser.id });
+    })
+
     this.activatedRoute.params.subscribe((params: any) => {
       const userId: string = params.id;
 

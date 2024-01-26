@@ -1,7 +1,7 @@
 import {
   ConnectedSocket,
   MessageBody,
-  OnGatewayConnection, OnGatewayDisconnect,
+  OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit,
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
@@ -16,7 +16,7 @@ import { Chat, ChatDocumnet } from '../app/chat/schemas/chat.schema';
 import { HttpService } from '@nestjs/axios';
 
 @WebSocketGateway({ cors: true })
-export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect {
+export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit {
 
   @WebSocketServer()
   server;
@@ -119,7 +119,10 @@ export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     const socket:any = await this.userModel.findOne({ password: socketToken });
 
-    let modifiedSocket: User = socket.toObject();
+    let modifiedSocket!: User
+    if (socket) {
+      modifiedSocket = await socket.toObject();
+    }
 
     const date: Date = new Date();
 
@@ -135,5 +138,9 @@ export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect {
       socket._id,
       modifiedSocket
     )
+  }
+
+  afterInit(server: any): any {
+
   }
 }
