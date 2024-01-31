@@ -39,7 +39,7 @@ export class LoginComponent {
     private setMobileThemes: SetThemesService,
     private router: Router,
     private requestService: RequestService) {
-    this.setMobileThemes.setStatusBarStyle('#ffffff').then();
+    this.setMobileThemes.setStatusBarStyle('#ffffff').then().catch();
   }
 
   send(formDirective: FormGroupDirective) {

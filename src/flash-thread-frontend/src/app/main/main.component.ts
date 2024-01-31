@@ -60,11 +60,11 @@ export class MainComponent implements  OnInit {
   }
 
   constructor(
-    // private setMobileThemes: SetThemesService,
+    private setMobileThemes: SetThemesService,
     private messagingService: MessagingService,
     private webSocket: WebSocketService,
     private reqService: RequestService) {
-    // this.setMobileThemes.setStatusBarStyle('#2a2a2a').then().catch();
+    this.setMobileThemes.setStatusBarStyle('#2a2a2a').then().catch();
 
     this.webSocket.socket = this.webSocket.io(this.webSocket.uri, {
       auth: {

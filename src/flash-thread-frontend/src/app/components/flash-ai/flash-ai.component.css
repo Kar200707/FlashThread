@@ -18,10 +18,6 @@
   background-color: rgba(0, 0, 0, 0.12);
 }
 
-::-webkit-scrollbar {
-  width: 0;
-}
-
 .message > pre {
   user-select: auto;
   padding: 10px 20px;
@@ -71,16 +67,22 @@
   align-items: center;
   justify-content: end;
   margin-top: 20px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.message_box::-webkit-scrollbar {
+  display: none;
 }
 
 .message_box_reverce {
   width: 100%;
-  overflow: scroll;
+  overflow-x: scroll;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: start;
-  margin-top: 20px;
+  margin-top: 13px;
 }
 
 .message_sending_panel {
