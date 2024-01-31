@@ -13,6 +13,7 @@ import { GetUserByIdModule } from "./app/get_user_by_id/get_user_by_id.module";
 import { ChatModule } from "./app/chat/chat.module";
 import { GetUserByTokenModule } from './app/get_user_by_token/get_user_by_token.module';
 import { UserModule } from './app/user/user.module';
+import { AiModule } from './app/ai/ai.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { UserModule } from './app/user/user.module';
     ChatModule,
     GetUserByTokenModule,
     UserModule,
+    AiModule,
   ],
   controllers: [AppController],
   providers: [AppService],

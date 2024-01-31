@@ -1,8 +1,12 @@
 .main-div {
-  background-image: linear-gradient(to left,var(--main-color1), var(--main-color2));
+  background-image: linear-gradient(to left, rgba(152, 46, 131, 0.14), rgba(0, 51, 153, 0.12));
+  background-color: #171717;
   overflow-y: scroll;
-  padding: 20px;
   width: 100%;
+}
+
+.main-div::-webkit-scrollbar {
+  display: none;
 }
 
 .list {
@@ -37,15 +41,12 @@
   color: white;
 }
 
-header {
-  background-image: linear-gradient(to left, var(--main-color1), var(--main-color2));
-  width: 400px;
-}
-
 .box {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: #2a2a2a;
+  padding: 15px;
 }
 
 .side-icon {
@@ -55,16 +56,16 @@ header {
 
 .search {
   outline: none;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgb(255, 255, 255);
   background-color: transparent;
   border: 1px solid;
   height: 15px;
-  font-family: 'Rubik Glitch', system-ui;
+  font-family: 'Asap Condensed', sans-serif;
   font-weight: bolder;
-  border-radius: 7px;
+  border-radius: 20px;
   padding: 20px 15px;
+  padding-top: 21px;
   transition: .3s;
-  box-shadow: rgba(0, 0, 0, 0.07) 0px 3px 6px, rgba(0, 0, 0, 0.13) 0px 3px 6px;
 }
 
 .search:focus {
@@ -110,24 +111,54 @@ app-user-details {
   border-radius: 50%;
 }
 
-.chat_block {
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
-
 .chat_block > .chat {
   width: 100%;
   padding: 10px;
+  background: rgba(23, 23, 23, 0.39);
+  fill: white;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.6);
+  transition: .2s scale;
+  outline: none;
+}
+
+
+.chat_block > .ai_chat {
+  width: 100%;
+  padding: 10px;
   background: rgba(42, 42, 42, 0.59);
-  border-radius: 10px;
-  margin-bottom: 15px;
   fill: white;
   display: flex;
   align-items: center;
   border: 1px solid rgba(255, 255, 255, 0.06);
   transition: .2s scale;
   outline: none;
+}
+
+.chat_block > .ai_chat > mat-icon {
+  color: #003aff;
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+  background: linear-gradient(to left, #003aff, #ff00fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.chat_block > .ai_chat > div > h3 {
+  color: white;
+  font-family: "Rubik Glitch", system-ui;
+  font-size: 25px;
+  margin-left: 20px;
+  background: linear-gradient(to left, #003aff, #ff00fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.chat_block > .ai_chat > div > p {
+  color: rgba(255, 255, 255, 0.49);
+  margin-left: 20px;
 }
 
 .active-chat.active-chat.active-chat {
@@ -150,9 +181,21 @@ app-user-details {
 
 .chat_block > .chat > div {
   margin-left: 15px;
+  width: 100%;
 }
 
-.chat_block > .chat > div > h3 {
+.chat_block > .chat > div > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.chat_block > .chat > div > div > p {
+  color: #c4c4c4;
+}
+
+.chat_block > .chat > div > div > h3 {
   color: white;
   font-family: "Rubik Glitch", system-ui;
   font-size: 25px;
@@ -172,6 +215,7 @@ app-user-details {
 
 .search_box {
   position: relative;
+  width: 80%;
 }
 
 /* media */
@@ -179,9 +223,5 @@ app-user-details {
 @media screen and (max-width: 520px) {
   .search {
     width: 100%;
-  }
-
-  .box {
-    justify-content: center;
   }
 }

@@ -41,9 +41,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.messagingService.callRequestPermission.subscribe((token) => {
       if (token) {
-        this.reqService.put(environment.userEdit, { device: token, token: this.token }).subscribe(() => {
-          console.log('put socssefuly');
-        })
+        this.reqService.put(environment.userEdit, { device: token, token: this.token }).subscribe(() => {})
       }
     })
     // this.messagingService.receiveMessage();

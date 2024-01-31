@@ -9,6 +9,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { UserDetailsComponent } from '../../components/user-details/user-details.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-chats-menu',
@@ -22,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
     MatAutocompleteModule,
     MatInputModule,
     RouterLinkActive,
+    MatIconModule,
   ],
   providers: [
     RequestService,

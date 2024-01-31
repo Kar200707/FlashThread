@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ResizeHeightDirective } from "../../directives/resize-height.directive";
 import { MatIconModule } from "@angular/material/icon";
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
-import { WebSocketService } from "../../web-socket.service";
+import { WebSocketService } from "../../services/web-socket.service";
 import { NgForOf, NgIf } from '@angular/common';
 import { MatInputModule } from "@angular/material/input";
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -51,23 +51,32 @@ export class ChatComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public reqService: RequestService,
     private webSocket: WebSocketService) {
-    this.webSocket.listen('message').subscribe((data: any) => {
-      this.chatMessaging = data;
 
-      if (this.thisUser.id != data.messages[data.messages.length - 1].userId) {
+    this.webSocket.listen('message').subscribe((data: any) => {
+      this.chatMessaging.messages.push(data);
+
+      setTimeout(() => {
+        if (this.messagesBoxScroll) {
+          this.messagesBoxScroll.nativeElement.scrollTop = this.messagesBoxScroll.nativeElement.scrollHeight;
+        }
+      }, 200)
+
+      if (this.thisUser.id != data.userId) {
         const audio = new Audio();
         audio.src = './assets/audios/notifiaction/tones.mp3'
         audio.load();
         audio.play();
       }
-
-      setTimeout(() => {
-        this.messagesBoxScroll?.nativeElement.scrollTo(0, this.messagesBoxScroll?.nativeElement.scrollHeight)
-      }, 100)
     })
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      if (this.messagesBoxScroll) {
+        this.messagesBoxScroll.nativeElement.scrollTop = this.messagesBoxScroll.nativeElement.scrollHeight;
+      }
+    }, 1000)
+
     this.webSocket.listen('connect').subscribe((data) => {
       this.webSocket.emit('join', { id: this.thisUser.id });
     })
@@ -135,7 +144,9 @@ export class ChatComponent implements OnInit {
       this.webSocket.emit('message', obj);
     }
     this.form.reset();
-    this.messagesBoxScroll?.nativeElement.scrollTo(0, this.messagesBoxScroll?.nativeElement.scrollHeight)
+    setTimeout(() => {
+      this.messagesBoxScroll?.nativeElement.scrollTo(0, this.messagesBoxScroll?.nativeElement.scrollHeight)
+    }, 100)
   }
 
   addNewChat() {

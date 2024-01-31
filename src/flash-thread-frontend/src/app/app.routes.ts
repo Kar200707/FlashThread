@@ -23,6 +23,12 @@ export const routes: Routes = [
         canActivate: [mainPageGuard],
         loadComponent: () => import('./components/chat/chat.component').then(x => x.ChatComponent),
         path: 'chat/:id'
+      },
+      {
+        canActivate: [mainPageGuard],
+        loadComponent: () => import('./components/flash-ai/flash-ai.component').then(x => x.FlashAiComponent),
+        path: 'ai',
+        title: 'Flash Ai'
       }
     ],
   },

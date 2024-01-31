@@ -9,11 +9,12 @@ import { MatButtonModule } from "@angular/material/button";
 import { environment } from "../../environment/environment";
 import { User } from "../models/user.model";
 import { UserDetailsComponent } from "../components/user-details/user-details.component";
-import { WebSocketService } from "../web-socket.service";
+import { WebSocketService } from "../services/web-socket.service";
 import { RouterOutlet } from "@angular/router";
 import { MessagingService } from '../services/messaging.service';
 import { AngularFireMessaging, AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 import { MessagingModule } from '@angular/fire/messaging';
+import { SetThemesService } from '../services/set-themes.service';
 
 @Component({
   selector: 'app-main',
@@ -31,6 +32,7 @@ import { MessagingModule } from '@angular/fire/messaging';
     MessagingModule,
   ],
   providers: [
+    // SetThemesService,
     RequestService,
     MessagingService,
     AngularFireMessaging,
@@ -44,7 +46,6 @@ export class MainComponent implements  OnInit {
   @HostListener('window:resize')
   resize() {
     this.windowSize = innerWidth;
-    console.log('asd');
   }
 
   isOpenedUserDetails:boolean = false;
@@ -59,9 +60,11 @@ export class MainComponent implements  OnInit {
   }
 
   constructor(
+    // private setMobileThemes: SetThemesService,
     private messagingService: MessagingService,
     private webSocket: WebSocketService,
     private reqService: RequestService) {
+    // this.setMobileThemes.setStatusBarStyle('#2a2a2a').then().catch();
 
     this.webSocket.socket = this.webSocket.io(this.webSocket.uri, {
       auth: {
@@ -72,10 +75,8 @@ export class MainComponent implements  OnInit {
 
   ngOnInit() {
     this.messagingService.callRequestPermission.subscribe((token) => {
-      if (token) {
-        this.reqService.put(environment.userEdit, { device: token, token: this.token }).subscribe(() => {
-          console.log('put socssefuly');
-        })
+      if (token && this.token) {
+        this.reqService.put(environment.userEdit, { device: token, token: this.token }).subscribe(() => {})
       }
     })
 

@@ -13,5 +13,6 @@ export const environment = {
   getChat: host + 'chat/get',
   getActiveChats: host + 'chat/get-active-chats',
   userEdit: host + 'user/edit',
-  userLogout: host + 'user/logout'
+  userLogout: host + 'user/logout',
+  ai: host + 'ai',
 }

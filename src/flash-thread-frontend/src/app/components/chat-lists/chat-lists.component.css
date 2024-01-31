@@ -1,6 +1,7 @@
 .main-div {
-  background-image: linear-gradient(to left,var(--main-color1), var(--main-color2));
+  background-image: linear-gradient(to left, rgba(152, 46, 131, 0.14), rgba(0, 51, 153, 0.12));
   overflow-y: scroll;
+  background-color: #171717;
   padding: 20px;
   width: 100%;
 }
@@ -114,6 +115,45 @@ app-user-details {
   margin-top: 30px;
   padding-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.chat_block > .ai_chat {
+  width: 100%;
+  padding: 10px;
+  background: rgba(42, 42, 42, 0.59);
+  border-radius: 10px;
+  margin-bottom: 15px;
+  fill: white;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: .2s scale;
+  outline: none;
+}
+
+.chat_block > .ai_chat > mat-icon {
+  color: #003aff;
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+  background: linear-gradient(to left, #003aff, #ff00fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.chat_block > .ai_chat > div > h3 {
+  color: white;
+  font-family: "Rubik Glitch", system-ui;
+  font-size: 25px;
+  margin-left: 20px;
+  background: linear-gradient(to left, #003aff, #ff00fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.chat_block > .ai_chat > div > p {
+  color: rgba(255, 255, 255, 0.49);
+  margin-left: 20px;
 }
 
 .chat_block > .chat {

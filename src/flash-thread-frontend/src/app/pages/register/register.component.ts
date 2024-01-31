@@ -7,6 +7,7 @@ import { FormControl, FormGroup, FormGroupDirective, ReactiveFormsModule, Valida
 import { RequestService } from "../../services/request.service";
 import { environment } from "../../../environment/environment";
 import { HttpClientModule } from "@angular/common/http";
+import { SetThemesService } from '../../services/set-themes.service';
 
 @Component({
   selector: 'app-register',
@@ -36,8 +37,11 @@ export class RegisterComponent {
   })
 
   constructor(
+    private setMobileThemes: SetThemesService,
     private router: Router,
-    private requestService: RequestService) {  }
+    private requestService: RequestService) {
+    this.setMobileThemes.setStatusBarStyle('#ffffff').then();
+  }
 
   send(formDirective: FormGroupDirective) {
     if(this.form.valid) {

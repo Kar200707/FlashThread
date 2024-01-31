@@ -9,6 +9,7 @@ import { UserDetailsComponent } from '../user-details/user-details.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { ChatInterface } from '../../models/chat.model';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-chat-lists',
@@ -22,6 +23,7 @@ import { ChatInterface } from '../../models/chat.model';
     MatAutocompleteModule,
     MatInputModule,
     RouterLinkActive,
+    MatIconModule,
   ],
   providers: [
     RequestService,

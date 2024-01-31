@@ -7,7 +7,7 @@ import { RequestService } from "../../services/request.service";
 import { environment } from "../../../environment/environment";
 import { HttpClientModule } from "@angular/common/http";
 import { MatIconModule } from "@angular/material/icon";
-import { MessagingService } from '../../services/messaging.service';
+import { SetThemesService } from '../../services/set-themes.service';
 
 @Component({
   selector: 'app-login',
@@ -36,8 +36,11 @@ export class LoginComponent {
   })
 
   constructor(
+    private setMobileThemes: SetThemesService,
     private router: Router,
-    private requestService: RequestService) {  }
+    private requestService: RequestService) {
+    this.setMobileThemes.setStatusBarStyle('#ffffff').then();
+  }
 
   send(formDirective: FormGroupDirective) {
     if(this.form.valid) {
