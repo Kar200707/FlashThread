@@ -14,21 +14,25 @@ export class AiService {
   constructor(@InjectModel(Users.name) private readonly userModel: Model<UsersDocument>) {  }
 
   async ai(message: string, userToken: string) {
-    if (!message) {
-      throw new HttpException('message not selected', HttpStatus.BAD_REQUEST);
-    }
-    if (!userToken) {
-      throw new HttpException('userToken not selected', HttpStatus.BAD_REQUEST);
-    }
-    const userData = await this.userModel.findOne(
-      { password: userToken }
-    )
-    if (!userData) {
-      throw new HttpException('this token not valid id', HttpStatus.BAD_REQUEST);
-    }
+    try {
+      if (!message) {
+        throw new HttpException('message not selected', HttpStatus.BAD_REQUEST);
+      }
+      if (!userToken) {
+        throw new HttpException('userToken not selected', HttpStatus.BAD_REQUEST);
+      }
+      const userData = await this.userModel.findOne(
+        { password: userToken }
+      )
+      if (!userData) {
+        throw new HttpException('this token not valid id', HttpStatus.BAD_REQUEST);
+      }
 
-    const aiGeneratedData: GenerateContentResult = await this.model.generateContent(message);
+      const aiGeneratedData: GenerateContentResult = await this.model.generateContent(message);
 
-    return { aiGeneratedmessage: aiGeneratedData.response.text().toString() };
+      return { aiGeneratedmessage: aiGeneratedData.response.text().toString() };
+    } catch (e) {
+      throw new HttpException(e.message, HttpStatus.EXPECTATION_FAILED)
+    }
   }
 }
