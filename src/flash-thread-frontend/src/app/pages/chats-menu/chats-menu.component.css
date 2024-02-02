@@ -1,7 +1,7 @@
 .main-div {
-  background-image: linear-gradient(to left, rgba(152, 46, 131, 0.14), rgba(0, 51, 153, 0.12));
-  background-color: #171717;
+  background-image: linear-gradient(to left, rgba(152, 46, 131, 0.11), rgba(0, 51, 153, 0.1));
   overflow-y: scroll;
+  background-color: #0e0e0e;
   width: 100%;
 }
 
@@ -45,7 +45,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #171717;
+  background-color: #0a0a0a;
   padding: 15px;
 }
 

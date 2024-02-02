@@ -63,7 +63,12 @@
         <span class="select_image">
           <mat-icon>photo_library</mat-icon>
         </span>
-        <input (change)="setImage(img, imageInput, $event)" #imageInput type="file" accept="image/*" />
+        <input
+          (change)="setImage(img, imageInput, $event)"
+          #imageInput
+          type="file"
+          multiple
+          accept="image/*" />
       </label>
     </div>
   </div>
