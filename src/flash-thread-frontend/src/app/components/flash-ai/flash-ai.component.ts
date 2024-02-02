@@ -28,19 +28,18 @@ import { AssemblyAI } from 'assemblyai'
 })
 export class FlashAiComponent implements OnInit{
   @ViewChild('messagesScrollBox') messagesBoxScroll?: ElementRef<HTMLDivElement>;
+  @ViewChild('img') img?: ElementRef<any>;
 
   isLoadedAiAnswer: boolean = true;
   aiChatMessages: any = [];
   isCopied: boolean = false;
-  isSpeark:boolean = false;
+  isSpeak:boolean = false;
   thisUser!: User;
-  token: string | null = localStorage.getItem('token');
+  token: any = localStorage.getItem('token');
+  isSelectedImg: boolean = false;
 
   form: FormGroup = new FormGroup({
     message: new FormControl('', Validators.required)
-  })
-  firstMessageForm: FormGroup = new FormGroup({
-    message: new FormControl('Hi!')
   })
 
   constructor(
@@ -82,8 +81,8 @@ export class FlashAiComponent implements OnInit{
   }
 
   textToSpeech(text: string) {
-    this.isSpeark = !this.isSpeark;
-    if (this.isSpeark) {
+    this.isSpeak = !this.isSpeak;
+    if (this.isSpeak) {
       const textToSpeech = new SpeechSynthesisUtterance();
       textToSpeech.text = text
 
@@ -100,9 +99,26 @@ export class FlashAiComponent implements OnInit{
     navigator.clipboard.writeText(text);
   }
 
-  send() {
+  setImage(img: any, file: HTMLInputElement, e: any) {
+    try {
+      this.isSelectedImg = true;
+      let fr = new FileReader();
+      if (file.files) {
+        fr.readAsDataURL(file.files[0]);
+        fr.onload = () => {
+          if (this.img) {
+            this.img.nativeElement.src = fr.result;
+          }
+        }
+      }
+    } catch (e) {
+      this.isSelectedImg = false;
+    }
+  }
+
+  send(e?: any) {
     this.isCopied = false;
-    this.isSpeark = false;
+    this.isSpeak = false;
     this.isLoadedAiAnswer = false;
     if (this.form.value.message) {
       const date:Date = new Date();
@@ -114,12 +130,14 @@ export class FlashAiComponent implements OnInit{
 
       this.aiChatMessages.push(newMesage);
 
-      const obj = {
-        message: this.form.value.message,
-        userToken: this.token
+      const formData = new FormData()
+      if (this.isSelectedImg) {
+        formData.set('image', e.files[0]);
       }
+      formData.set('message', this.form.value.message);
+      formData.set('userToken', this.token);
 
-      this.reqService.post(environment.ai, obj).subscribe((data: any) => {
+      this.reqService.post(environment.ai, formData).subscribe((data: any) => {
         if (data.aiGeneratedMessage === '') {
           const audio:HTMLAudioElement = new Audio();
           audio.src = 'assets/audios/notifiaction/error-call-to-attention-129258.mp3'

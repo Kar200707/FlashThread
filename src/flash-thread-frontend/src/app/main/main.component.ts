@@ -48,8 +48,6 @@ export class MainComponent implements  OnInit {
     this.windowSize = innerWidth;
   }
 
-  isOpenedUserDetails:boolean = false;
-
   token: string | null = localStorage.getItem('token');
   userData: User = {
     avatar: './assets/images/load/load.jpg',

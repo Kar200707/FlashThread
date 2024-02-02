@@ -14,7 +14,7 @@
                 <mat-icon
                   style="margin-right: 10px"
                   (click)="copyText(item.message)">{{ !isCopied ? 'content_copy' : 'done' }}</mat-icon>
-                @if (!isSpeark) {
+                @if (!isSpeak) {
                   <mat-icon (click)="textToSpeech(item.message)">volume_up</mat-icon>
                 } @else {
                   <mat-icon (click)="textToSpeech(item.message)">volume_off</mat-icon>
@@ -43,7 +43,11 @@
       </div>
     </div>
     <div class="message_sending_panel">
-      <form [formGroup]="form" (ngSubmit)="send()">
+      <form [formGroup]="form" (ngSubmit)="send(imageInput)">
+        <div *ngIf="isSelectedImg">
+          <mat-icon (click)="isSelectedImg = false">close</mat-icon>
+          <img #img>
+        </div>
         <input
           matInput
           formControlName="message"
@@ -51,10 +55,16 @@
           name="message"
           class="message_input"
           type="text">
-        <button [disabled]="form.invalid" class="send_button" (click)="send()">
+        <button [disabled]="form.invalid" class="send_button">
           <mat-icon [class]="form.valid ? 'send_button_icon-anim' : ''">auto_awesome</mat-icon>
         </button>
       </form>
+      <label>
+        <span class="select_image">
+          <mat-icon>photo_library</mat-icon>
+        </span>
+        <input (change)="setImage(img, imageInput, $event)" #imageInput type="file" accept="image/*" />
+      </label>
     </div>
   </div>
 </div>

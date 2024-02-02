@@ -3,6 +3,7 @@ import { AiController } from './ai.controller';
 import { AiService } from './ai.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Users, UsersSchema } from '../auth/schemas/users.schema';
+import { AiChat, AiChatSchema } from './schemas/ai-chat.schema';
 
 @Module({
   controllers: [AiController],
@@ -10,6 +11,9 @@ import { Users, UsersSchema } from '../auth/schemas/users.schema';
   imports: [
     MongooseModule.forFeature([
       { name: Users.name, schema: UsersSchema }
+    ]),
+    MongooseModule.forFeature([
+      { name: AiChat.name, schema: AiChatSchema }
     ])
   ]
 })

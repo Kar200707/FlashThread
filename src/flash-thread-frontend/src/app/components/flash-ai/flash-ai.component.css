@@ -98,8 +98,10 @@
 
 .message_sending_panel {
   position: fixed;
+  display: flex;
   bottom: 20px;
-  width: 50%;
+  width: 70%;
+  align-items: center;
 }
 
 .message_sending_panel > form {
@@ -107,6 +109,50 @@
   align-items: center;
   justify-content: center;
   flex-direction: row-reverse;
+  position: relative;
+  width: 100%;
+}
+
+.message_sending_panel > form > div {
+  position: absolute;
+  top: -60px;
+  right: 0;
+}
+
+.message_sending_panel > form > div > mat-icon {
+  color: white;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: #b54949;
+  border-radius: 50%;
+}
+
+.message_sending_panel > form > div > img {
+  width: 55px;
+  height: 55px;
+  border-radius: 10px;
+  border: 5px solid #2a2a2a;
+  object-fit: cover;
+}
+
+.select_image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 50px;
+  background-color: #2a2a2a;
+  margin-left: 10px;
+  border-radius: 50%;
+}
+
+.select_image > mat-icon {
+  color: #c5c5c5;
+}
+
+.message_sending_panel > label > input {
+  display: none;
 }
 
 .message_input {
