@@ -64,7 +64,7 @@ export class MainComponent implements  OnInit {
     private messagingService: MessagingService,
     private webSocket: WebSocketService,
     private reqService: RequestService) {
-    this.setMobileThemes.setStatusBarStyle('#2a2a2a').then().catch();
+    this.setMobileThemes.setStatusBarStyle('#171717').then().catch((e) => {});
 
     this.webSocket.socket = this.webSocket.io(this.webSocket.uri, {
       auth: {

@@ -7,7 +7,20 @@
           [class]="thisUser.id !== item.sender ? 'message_box_reverce' : 'message_box'"
           style="font-size: 16px;" class="message">
           @if(thisUser.id !== item.sender) {
-            <pre><mat-icon>auto_awesome</mat-icon> {{item.message}}</pre>
+            <mat-icon>auto_awesome</mat-icon>
+            <div class="animated-message">
+              <pre>{{item.message}}</pre>
+              <div class="message-tools-box">
+                <mat-icon
+                  style="margin-right: 10px"
+                  (click)="copyText(item.message)">{{ !isCopied ? 'content_copy' : 'done' }}</mat-icon>
+                @if (!isSpeark) {
+                  <mat-icon (click)="textToSpeech(item.message)">volume_up</mat-icon>
+                } @else {
+                  <mat-icon (click)="textToSpeech(item.message)">volume_off</mat-icon>
+                }
+              </div>
+            </div>
           } @else {
             <p>{{ item.message }}</p>
           }

@@ -29,8 +29,10 @@ export class AiService {
       }
 
       const aiGeneratedData: GenerateContentResult = await this.model.generateContent(message);
-
-      return { aiGeneratedmessage: aiGeneratedData.response.text().toString() };
+      console.log(aiGeneratedData.response);
+      return {
+        aiGeneratedMessage: aiGeneratedData.response.text().toString()
+      };
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.EXPECTATION_FAILED)
     }

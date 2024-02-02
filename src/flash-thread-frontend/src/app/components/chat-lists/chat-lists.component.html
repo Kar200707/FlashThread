@@ -3,12 +3,12 @@
     <div (click)="isOpenedUserDetails = !isOpenedUserDetails" class="user_img_box">
       <img [src]="userData.avatar" [title]="userData.name" alt="user image">
     </div>
-    <app-user-details
-      [userData]="userData"
-      [style.left]="isOpenedUserDetails ? '40px' : '-7%'"
-      [style.top]="isOpenedUserDetails ? '75px' : '-24%'"
-      [style.opacity]="isOpenedUserDetails ? '1' : '0'"
-      [style.scale]="isOpenedUserDetails ? '1' : '0'"></app-user-details>
+    @if (isOpenedUserDetails) {
+      <app-user-details
+        appResizeHeight
+        [size]="98"
+        [userData]="userData"></app-user-details>
+    }
     <div
       (mouseleave)="isOpenedSearchBlock = false"
       (click)="isOpenedSearchBlock = true" class="search_box">

@@ -5,10 +5,9 @@ mat-icon {
 }
 
 .main-div {
-  width: 300px;
-  background-color: #2a2a2a;
+  height: 100%;
+  background-color: #171717;
   overflow-y: scroll;
-  border-radius: 20px;
   padding: 20px;
 }
 
@@ -30,13 +29,27 @@ mat-icon {
   margin-top: 20px;
 }
 
-.profile {
+.buttons_box > button {
   color: white;
-  background-color: white;
-  font-size: 15px;
+  background-color: #232323;
+  font-size: 20px;
+  padding: 30px 0;
   width: 100%;
   font-family: 'Rubik Glitch', system-ui;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 10px;
+}
+
+.buttons_box > button > mat-icon {
+  width: 25px;
+  height: 25px;
+  font-size: 25px;
+}
+
+@media screen and (max-width: 570px)  {
+  .buttons_box > button {
+    padding: 25px 0;
+  }
 }

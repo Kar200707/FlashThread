@@ -1,7 +1,7 @@
 .main-div {
-  background-image: url("/assets/images/backgrounds/chat-background.webp");
   background-repeat: no-repeat;
   background-size: cover;
+  background-color: #171717;
   height: 100vh;
   box-shadow:  inset rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
@@ -28,7 +28,7 @@
   background-image: linear-gradient(to left, #003399, #7100ff);
   color: #ffffff;
   font-weight: normal;
-  font-size: 25px;
+  font-size: 20px;
   font-family: 'Rubik Glitch', system-ui;
   display: flex;
   align-items: center;
@@ -56,7 +56,8 @@
 .message_box_reverce > div {
   padding: 10px 20px;
   background-image: none;
-  background-color: #2d2d2d;
+  background-color: rgba(14, 14, 14, 1);
+  border: 1px solid #ffffff26;
   color: #ffffff;
   font-weight: normal;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -136,14 +137,14 @@
 }
 
 .messages_scroll_box {
-  width: 90%;
+  width: 100%;
   overflow-y: scroll;
   padding-bottom: 10px;
 }
 
 .selected_chat_user {
-  padding: 15px 25px;
-  background-color: #2a2a2a;
+  padding: 10px 25px;
+  background-color: #0a0a0a;
   position: absolute;
   left: 0;
   top: 0;
@@ -166,8 +167,8 @@
 }
 
 .selected_chat_user > .img_box {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   position: relative;
 }
 

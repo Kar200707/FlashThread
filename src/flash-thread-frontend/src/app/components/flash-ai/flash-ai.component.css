@@ -1,6 +1,7 @@
 .main-div {
-  background-image: url("/assets/images/backgrounds/chat-background.webp");
   background-repeat: no-repeat;
+  background-color: #171717;
+  /*background-image: url("/assets/images/backgrounds/dark-background2.jpg");*/
   background-size: cover;
   height: 100vh;
   box-shadow:  inset rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -18,21 +19,30 @@
   background-color: rgba(0, 0, 0, 0.12);
 }
 
-.message > pre {
-  user-select: auto;
-  padding: 10px 20px;
+.message > div {
+  background-color: rgba(14, 14, 14, 1);
   border-radius: 30px;
-  background-color: #2d2d2d;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px 13px 15px;
+  border: 1px solid #ffffff26;
+}
+
+.message > div > pre {
+  background: linear-gradient(to left, #003aff, #ff00fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  user-select: auto;
   table-layout:fixed;
   display: table;
   color: #ffffff;
   font-weight: normal;
-  font-size: 25px;
+  font-size: 20px;
   font-family: 'Rubik Glitch', system-ui;
   align-items: center;
   position: relative;
-  width: 100%;
-  margin-left: 40px;
+  margin-left: 10px;
   white-space: pre-wrap;
   white-space: -moz-pre-wrap;
   white-space: -pre-wrap;
@@ -46,7 +56,7 @@
   background-image: linear-gradient(to left, #003399, #7100ff);
   color: #ffffff;
   font-weight: normal;
-  font-size: 25px;
+  font-size: 20px;
   font-family: 'Rubik Glitch', system-ui;
   display: flex;
   align-items: center;
@@ -54,10 +64,10 @@
   margin-left: 40px;
 }
 
-.message > pre > mat-icon {
-  position: absolute;
-  left: -35px;
-  top: 15px;
+.message > mat-icon {
+  color: white;
+  margin-bottom: 10px;
+  margin-left: 5px
 }
 
 .message_box {
@@ -80,8 +90,9 @@
   overflow-x: scroll;
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: start;
+  flex-direction: column;
   margin-top: 13px;
 }
 
@@ -160,14 +171,14 @@
 }
 
 .messages_scroll_box {
-  width: 90%;
+  width: 100%;
   overflow-y: scroll;
   padding-bottom: 10px;
 }
 
 .selected_chat_user {
   padding: 15px 25px;
-  background-color: #2a2a2a;
+  background-color: #0a0a0a;
   position: absolute;
   left: 0;
   top: 0;
@@ -200,7 +211,7 @@
   background: linear-gradient(to left, #003aff, #ff00fb);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 30px;
+  font-size: 25px;
   margin-left: 20px;
 }
 
@@ -208,9 +219,9 @@
   background: linear-gradient(to left, #003aff, #ff00fb);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 40px;
-  width: 40px;
-  height: 40px;
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
 }
 
 .in-chat-user-avatar {
@@ -281,7 +292,7 @@
 
   .message > pre,
   .message > p {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .lear {
@@ -310,4 +321,29 @@
 .ai_loading > img {
   width: 130px;
   border-radius: 20px;
+}
+
+.animated-message {
+  position: relative;
+  animation: 0.2s animatedmessage alternate ease-in-out;
+}
+
+@keyframes animatedmessage {
+  from {
+    transform: translateX(-700px);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.message-tools-box {
+  position: absolute;
+  right: 20px;
+  top: -30px;
+}
+
+.message-tools-box > mat-icon {
+  color: rgba(137, 137, 137, 1);
 }
