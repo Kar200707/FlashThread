@@ -14,4 +14,9 @@ export class AiController {
 
     return this.aiService.ai(message, userToken, file);
   }
+
+  @Post('chat/get')
+  getAiChat(@Body() body: { token: string }) {
+    return this.aiService.getAiChat(body.token);
+  }
 }

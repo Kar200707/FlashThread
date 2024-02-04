@@ -9,6 +9,7 @@ import { User } from '../../models/user.model';
 import { RequestService } from '../../services/request.service';
 import { environment } from '../../../environment/environment';
 import { AssemblyAI } from 'assemblyai'
+import { AiChatInterface } from '../../../../../app/models/ai-chat.model';
 
 @Component({
   selector: 'app-flash-ai',
@@ -26,7 +27,7 @@ import { AssemblyAI } from 'assemblyai'
   templateUrl: './flash-ai.component.html',
   styleUrl: './flash-ai.component.css'
 })
-export class FlashAiComponent implements OnInit{
+export class FlashAiComponent implements OnInit {
   @ViewChild('messagesScrollBox') messagesBoxScroll?: ElementRef<HTMLDivElement>;
   @ViewChild('img') img?: ElementRef<any>;
 
@@ -64,6 +65,12 @@ export class FlashAiComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.reqService.post<AiChatInterface>(environment.aiGetChat, { token: this.token })
+      .subscribe(data => {
+        this.aiChatMessages = data.messages;
+        console.log(data);
+      })
+
     const obj2: any = {
       token: this.token
     }
@@ -90,7 +97,7 @@ export class FlashAiComponent implements OnInit{
 
       speechSynthesis.speak(textToSpeech);
     } else {
-      speechSynthesis.pause();
+      speechSynthesis.cancel();
     }
   }
 
@@ -125,7 +132,7 @@ export class FlashAiComponent implements OnInit{
 
       const newMesage = {
         message: this.form.value.message,
-        sender: (this.thisUser.id as string),
+        sender: 'user',
       }
 
       this.aiChatMessages.push(newMesage);

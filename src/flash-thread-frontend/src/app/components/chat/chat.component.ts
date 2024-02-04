@@ -181,21 +181,5 @@ export class ChatComponent implements OnInit {
     this.isChackChatValid = true;
   }
 
-  getChatUsers(id: string) {
-    const obj: any = {
-      token: this.token,
-      id: id
-    }
-
-    let userChatInfo!: User;
-
-    this.reqService.post<User>(environment.getUserById, obj)
-      .subscribe((data: User) =>{
-        userChatInfo = data;
-      })
-
-    return userChatInfo
-  }
-
   protected readonly innerWidth = innerWidth;
 }

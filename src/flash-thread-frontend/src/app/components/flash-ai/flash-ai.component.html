@@ -4,9 +4,9 @@
       <div *ngIf="aiChatMessages != undefined">
         <div
           *ngFor="let item of aiChatMessages, let i = index"
-          [class]="thisUser.id !== item.sender ? 'message_box_reverce' : 'message_box'"
+          [class]="'user' !== item.sender ? 'message_box_reverce' : 'message_box'"
           style="font-size: 16px;" class="message">
-          @if(thisUser.id !== item.sender) {
+          @if('user' !== item.sender) {
             <mat-icon>auto_awesome</mat-icon>
             <div class="animated-message">
               <pre>{{item.message}}</pre>

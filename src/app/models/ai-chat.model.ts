@@ -4,7 +4,7 @@ export interface AiChatInterface {
   messages: [
     {
       message: string,
-      sender: 'ai' | 'user',
+      sender: string,
       date: {
         day: number,
         month: number,
