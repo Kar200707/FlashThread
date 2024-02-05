@@ -14,7 +14,7 @@ export class AiService {
     @InjectModel(AiChat.name) private readonly aiChatModel: Model<AiChatDocumnet>,
     @InjectModel(Users.name) private readonly userModel: Model<UsersDocument>) {  }
 
-  async ai(message: string, userToken: string, file: Express.Multer.File) {
+  async ai(message: string, userToken: string, file: Express.Multer.File, history) {
     function fileToGenerativePart(file, mimeType) {
       return {
         inlineData: {
@@ -130,12 +130,22 @@ export class AiService {
           model: "gemini-pro",
         })
 
-        const aiGeneratedData: GenerateContentResult = await model.generateContent(message);
+        const chat = model.startChat({
+          history: history,
+          generationConfig: {
+            maxOutputTokens: 100,
+          },
+        })
+
+        const result = await chat.sendMessage(message);
+        const response = await result.response;
+
+        const aiGeneratedData = response.text();
 
         const newChatAi:any = await this.aiChatModel.findOne({ userId: userData.id });
         const aiSendData:AiChatInterface = newChatAi.toObject();
         const newAiMessage = aiNewMessage
-        newAiMessage.message = aiGeneratedData.response.text().toString();
+        newAiMessage.message = aiGeneratedData;
         aiSendData.messages.push(newAiMessage);
 
         const newUpdatedChatAi:any = await this.aiChatModel.findOneAndUpdate(
@@ -144,7 +154,7 @@ export class AiService {
         );
 
         return {
-          aiGeneratedMessage: aiGeneratedData.response.text().toString()
+          aiGeneratedMessage: aiGeneratedData
         };
       }
     } catch (e) {
@@ -153,22 +163,41 @@ export class AiService {
   }
 
   async getAiChat(token :string) {
+    try {
+      if (!token) {
+        throw new HttpException('token not selected', HttpStatus.BAD_REQUEST);
+      }
+
+      const userData = await this.userModel.findOne({ password: token });
+
+      if (!userData) {
+        throw new HttpException('not registerd user for this token', HttpStatus.BAD_REQUEST);
+      }
+
+      const aiChat = await this.aiChatModel.findOne({ userId: userData.id });
+
+      const modifiedAiChat = aiChat.toObject();
+      delete modifiedAiChat.__v;
+      delete modifiedAiChat._id;
+
+      return modifiedAiChat;
+    } catch (e) {
+      throw new HttpException('there is no chat', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async deleteAiChat(token) {
     if (!token) {
-      throw new HttpException('token not selected', HttpStatus.BAD_REQUEST);
+      throw new HttpException('token not selcted', HttpStatus.BAD_REQUEST);
     }
 
-    const userData = await this.userModel.findOne({ password: token });
+    const user:any = await this.userModel.findOne({ password: token });
 
-    if (!userData) {
-      throw new HttpException('not registerd user for this token', HttpStatus.BAD_REQUEST);
+    if (!user) {
+      throw new HttpException('with this token not user', HttpStatus.BAD_REQUEST);
     }
 
-    const aiChat = await this.aiChatModel.findOne({ userId: userData.id });
-
-    const modifiedAiChat = aiChat.toObject();
-    delete modifiedAiChat.__v;
-    delete modifiedAiChat._id;
-
-    return modifiedAiChat;
+    await this.aiChatModel.deleteOne({ userId: user.id.toString() });
+    return { message: 'delete successfully' };
   }
 }

@@ -68,7 +68,7 @@
       <mat-icon>auto_awesome</mat-icon>
       <div>
         <h3>Flash Ai</h3>
-        <p>Ai</p>
+        <p>{{ aiLastMessage }}</p>
       </div>
     </div>
     <ng-container *ngFor="let chatUser of chatUsersData, let i = index">
@@ -79,7 +79,7 @@
         <img [src]="chatUser.avatar" alt="chat">
         <div>
           <h3>{{ chatUser.name }}</h3>
-          <p>{{ chatsData[i].messages[chatsData[i].messages.length - 1].message }}</p>
+          <p>test</p>
         </div>
       </div>
     </ng-container>

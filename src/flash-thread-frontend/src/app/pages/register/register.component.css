@@ -2,12 +2,53 @@
   background: linear-gradient(to left, var(--main-color1), var(--main-color2),  var(--main-color2));
 }
 
+.main_div > .container {
+  background-color: #000000;
+  width: 100%;
+  padding: 0 16px;
+}
+
 .withe_layer {
   background-color: #ffffff;
   width: 50%;
   height: 100vh;
   position: absolute;
   border-radius: 0 20px 20px 0;
+}
+
+.text_field {
+  color: white;
+  outline: none;
+  width: 100%;
+  padding: 16px 20px 14px 20px;
+  background-color: #000000;
+  border: 3px solid #5c13a4;
+  margin-top: 15px;
+  border-radius: 14px;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: Poppins;
+}
+
+.hide_show_pass_btn {
+  background-color: #5c13a4;
+  color: white;
+  position: absolute;
+  right: 10px;
+  top: 24px;
+  scale: 0.9;
+}
+
+.text_field::placeholder {
+  color: rgba(92, 19, 164, 0.43);
+}
+
+.text_field:focus {
+  border-color: rgba(255, 255, 255, 0.74);
+}
+
+.text_field:focus::placeholder {
+  color: rgba(255, 255, 255, 0.27);
 }
 
 h1 {
@@ -54,7 +95,7 @@ h1 {
 .block {
   border-radius: 20px;
   padding: 30px;
-  background-color: #ffffff;
+  background-color: #000000;
 }
 
 .block > form {
@@ -84,9 +125,16 @@ h1 {
 }
 
 .send_button {
-  background-color: #7100ff;
+  background: linear-gradient(to left, #9900ff, #7300ff);
   margin-bottom: 20px;
+  margin-top: 20px;
+  font-family: Poppins;
+  font-size: 22px;
+  letter-spacing: 2px;
   color: white;
+  padding: 8px 0;
+  border: none;
+  border-radius: 10px;
 }
 
 .send_button:disabled {

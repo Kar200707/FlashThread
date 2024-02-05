@@ -36,11 +36,8 @@ export class LoginComponent {
   })
 
   constructor(
-    private setMobileThemes: SetThemesService,
     private router: Router,
-    private requestService: RequestService) {
-    this.setMobileThemes.setStatusBarStyle('#ffffff').then().catch();
-  }
+    private requestService: RequestService) {  }
 
   send(formDirective: FormGroupDirective) {
     if(this.form.valid) {

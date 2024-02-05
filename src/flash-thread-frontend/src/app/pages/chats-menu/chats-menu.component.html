@@ -1,22 +1,28 @@
 <div appResizeHeight [size]="1" class="main-div">
   <div class="box">
-    <div (click)="isOpenedUserDetails = !isOpenedUserDetails" class="user_img_box">
-      <img [src]="userData.avatar" [title]="userData.name" alt="user image">
+    <div class="header_box">
+      <h1>Messages</h1>
+      <div (click)="isOpenedUserDetails = !isOpenedUserDetails" class="user_img_box">
+        <img [src]="userData.avatar" [title]="userData.name" alt="user image">
+      </div>
+      @if (isOpenedUserDetails) {
+        <app-user-details
+          [userData]="userData"
+          appResizeHeight
+          [size]="75"
+        ></app-user-details>
+      }
     </div>
-    @if (isOpenedUserDetails) {
-      <app-user-details
-        [userData]="userData"
-        appResizeHeight
-        [size]="75"
-      ></app-user-details>
-    }
     <div
       (mouseleave)="isOpenedSearchBlock = false"
       (click)="isOpenedSearchBlock = true" class="search_box">
-      <input
-        (focus)="isOpenedSearchBlock = true"
-        #search (input)="searchValue()"
-        placeholder="Search" type="text" class="search">
+      <label>
+        <mat-icon class="search_icon">search</mat-icon>
+        <input
+          (focus)="isOpenedSearchBlock = true"
+          #search (input)="searchValue()"
+          placeholder="Type your search..." type="text" class="search">
+      </label>
       @if (isOpenedSearchBlock) {
         <div class="search_list_block">
           @if (searchData.length == 0 && search.value != '') {
@@ -61,13 +67,14 @@
     </div>
   </div>
   <div class="chat_block">
+    <h3>Chat</h3>
     <div
       routerLink="/messenger/ai"
       class="ai_chat">
       <mat-icon>auto_awesome</mat-icon>
       <div>
         <h3>Flash Ai</h3>
-        <p>Ai</p>
+        <p>{{ aiLastMessage }}</p>
       </div>
     </div>
     <ng-container *ngFor="let chatUser of chatUsersData, let i = index">
@@ -90,6 +97,5 @@
         </div>
       </div>
     </ng-container>
-
   </div>
 </div>

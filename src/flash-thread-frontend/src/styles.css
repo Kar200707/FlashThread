@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Asap+Condensed:wght@500&display=swap');
+@import "assets/fonts/Poppins/poppins.css";
+
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -14,12 +16,12 @@ app-chat {
 
 ::-moz-selection {
   color: #efefef;
-  background: rgba(77, 77, 77, 0.67);
+  background: rgba(92, 11, 208, 0.67);
 }
 
 ::selection {
   color: #efefef;
-  background: rgba(77, 77, 77, 0.67);
+  background: rgba(92, 11, 208, 0.67);
 }
 
 * {

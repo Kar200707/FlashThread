@@ -10,6 +10,7 @@ import { RequestService } from '../../services/request.service';
 import { environment } from '../../../environment/environment';
 import { AssemblyAI } from 'assemblyai'
 import { AiChatInterface } from '../../../../../app/models/ai-chat.model';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-flash-ai',
@@ -23,6 +24,7 @@ import { AiChatInterface } from '../../../../../app/models/ai-chat.model';
     ReactiveFormsModule,
     ResizeHeightDirective,
     RouterLink,
+    MatButtonModule,
   ],
   templateUrl: './flash-ai.component.html',
   styleUrl: './flash-ai.component.css'
@@ -38,6 +40,7 @@ export class FlashAiComponent implements OnInit {
   thisUser!: User;
   token: any = localStorage.getItem('token');
   isSelectedImg: boolean = false;
+  chatHistory: any[] = [];
 
   form: FormGroup = new FormGroup({
     message: new FormControl('', Validators.required)
@@ -68,7 +71,11 @@ export class FlashAiComponent implements OnInit {
     this.reqService.post<AiChatInterface>(environment.aiGetChat, { token: this.token })
       .subscribe(data => {
         this.aiChatMessages = data.messages;
-        console.log(data);
+        setTimeout(() => {
+          if (this.messagesBoxScroll) {
+            this.messagesBoxScroll.nativeElement.scrollTop = this.messagesBoxScroll.nativeElement.scrollHeight;
+          }
+        }, 100);
       })
 
     const obj2: any = {
@@ -79,12 +86,6 @@ export class FlashAiComponent implements OnInit {
       .subscribe((userData: User) =>{
         this.thisUser = userData;
       })
-
-    setTimeout(() => {
-      if (this.messagesBoxScroll) {
-        this.messagesBoxScroll.nativeElement.scrollTop = this.messagesBoxScroll.nativeElement.scrollHeight;
-      }
-    }, 1000)
   }
 
   textToSpeech(text: string) {
@@ -101,7 +102,8 @@ export class FlashAiComponent implements OnInit {
     }
   }
 
-  copyText(text: string) {
+  copyText(text: string, icon:any) {
+    icon.innerText = 'done'
     this.isCopied = true;
     navigator.clipboard.writeText(text);
   }
@@ -123,6 +125,15 @@ export class FlashAiComponent implements OnInit {
     }
   }
 
+  deleteChat() {
+    if (confirm('delete this ai chat?')) {
+      this.reqService.delete(environment.aiDeleteChat, { token: this.token })
+        .subscribe(() => {
+          this.aiChatMessages = [];
+        })
+    }
+  }
+
   send(e?: any) {
     this.isCopied = false;
     this.isSpeak = false;
@@ -134,6 +145,7 @@ export class FlashAiComponent implements OnInit {
         message: this.form.value.message,
         sender: 'user',
       }
+      const newMessage = this.form.value.message;
 
       this.aiChatMessages.push(newMesage);
 
@@ -143,8 +155,18 @@ export class FlashAiComponent implements OnInit {
       }
       formData.set('message', this.form.value.message);
       formData.set('userToken', this.token);
+      formData.set('history', JSON.stringify(this.chatHistory));
 
       this.reqService.post(environment.ai, formData).subscribe((data: any) => {
+        this.chatHistory.push({
+          role: 'user',
+          parts: newMessage,
+        })
+        this.chatHistory.push({
+          role: 'model',
+          parts: data.aiGeneratedMessage,
+        })
+
         if (data.aiGeneratedMessage === '') {
           const audio:HTMLAudioElement = new Audio();
           audio.src = 'assets/audios/notifiaction/error-call-to-attention-129258.mp3'
@@ -158,7 +180,7 @@ export class FlashAiComponent implements OnInit {
         }
 
         const newMessageAi = {
-          message: data.aiGeneratedMessage == '' ? 'try typing other text' : data.aiGeneratedMessage,
+          message: data.aiGeneratedMessage === '' ? 'try typing other text' : data.aiGeneratedMessage,
           sender: 'ai',
         }
 
@@ -175,6 +197,16 @@ export class FlashAiComponent implements OnInit {
     setTimeout(() => {
       this.messagesBoxScroll?.nativeElement.scrollTo(0, this.messagesBoxScroll?.nativeElement.scrollHeight)
     }, 100)
+  }
+
+  selectMessage(messageElement: HTMLElement) {
+    messageElement.style.transition = '.3s'
+    messageElement.style.scale = '.98'
+  }
+
+  unselectMessage(messageElement: HTMLElement) {
+    messageElement.style.transition = '.3s'
+    messageElement.style.scale = '1'
   }
 
   protected readonly innerWidth = innerWidth;

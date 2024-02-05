@@ -77,10 +77,10 @@ export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
               const message = {
                 notification: {
-                  title: senderUser.name.toString(),
-                  body: body.message.toString()
+                  title: senderUser.name,
+                  body: body.message,
                 },
-                to : receiverUser.device.toString()
+                to : receiverUser.device
               }
 
               httpService.post('https://fcm.googleapis.com/fcm/send',  message,
@@ -94,7 +94,7 @@ export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   @SubscribeMessage('join')
-  async test(@MessageBody() body, @ConnectedSocket() client) {
+  async join(@MessageBody() body, @ConnectedSocket() client) {
     client.join(body.id);
   }
 

@@ -10,6 +10,7 @@ import { UserDetailsComponent } from '../../components/user-details/user-details
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { AiChatInterface } from '../../../../../app/models/ai-chat.model';
 
 @Component({
   selector: 'app-chats-menu',
@@ -36,6 +37,7 @@ export class ChatsMenuComponent implements OnInit {
 
   isOpenedSearchBlock:boolean = false;
   tokenUser!: User;
+  aiLastMessage: string = 'loading...';
   chatsData: ChatInterface[] = [];
   token: string | null = localStorage.getItem('token');
   isOpenedUserDetails:boolean = false;
@@ -55,6 +57,16 @@ export class ChatsMenuComponent implements OnInit {
     const obj:any = {
       token: this.token
     }
+
+    this.reqService.post<AiChatInterface>(environment.aiGetChat, { token: this.token })
+      .subscribe(data => {
+        if (data.messages[data.messages.length - 1].message.length > 25) {
+          this.aiLastMessage = data.messages[data.messages.length - 1].message.slice(0, 24) + '...'
+        } else {
+          this.aiLastMessage = data.messages[data.messages.length - 1].message
+        }
+
+      })
 
     // this.chat.addEventListener('click', () => {
     //   this.isOpenedSearchBlock = false;

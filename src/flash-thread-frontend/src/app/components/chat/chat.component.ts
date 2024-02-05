@@ -59,7 +59,7 @@ export class ChatComponent implements OnInit {
         if (this.messagesBoxScroll) {
           this.messagesBoxScroll.nativeElement.scrollTop = this.messagesBoxScroll.nativeElement.scrollHeight;
         }
-      }, 200)
+      }, 100)
 
       if (this.thisUser.id != data.userId) {
         const audio = new Audio();
@@ -71,12 +71,6 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      if (this.messagesBoxScroll) {
-        this.messagesBoxScroll.nativeElement.scrollTop = this.messagesBoxScroll.nativeElement.scrollHeight;
-      }
-    }, 1000)
-
     this.webSocket.listen('connect').subscribe((data) => {
       this.webSocket.emit('join', { id: this.thisUser.id });
     })
@@ -109,6 +103,11 @@ export class ChatComponent implements OnInit {
             .subscribe((data: any) =>{
               this.chatMessaging = data;
               this.chatInfo = data;
+              setTimeout(() => {
+                if (this.messagesBoxScroll) {
+                  this.messagesBoxScroll.nativeElement.scrollTop = this.messagesBoxScroll.nativeElement.scrollHeight;
+                }
+              }, 100)
 
               this.isChackChatValid = data.status !== 400;
             })

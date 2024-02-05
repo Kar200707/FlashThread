@@ -3,8 +3,7 @@ export interface ChatInterface {
 
   usersId: string[];
 
-  messages: [
-    {
+  messages: {
       message: string;
       userId: string;
       date: {
@@ -15,6 +14,5 @@ export interface ChatInterface {
         minutes: number;
         date: number;
       }
-    }
-  ]
+    }[]
 }

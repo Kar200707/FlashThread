@@ -9,6 +9,7 @@ import { MessagingModule } from '@angular/fire/messaging';
 import { RequestService } from './services/request.service';
 import { environment } from '../environment/environment';
 import { HttpClientModule } from '@angular/common/http';
+import { SetThemesService } from './services/set-themes.service';
 
 @Component({
   imports: [
@@ -35,8 +36,11 @@ export class AppComponent implements OnInit {
   token: string | null = localStorage.getItem('token');
 
   constructor(
+    private setMobileThemes: SetThemesService,
     private reqService: RequestService,
-    private messagingService: MessagingService) {  }
+    private messagingService: MessagingService) {
+    this.setMobileThemes.setStatusBarStyle('#000000').then().catch();
+  }
 
   ngOnInit() {
     this.messagingService.callRequestPermission.subscribe((token) => {

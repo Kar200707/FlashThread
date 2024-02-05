@@ -10,6 +10,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { ChatInterface } from '../../models/chat.model';
 import { MatIconModule } from '@angular/material/icon';
+import { AiChatInterface } from '../../../../../app/models/ai-chat.model';
 
 @Component({
   selector: 'app-chat-lists',
@@ -38,6 +39,7 @@ export class ChatListsComponent implements OnInit {
   isOpenedSearchBlock:boolean = false;
   tokenUser!: User;
   chatsData: ChatInterface[] = [];
+  aiLastMessage: string = 'loading...';
   token: string | null = localStorage.getItem('token');
   isOpenedUserDetails:boolean = false;
   userData: User = {
@@ -57,6 +59,16 @@ export class ChatListsComponent implements OnInit {
       token: this.token
     }
 
+    this.reqService.post<AiChatInterface>(environment.aiGetChat, { token: this.token })
+      .subscribe(data => {
+        if (data.messages[data.messages.length - 1].message.length > 25) {
+          this.aiLastMessage = data.messages[data.messages.length - 1].message.slice(0, 24) + '...'
+        } else {
+          this.aiLastMessage = data.messages[data.messages.length - 1].message
+        }
+
+      })
+
     this.chat.addEventListener('click', () => {
       this.isOpenedSearchBlock = false;
     })
@@ -69,11 +81,8 @@ export class ChatListsComponent implements OnInit {
 
     this.reqService.post<ChatInterface[]>(environment.getActiveChats, obj)
       .subscribe((data: ChatInterface[]) => {
-        data.forEach(item => {
-          if (item) {
-            this.chatsData.push(item);
-          }
-        })
+        this.chatsData = data;
+        console.log(data);
 
         data.forEach((item: ChatInterface, i: number) => {
           if (item) {

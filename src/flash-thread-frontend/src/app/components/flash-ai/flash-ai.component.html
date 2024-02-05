@@ -8,12 +8,18 @@
           style="font-size: 16px;" class="message">
           @if('user' !== item.sender) {
             <mat-icon>auto_awesome</mat-icon>
-            <div class="animated-message">
-              <pre>{{item.message}}</pre>
+            <div #aiMessage
+                 (mousedown)="selectMessage(aiMessage)"
+                 (mouseup)="unselectMessage(aiMessage)"
+                 (touchstart)="selectMessage(aiMessage)"
+                 (touchend)="unselectMessage(aiMessage)"
+                 class="animated-message">
+              <pre>{{ item.message === '' ? 'try typing other text' : item.message}}</pre>
               <div class="message-tools-box">
                 <mat-icon
+                  #icon
                   style="margin-right: 10px"
-                  (click)="copyText(item.message)">{{ !isCopied ? 'content_copy' : 'done' }}</mat-icon>
+                  (click)="copyText(item.message, icon)">{{ !isCopied ? 'content_copy' : 'done' }}</mat-icon>
                 @if (!isSpeak) {
                   <mat-icon (click)="textToSpeech(item.message)">volume_up</mat-icon>
                 } @else {
@@ -22,7 +28,12 @@
               </div>
             </div>
           } @else {
-            <p>{{ item.message }}</p>
+            <p #myMessage
+               (mousedown)="selectMessage(myMessage)"
+               (mouseup)="unselectMessage(myMessage)"
+               (touchstart)="selectMessage(myMessage)"
+               (touchend)="unselectMessage(myMessage)"
+            >{{ item.message }}</p>
           }
         </div>
       </div>
@@ -34,6 +45,9 @@
       }
     </div>
     <div class="selected_chat_user">
+      <button title="delete chat" (click)="deleteChat()" class="delete_button" mat-icon-button>
+        <mat-icon color="warn">delete_sweep</mat-icon>
+      </button>
       <a routerLink="/chats-menu">
         <mat-icon>arrow_back</mat-icon>
       </a>

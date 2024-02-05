@@ -1,6 +1,6 @@
 <div class="main_div">
   <img class="side_image" src="assets/images/icons/side-icons/flash-thread-colors.png">
-  <div class="withe_layer"></div>
+  <div class="layer"></div>
   <div class="container">
     <div class="images_box">
       <img class="messgae_image" src="assets/images/message2.gif">
@@ -8,26 +8,35 @@
     <div class="login_block">
       <form #formDirective="ngForm" [formGroup]="form" (ngSubmit)="send(formDirective)">
         <h1>Login</h1>
-        <mat-form-field style="margin-top: 30px" class="login_input" appearance="outline">
-          <mat-label>Email</mat-label>
-          <input autofocus name="email" formControlName="email" matInput placeholder="enter your email">
-          @if (this.form.invalid) {
-            <mat-error>email is required</mat-error>
-          }
-        </mat-form-field>
-        <mat-form-field class="login_input" appearance="outline">
-          <mat-label>Password</mat-label>
-          <input name="password" [type]="hide ? 'password' : 'text'" formControlName="password" type="password" matInput placeholder="enter your password">
-          <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <input
+          class="text_field"
+          type="email"
+          name="email"
+          formControlName="email"
+          placeholder="Enter your email">
+        <div style="position: relative">
+          <input
+            style="padding-right: 65px"
+            class="text_field"
+            name="password" [type]="hide ? 'password' : 'text'"
+            formControlName="password" type="password"
+            placeholder="Enter your password">
+          <button
+            type="button"
+            class="hide_show_pass_btn"
+            mat-icon-button
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
-        </mat-form-field>
+        </div>
         @if (isFalseLogin && !form.touched && !form.dirty) {
           <strong
             style="margin-bottom: 10px; color: #e01212"
           >false email or password</strong>
         }
-        <button [disabled]="form.invalid" class="send_button" mat-button>SEND</button>
+        <button [disabled]="form.invalid" class="send_button">SEND</button>
       </form>
       <a class="dont_acc_link" routerLink="/register">don't have an account? - register</a>
     </div>
