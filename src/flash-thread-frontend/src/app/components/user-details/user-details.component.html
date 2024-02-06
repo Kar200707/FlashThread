@@ -1,17 +1,23 @@
 <div class="main-div">
-  <h2 class="name">{{ userData.name }}</h2>
-  <p class="email">{{ userData.email }}</p>
+  <div style="
+  background-color: black;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  padding: 100px 40px 20px 20px">
+    <h2 class="name">{{ userData.name }}</h2>
+    <p class="email">{{ userData.email }}</p>
+  </div>
   <div class="buttons_box">
-    <button routerLink="/profile" mat-button>
-      <p>Profile</p>
+    <button routerLink="/profile">
+      <p class="options_text">Profile</p>
       <mat-icon>person</mat-icon>
     </button>
-    <button style="margin-top: 10px" mat-button>
-      <p>Settings</p>
+    <button>
+      <p class="options_text">Settings</p>
       <mat-icon>settings</mat-icon>
     </button>
-    <button (click)="logout()" color="warn" style="margin-top: 10px" mat-button>
-      <p style="color: #f44336">Logout</p>
+    <button (click)="logout()" color="warn">
+      <p class="options_text" style="color: #f44336">Logout</p>
       <mat-icon color="warn">logout</mat-icon>
     </button>
   </div>

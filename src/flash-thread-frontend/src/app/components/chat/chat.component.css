@@ -1,9 +1,8 @@
 .main-div {
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #1e1e1e;
+  background-color: rgb(24 24 24);
   height: 100vh;
-  box-shadow:  inset rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .lear {
@@ -11,7 +10,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 90px 20px 0 20px;
+  padding: 80px 20px 0 20px;
   position: relative;
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
@@ -24,17 +23,18 @@
 
 .message {
   padding: 10px 20px;
-  border-radius: 30px;
-  background-image: linear-gradient(to left, #003399, #7100ff);
-  color: #ffffff;
-  font-weight: normal;
-  font-size: 20px;
-  font-family: 'Rubik Glitch', system-ui;
+  border-radius: 20px 20px 0 20px;
+  background: rgb(91, 25, 147);
   display: flex;
   align-items: center;
   position: relative;
   margin-left: 40px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  color: rgb(255, 255, 255);
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: left;
 }
 
 .message_box {
@@ -58,42 +58,45 @@
   background-image: none;
   background-color: rgba(14, 14, 14, 1);
   border: 1px solid #ffffff26;
+  border-radius: 20px 20px 20px 0;
   color: #ffffff;
-  font-weight: normal;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .message_sending_panel {
   position: fixed;
-  bottom: 20px;
-  width: 50%;
+  bottom: 0;
+  background-color: black;
+  padding: 25px 30px;
+  width: 100%;
+  border-top-left-radius: 32px;
+  border-top-right-radius: 32px;
 }
 
 .message_sending_panel > form {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row-reverse;
 }
 
 .message_input {
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  background-color: #2a2a2a;
+  background-color: rgb(24 24 24);
   display: block;
   border: none;
   outline: none;
-  width: 100%;
-  height: 30px;
-  font-size: 20px;
+  width: 60%;
   border-radius: 30px;
-  padding: 25px 60px 25px 30px;
-  font-family: 'Rubik Glitch', system-ui;
-  font-weight: bolder;
-  color: #ffffff;
+  padding: 11px 24px;
+  color: rgb(255, 255, 255);
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: left;
+  margin-right: 20px;
 }
 
 .message_input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgb(122, 122, 122);
 }
 
 .controllers_box {
@@ -107,9 +110,6 @@
   width: 40px;
   height: 40px;
   border: none;
-  position: absolute;
-  right: 6px;
-  top: 5px;
   border-radius: 50%;
   background-color: #ffffff;
 }
@@ -143,6 +143,8 @@
 }
 
 .selected_chat_user {
+  justify-content: center;
+  z-index: 500;
   padding: 10px 25px;
   background-color: #0a0a0a;
   position: absolute;
@@ -151,10 +153,13 @@
   width: 100%;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid rgba(117, 117, 117, 0.42);
+  border-bottom-left-radius: 32px;
+  border-bottom-right-radius: 32px;
 }
 
 .selected_chat_user > a {
+  position: absolute;
+  left: 25px;
   margin-right: 20px;
   display: none;
   width: 25px;
@@ -172,13 +177,6 @@
   position: relative;
 }
 
-.selected_chat_user > .img_box > img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
 .selected_chat_user > div + div {
   margin-left: 20px;
   display: flex;
@@ -186,13 +184,21 @@
 }
 
 .selected_chat_user > div > p {
-  color: #878787;
-  font-family: "Rubik Glitch", system-ui;
+  color: rgb(141, 141, 141);
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: center;
 }
 
 .selected_chat_user > div > h2 {
-  color: white;
-  font-family: "Rubik Glitch", system-ui;
+  color: rgb(255, 255, 255);
+  font-family: Poppins;
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 33px;
+  text-align: center;
 }
 
 .online:after {
@@ -284,16 +290,16 @@
 }
 
 @media screen and (max-width: 940px) {
+  .lear {
+    padding: 145px 5px 0 5px;
+  }
+
   .selected_chat_user {
-    padding: 10px;
+    padding: 63px 25px 22px 25px;
   }
 
   .selected_chat_user > a {
     display: block;
-  }
-
-  .message_sending_panel {
-    width: 90%;
   }
 }
 
@@ -315,10 +321,6 @@
 
   .message {
     scale: 0.9;
-  }
-
-  .lear {
-    padding: 90px 5px 0 5px;
   }
 }
 

@@ -1,18 +1,28 @@
-<div appResizeHeight [size]="1" class="main-div">
+<div
+  appResizeHeight [size]="1"
+  class="main-div">
   <div class="box">
     <div class="header_box">
       <h1>Messages</h1>
       <div (click)="isOpenedUserDetails = !isOpenedUserDetails" class="user_img_box">
         <img [src]="userData.avatar" [title]="userData.name" alt="user image">
       </div>
-      @if (isOpenedUserDetails) {
-        <app-user-details
-          [userData]="userData"
-          appResizeHeight
-          [size]="75"
-        ></app-user-details>
-      }
     </div>
+    @if (isOpenedUserDetails) {
+      <div
+        (click)="isOpenedUserDetails = false"
+        style="
+           position: absolute;
+           left: 0;
+           top: 0;
+           height: 100vh;
+           width: 100%;
+           z-index: 998;
+           background-color: rgba(0,0,0,0.34);
+         "
+      ></div>
+      <app-user-details [userData]="userData"></app-user-details>
+    }
     <div
       (mouseleave)="isOpenedSearchBlock = false"
       (click)="isOpenedSearchBlock = true" class="search_box">

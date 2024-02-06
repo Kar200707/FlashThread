@@ -114,4 +114,6 @@ export class ChatsMenuComponent implements OnInit {
       this.searchData = data
     })
   }
+
+  protected readonly innerWidth = innerWidth;
 }

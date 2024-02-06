@@ -3,17 +3,16 @@
 }
 
 .main_div > .container {
-  background-color: #000000;
   width: 100%;
   padding: 0 16px;
 }
 
 .text_field {
-  color: white;
+  color: #4b4b4b;
   outline: none;
   width: 100%;
   padding: 16px 20px 14px 20px;
-  background-color: #000000;
+  background-color: #ffffff;
   border: 3px solid #5c13a4;
   margin-top: 15px;
   border-radius: 14px;
@@ -36,11 +35,11 @@
 }
 
 .text_field:focus {
-  border-color: rgba(255, 255, 255, 0.74);
+  border-color: #8100ff;
 }
 
 .text_field:focus::placeholder {
-  color: rgba(255, 255, 255, 0.27);
+  color: #8100ff;
 }
 
 .layer {
@@ -96,7 +95,9 @@ h1 {
 .login_block {
   border-radius: 20px;
   padding: 30px;
-  background-color: #000000;
+  width: 700px;
+  background-color: #ffffff;
+  margin-right: 30px;
 }
 
 .login_block > form {
@@ -155,6 +156,11 @@ h1 {
   .main_div > .container {
     justify-content: center;
   }
+
+  .login_block {
+    width: 70%;
+    margin-right: 0;
+  }
 }
 
 @media screen and (max-width: 770px) {
@@ -165,12 +171,18 @@ h1 {
 }
 
 @media screen and (max-width: 660px) {
-  .main_div {
-    background: white;
+  .text_field {
+    color: white;
+    background-color: black;
+  }
+
+  .main_div > .container {
+    background-color: black;
   }
 
   .login_block {
     width: 100%;
+    background-color: black;
   }
 
   .login_input {

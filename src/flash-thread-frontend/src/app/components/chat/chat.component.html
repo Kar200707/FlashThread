@@ -7,10 +7,6 @@
             arrow_back
           </mat-icon>
         </a>
-        <div class="img_box">
-          <img [src]="userInfo.avatar" alt="user img">
-          <div [class]="userInfo.isOnline ? 'online' : ''"></div>
-        </div>
         <div>
           <h2>{{ userInfo.name }}</h2>
           @if (!userInfo.isOnline) {
@@ -38,7 +34,7 @@
         </div>
       </div>
     }
-    <div #messagesScrollBox appResizeHeight [size]="170" class="messages_scroll_box">
+    <div #messagesScrollBox appResizeHeight [size]="innerWidth > 940 ? 170 : 245" class="messages_scroll_box">
       <div *ngIf="chatMessaging != undefined">
         <div
           *ngFor="let item of chatMessaging.messages, let i = index"
@@ -57,7 +53,7 @@
         <input
           matInput
           formControlName="message"
-          placeholder="Send Your Message"
+          placeholder="Type your message..."
           name="message"
           class="message_input"
           type="text">
