@@ -33,6 +33,7 @@ export class ChatComponent implements OnInit {
   @ViewChild('messagesScrollBox') messagesBoxScroll?: ElementRef<HTMLDivElement>;
 
   chatMessaging!: ChatInterface;
+  isPrint: boolean = false;
   userInfo!: User;
   chatInfo!: ChatInterface;
   thisUser!: User;
@@ -54,13 +55,10 @@ export class ChatComponent implements OnInit {
 
     this.webSocket.listen('message').subscribe((data: any) => {
       this.chatMessaging.messages.push(data);
-
       setTimeout(() => {
         if (this.messagesBoxScroll) {
           this.messagesBoxScroll.nativeElement.scrollTop = this.messagesBoxScroll.nativeElement.scrollHeight;
-        }
-      }, 100)
-
+        }}, 100)
       if (this.thisUser.id != data.userId) {
         const audio = new Audio();
         audio.src = './assets/audios/notifiaction/tones.mp3'
@@ -146,6 +144,10 @@ export class ChatComponent implements OnInit {
     setTimeout(() => {
       this.messagesBoxScroll?.nativeElement.scrollTo(0, this.messagesBoxScroll?.nativeElement.scrollHeight)
     }, 100)
+  }
+
+  printing() {
+    // this.webSocket.emit('message', { printing: true });
   }
 
   addNewChat() {

@@ -37,7 +37,7 @@ export class ChatsMenuComponent implements OnInit {
 
   isOpenedSearchBlock:boolean = false;
   tokenUser!: User;
-  aiLastMessage: string = 'loading...';
+  aiLastMessage: string = '';
   chatsData: ChatInterface[] = [];
   token: string | null = localStorage.getItem('token');
   isOpenedUserDetails:boolean = false;

@@ -1,5 +1,5 @@
 .main-div {
-  background: rgb(24 24 24);
+  background: rgb(38, 38, 38);
   width: 100%;
 }
 
@@ -69,7 +69,7 @@
   width: 100%;
   transition: .3s;
   border-radius: 100px;
-  background: rgb(24 24 24);
+  background: rgb(38, 38, 38);
 }
 
 .search:focus {
@@ -99,7 +99,7 @@ app-user-details {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 23px;
   transition: .2s;
 }
 

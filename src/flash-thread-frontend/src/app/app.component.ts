@@ -10,6 +10,7 @@ import { RequestService } from './services/request.service';
 import { environment } from '../environment/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { SetThemesService } from './services/set-themes.service';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   imports: [
@@ -39,7 +40,9 @@ export class AppComponent implements OnInit {
     private setMobileThemes: SetThemesService,
     private reqService: RequestService,
     private messagingService: MessagingService) {
-    this.setMobileThemes.setStatusBarStyle('#000000').then().catch();
+    if (Capacitor.isNative) {
+      this.setMobileThemes.setStatusBarStyle('#000000').then().catch();
+    }
   }
 
   ngOnInit() {

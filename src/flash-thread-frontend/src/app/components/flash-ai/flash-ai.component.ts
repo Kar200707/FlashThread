@@ -148,6 +148,9 @@ export class FlashAiComponent implements OnInit {
       const newMessage = this.form.value.message;
 
       this.aiChatMessages.push(newMesage);
+      setTimeout(() => {
+        this.messagesBoxScroll?.nativeElement.scrollTo(0, this.messagesBoxScroll?.nativeElement.scrollHeight)
+      }, 100)
 
       const formData = new FormData()
       if (this.isSelectedImg) {
@@ -185,18 +188,16 @@ export class FlashAiComponent implements OnInit {
         }
 
         this.form.reset();
-        setTimeout(() => {
-          this.messagesBoxScroll?.nativeElement.scrollTo(0, this.messagesBoxScroll?.nativeElement.scrollHeight)
-        }, 100)
 
         this.isLoadedAiAnswer = true;
         this.aiChatMessages.push(newMessageAi);
+
+        setTimeout(() => {
+          this.messagesBoxScroll?.nativeElement.scrollTo(0, this.messagesBoxScroll?.nativeElement.scrollHeight)
+        }, 100)
       })
     }
     this.form.reset();
-    setTimeout(() => {
-      this.messagesBoxScroll?.nativeElement.scrollTo(0, this.messagesBoxScroll?.nativeElement.scrollHeight)
-    }, 100)
   }
 
   selectMessage(messageElement: HTMLElement) {

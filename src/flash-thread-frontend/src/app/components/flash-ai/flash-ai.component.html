@@ -1,6 +1,6 @@
 <div class="main-div">
   <div class="lear">
-    <div #messagesScrollBox appResizeHeight [size]="170" class="messages_scroll_box">
+    <div #messagesScrollBox appResizeHeight [size]="innerWidth > 940 ? 185 : 240" class="messages_scroll_box">
       <div *ngIf="aiChatMessages != undefined">
         <div
           *ngFor="let item of aiChatMessages, let i = index"
@@ -65,25 +65,26 @@
         <input
           matInput
           formControlName="message"
-          placeholder="Send Your Message to Ai"
+          placeholder="Type your message..."
           name="message"
           class="message_input"
           type="text">
         <button [disabled]="form.invalid" class="send_button">
           <mat-icon [class]="form.valid ? 'send_button_icon-anim' : ''">auto_awesome</mat-icon>
         </button>
-      </form>
-      <label>
+        <label>
         <span class="select_image">
           <mat-icon>photo_library</mat-icon>
         </span>
-        <input
-          (change)="setImage(img, imageInput, $event)"
-          #imageInput
-          type="file"
-          multiple
-          accept="image/*" />
-      </label>
+          <input
+            capture="camera"
+            (change)="setImage(img, imageInput, $event)"
+            #imageInput
+            type="file"
+            multiple
+            accept="image/*" />
+        </label>
+      </form>
     </div>
   </div>
 </div>

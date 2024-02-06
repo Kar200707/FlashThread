@@ -1,24 +1,22 @@
 <div class="main-div">
   <div class="lear">
-    @if (userInfo) {
-      <div class="selected_chat_user">
-        <a routerLink="/chats-menu">
-          <mat-icon>
-            arrow_back
-          </mat-icon>
-        </a>
-        <div>
-          <h2>{{ userInfo.name }}</h2>
-          @if (!userInfo.isOnline) {
-            <p>Last seen {{ userInfo.last_connection?.hours + ':' + userInfo.last_connection?.minutes }}</p>
-          } @else {
-            <p>
-              Online
-            </p>
-          }
-        </div>
+    <div class="selected_chat_user">
+      <a routerLink="/chats-menu">
+        <mat-icon>
+          arrow_back
+        </mat-icon>
+      </a>
+      <div>
+        <h2>{{ userInfo ? userInfo.name : '...' }}</h2>
+        @if (userInfo && !userInfo.isOnline) {
+          <p>Last seen {{ userInfo.last_connection?.hours + ':' + userInfo.last_connection?.minutes }}</p>
+        } @else {
+          <p>
+            Online
+          </p>
+        }
       </div>
-    }
+    </div>
     @if (!isChackChatValid) {
       <div appResizeHeight [size]="innerWidth > 940 ? 86 : 75"
            [style.top]="innerWidth > 940 ? '84px' : '74px'"
@@ -35,7 +33,12 @@
       </div>
     }
     <div #messagesScrollBox appResizeHeight [size]="innerWidth > 940 ? 170 : 245" class="messages_scroll_box">
-      <div *ngIf="chatMessaging != undefined">
+      <div *ngIf="chatMessaging && userInfo">
+        <div class="user_box">
+          <img [src]="userInfo.avatar" alt="avatar">
+          <h4>{{ userInfo.name }}</h4>
+          <p>{{ userInfo.bio }}</p>
+        </div>
         <div
           *ngFor="let item of chatMessaging.messages, let i = index"
           [class]="thisUser.id !== item.userId ? 'message_box_reverce' : 'message_box'">
@@ -46,11 +49,22 @@
             {{ item.message }}
           </div>
         </div>
+        @if (isPrint) {
+          <div class="message_box_reverce">
+            <div class="message">
+              <img class="in-chat-user-avatar" [src]="userInfo.avatar" alt="user img">
+              <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
+            </div>
+          </div>
+        }
       </div>
     </div>
     <div class="message_sending_panel">
       <form [formGroup]="form" (ngSubmit)="send()">
         <input
+          (input)="printing()"
           matInput
           formControlName="message"
           placeholder="Type your message..."
