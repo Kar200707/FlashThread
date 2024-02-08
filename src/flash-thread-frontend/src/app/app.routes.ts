@@ -29,6 +29,12 @@ export const routes: Routes = [
         loadComponent: () => import('./components/flash-ai/flash-ai.component').then(x => x.FlashAiComponent),
         path: 'ai',
         title: 'Flash Ai'
+      },
+      {
+        canActivate: [mainPageGuard],
+        loadComponent: () => import('./pages/profile-edit/profile-edit.component').then(x => x.ProfileEditComponent),
+        path: 'profile',
+        title: 'Profile'
       }
     ],
   },
@@ -43,11 +49,5 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/register/register.component').then(x => x.RegisterComponent),
     path: 'register',
     title: 'Flash Thread Register',
-  },
-  {
-    canActivate: [mainPageGuard],
-    loadComponent: () => import('./pages/profile-edit/profile-edit.component').then(x => x.ProfileEditComponent),
-    path: 'profile',
-    title: 'Profile'
   }
 ];

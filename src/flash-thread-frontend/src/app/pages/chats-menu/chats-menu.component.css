@@ -85,6 +85,7 @@ app-user-details {
   top: 0;
   right: 0;
   z-index: 999;
+  transition: .2s;
 }
 
 .user_img_box {
@@ -115,25 +116,36 @@ app-user-details {
 }
 
 .chat_block {
+  overflow-x: scroll;
   padding: 32px 25px 25px 25px;
+}
+
+.chat_block::-webkit-scrollbar {
+  width: 0;
 }
 
 .chat_block > .chat {
   width: 100%;
   display: flex;
   align-items: center;
-  transition: .2s scale;
+  transition: .2s;
   outline: none;
-  margin-top: 15px;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid rgba(162, 162, 162, 0.12);
+  border-radius: 10px
 }
 
 
 .chat_block > .ai_chat {
+  border: 1px solid rgba(162, 162, 162, 0.12);
   margin-top: 17px;
   width: 100%;
   display: flex;
+  padding: 13px 10px;
   align-items: center;
-  transition: .2s scale;
+  transition: .2s;
+  border-radius: 10px;
   outline: none;
 }
 
@@ -170,19 +182,6 @@ app-user-details {
 .active-chat.active-chat.active-chat {
   background: rgb(68, 68, 68);
   border: 1px solid rgba(255, 255, 255, 0.28);
-  scale: 1.02;
-}
-
-.active-chat.active-chat.active-chat:after {
-  content: "";
-  display: block;
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  background-color: rgb(68, 68, 68);
-  border-top-right-radius: 6px;
-  rotate: 45deg;
-  right: -10px;
 }
 
 .chat_block > .chat > div {
@@ -249,6 +248,12 @@ app-user-details {
 
 /* media */
 
+@media screen and (min-width: 940px) {
+  .main-div {
+    border-right: 1px solid rgba(255, 255, 255, 0.11);
+  }
+}
+
 @media screen and (max-width: 520px) {
   .search {
     width: 100%;
@@ -257,7 +262,7 @@ app-user-details {
 
 .header_box {
   width: 100%;
-  margin: 56px 0 32px 0;
+  margin: 10px 0 32px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;

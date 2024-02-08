@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 90px 20px 0 20px;
+  padding: 58px 20px 0 20px;
   position: relative;
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
@@ -95,7 +95,7 @@
   position: fixed;
   bottom: 0;
   background-color: black;
-  padding: 25px 30px;
+  padding: 16px 30px;
   width: 100%;
   border-top-left-radius: 32px;
   border-top-right-radius: 32px;
@@ -225,11 +225,15 @@
   padding-bottom: 10px;
 }
 
+.messages_scroll_box::-webkit-scrollbar {
+  width: 0;
+}
+
 .selected_chat_user {
   justify-content: center;
   z-index: 500;
   padding: 10px 25px;
-  background-color: #0a0a0a;
+  background-color: #000000;
   position: absolute;
   left: 0;
   top: 0;
@@ -325,7 +329,7 @@
 
 @media screen and (max-width: 940px) {
   .lear {
-    padding: 138px 16px 0 16px;
+    padding: 70px 16px 0 16px;
   }
 
   .messages_scroll_box {
@@ -333,7 +337,7 @@
   }
 
   .selected_chat_user {
-    padding: 63px 25px 32px 25px;
+    padding: 16px 25px;
   }
 
   .selected_chat_user > a {

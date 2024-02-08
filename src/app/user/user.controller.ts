@@ -29,8 +29,6 @@ export class UserController {
     const modifiedData: User = body;
     if (file) {
       modifiedData.avatar = '/uploads/images/user/' + file.filename;
-    } else {
-      modifiedData.avatar = '/uploads/images/default-user.jpg';
     }
 
     return this.userService.edit(modifiedData);

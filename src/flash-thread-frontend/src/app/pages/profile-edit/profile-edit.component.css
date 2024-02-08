@@ -1,0 +1,154 @@
+.main-div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  height: 100vh;
+  background-color: rgb(30, 30, 30);
+  overflow-y: scroll;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.main-div::-webkit-scrollbar {
+  width: 0;
+}
+
+.user_img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.back_icon {
+  color: white;
+  position: absolute;
+  left: 25px;
+  top: 20px;
+}
+
+.header-block {
+  padding: 16px 25px;
+  background-color: #000000;
+  width: 100%;
+  border-bottom-right-radius: 32px;
+  border-bottom-left-radius: 32px;
+  position: relative;
+}
+
+.img_box {
+  margin-top: 50px;
+  position: relative;
+  width: 100px;
+}
+
+.input_select_img {
+  display: none;
+}
+
+.header-block > h4 {
+  color: white;
+  font-size: 24px;
+  font-family: Poppins;
+  text-align: center;
+}
+
+.edit_button {
+  background: linear-gradient(to left, #003aff, rgba(255, 0, 251, 0.77));
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  color: white;
+  border-radius: 50%;
+}
+
+.info_inputs_block {
+  margin-top: 30px;
+}
+
+.info_inputs_block > div {
+  display: flex;
+  align-items: center;
+  width: 500px;
+  justify-content: space-between;
+}
+
+.info_inputs_block > div > label > p,
+.info_inputs_block > label > p {
+  font-family: Poppins;
+  color: white;
+  margin-bottom: 5px;
+}
+
+.info_inputs_block > div > label > input,
+.info_inputs_block > label > input {
+  outline: none;
+  height: 15px;
+  border: none;
+  width: 100%;
+  font-family: Poppins;
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  text-align: left;
+  padding: 25px;
+  transition: .3s;
+  border-radius: 100px;
+  background: rgb(38, 38, 38);
+}
+
+.send_button {
+  width: 100%;
+  border: none;
+  padding: 5px;
+  border-radius: 30px;
+  margin-top: 30px;
+  font-family: Poppins;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: bolder;
+  color: white;
+  background-color: #2a2a2a;
+  background:  linear-gradient(to left, rgba(0, 58, 255, 0.68), rgba(255, 0, 251, 0.68));
+}
+
+@media screen and (max-width: 585px) {
+  form {
+    width: 90%;
+  }
+
+  .info_inputs_block > div > label,
+  .info_inputs_block > label {
+    width: 100%;
+    display: block;
+    margin-top: 25px;
+  }
+
+  .info_inputs_block {
+    width: 100%;
+  }
+
+  .info_inputs_block > label > input,
+  .info_inputs_block > div > label > input {
+    padding: 30px 25px;
+  }
+
+  .info_inputs_block > div {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .send_button {
+    padding: 15px;
+  }
+}

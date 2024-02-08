@@ -131,16 +131,13 @@ export class AiService {
         })
 
         const chat = model.startChat({
-          history: history,
-          generationConfig: {
-            maxOutputTokens: 100,
-          },
+          history: history
         })
 
         const result = await chat.sendMessage(message);
-        const response = await result.response;
+        const response = await result.response
 
-        const aiGeneratedData = response.text();
+        const aiGeneratedData:any = response.text();
 
         const newChatAi:any = await this.aiChatModel.findOne({ userId: userData.id });
         const aiSendData:AiChatInterface = newChatAi.toObject();

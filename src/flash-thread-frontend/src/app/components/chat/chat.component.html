@@ -2,9 +2,7 @@
   <div class="lear">
     <div class="selected_chat_user">
       <a routerLink="/chats-menu">
-        <mat-icon>
-          arrow_back
-        </mat-icon>
+        <mat-icon>arrow_back_ios</mat-icon>
       </a>
       <div>
         <h2>{{ userInfo ? userInfo.name : '...' }}</h2>
@@ -17,22 +15,7 @@
         }
       </div>
     </div>
-    @if (!isChackChatValid) {
-      <div appResizeHeight [size]="innerWidth > 940 ? 86 : 75"
-           [style.top]="innerWidth > 940 ? '84px' : '74px'"
-           class="first_message_block">
-        <h3>Send your first letter to {{ userInfo.name }}</h3>
-        <div>
-          <form [formGroup]="firstMessageForm" (ngSubmit)="addNewChat()">
-            <input formControlName="message" type="text" placeholder="Message">
-          </form>
-          <button (click)="addNewChat()">
-            <mat-icon>send</mat-icon>
-          </button>
-        </div>
-      </div>
-    }
-    <div #messagesScrollBox appResizeHeight [size]="innerWidth > 940 ? 170 : 245" class="messages_scroll_box">
+    <div #messagesScrollBox appResizeHeight [size]="innerWidth > 940 ? 130 : 140" class="messages_scroll_box">
       <div *ngIf="chatMessaging && userInfo">
         <div class="user_box">
           <img [src]="userInfo.avatar" alt="avatar">
@@ -64,6 +47,7 @@
     <div class="message_sending_panel">
       <form [formGroup]="form" (ngSubmit)="send()">
         <input
+          (focus)="scrollDown()"
           (input)="printing()"
           matInput
           formControlName="message"

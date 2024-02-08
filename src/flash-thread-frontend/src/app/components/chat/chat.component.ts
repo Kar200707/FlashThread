@@ -44,9 +44,6 @@ export class ChatComponent implements OnInit {
   form: FormGroup = new FormGroup({
     message: new FormControl('', Validators.required)
   })
-  firstMessageForm: FormGroup = new FormGroup({
-    message: new FormControl('Hi!')
-  })
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -66,6 +63,14 @@ export class ChatComponent implements OnInit {
         audio.play();
       }
     })
+  }
+
+  scrollDown() {
+    setTimeout(() => {
+      if (this.messagesBoxScroll) {
+        this.messagesBoxScroll.nativeElement.scrollTop = this.messagesBoxScroll.nativeElement.scrollHeight;
+      }
+    }, 100)
   }
 
   ngOnInit() {
@@ -115,31 +120,37 @@ export class ChatComponent implements OnInit {
 
   send() {
     if (this.form.value.message) {
-      const date:Date = new Date();
+      if (this.isChackChatValid) {
+        const date:Date = new Date();
 
-      const newMesage = {
-        message: this.form.value.message,
-        userId: this.thisUser.id ? this.thisUser.id : '',
-        date: {
-          day: date.getDay(),
-          month: date.getMonth(),
-          year: date.getFullYear(),
-          hours: date.getHours(),
-          minutes: date.getMinutes(),
-          date: date.getDate()
+        const newMesage = {
+          message: this.form.value.message,
+          userId: this.thisUser.id ? this.thisUser.id : '',
+          date: {
+            day: date.getDay(),
+            month: date.getMonth(),
+            year: date.getFullYear(),
+            hours: date.getHours(),
+            minutes: date.getMinutes(),
+            date: date.getDate()
+          }
         }
+
+        this.chatMessaging.messages.push(newMesage);
+
+        const obj = {
+          message: this.form.value.message,
+          chatId: this.chatInfo.id,
+          token: this.token
+        }
+
+        this.webSocket.emit('message', obj);
+      } else {
+        this.addNewChat();
+        console.log('ads');
       }
-
-      this.chatMessaging.messages.push(newMesage);
-
-      const obj = {
-        message: this.form.value.message,
-        chatId: this.chatInfo.id,
-        token: this.token
-      }
-
-      this.webSocket.emit('message', obj);
     }
+
     this.form.reset();
     setTimeout(() => {
       this.messagesBoxScroll?.nativeElement.scrollTo(0, this.messagesBoxScroll?.nativeElement.scrollHeight)
@@ -162,7 +173,7 @@ export class ChatComponent implements OnInit {
       messages: [
         {
           userId: this.thisUser.id,
-          message: this.firstMessageForm.get('message')?.value,
+          message: this.form.value.message,
           date: {
             day: date.getDay(),
             month: date.getMonth(),
@@ -177,10 +188,10 @@ export class ChatComponent implements OnInit {
     this.reqService.post<any>(environment.chat, chatObj).subscribe(chatData => {
       this.chatMessaging = chatData;
     })
-    this.firstMessageForm.reset();
 
     this.isChackChatValid = true;
   }
 
   protected readonly innerWidth = innerWidth;
+  protected readonly setTimeout = setTimeout;
 }

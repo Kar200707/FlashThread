@@ -21,8 +21,10 @@
            background-color: rgba(0,0,0,0.34);
          "
       ></div>
-      <app-user-details [userData]="userData"></app-user-details>
     }
+    <app-user-details
+      [style.left]="isOpenedUserDetails ? '0' : '-' + innerWidth + 'px'"
+      [userData]="userData"></app-user-details>
     <div
       (mouseleave)="isOpenedSearchBlock = false"
       (click)="isOpenedSearchBlock = true" class="search_box">
@@ -76,9 +78,13 @@
       }
     </div>
   </div>
-  <div class="chat_block">
+  <div
+    appResizeHeight
+    [size]="195"
+    class="chat_block">
     <h3>Chat</h3>
     <div
+      routerLinkActive="active-chat"
       routerLink="/messenger/ai"
       class="ai_chat">
       <mat-icon>auto_awesome</mat-icon>

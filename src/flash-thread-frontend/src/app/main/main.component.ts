@@ -1,5 +1,4 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { ChatListsComponent } from "../components/chat-lists/chat-lists.component";
 import { ResizeHeightDirective } from "../directives/resize-height.directive";
 import { ChatComponent } from "../components/chat/chat.component";
 import { RequestService } from "../services/request.service";
@@ -15,12 +14,12 @@ import { MessagingService } from '../services/messaging.service';
 import { AngularFireMessaging, AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 import { MessagingModule } from '@angular/fire/messaging';
 import { SetThemesService } from '../services/set-themes.service';
+import { ChatsMenuComponent } from '../pages/chats-menu/chats-menu.component';
 
 @Component({
   selector: 'app-main',
   standalone: true,
   imports: [
-    ChatListsComponent,
     ResizeHeightDirective,
     ChatComponent,
     HttpClientModule,
@@ -30,6 +29,7 @@ import { SetThemesService } from '../services/set-themes.service';
     RouterOutlet,
     AngularFireMessagingModule,
     MessagingModule,
+    ChatsMenuComponent,
   ],
   providers: [
     // SetThemesService,
@@ -85,6 +85,10 @@ export class MainComponent implements  OnInit {
 
 
   }
+
+  // onMove(e: any) {
+  //   console.log(e);
+  // }
 
   protected readonly innerWidth = innerWidth;
 }

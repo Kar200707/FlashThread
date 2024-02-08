@@ -1,6 +1,6 @@
 <div class="main-div">
   <div class="lear">
-    <div #messagesScrollBox appResizeHeight [size]="innerWidth > 940 ? 185 : 240" class="messages_scroll_box">
+    <div #messagesScrollBox appResizeHeight [size]="innerWidth > 940 ? 130 : 140" class="messages_scroll_box">
       <div *ngIf="aiChatMessages != undefined">
         <div
           *ngFor="let item of aiChatMessages, let i = index"
@@ -49,7 +49,7 @@
         <mat-icon color="warn">delete_sweep</mat-icon>
       </button>
       <a routerLink="/chats-menu">
-        <mat-icon>arrow_back</mat-icon>
+        <mat-icon>arrow_back_ios</mat-icon>
       </a>
       <div class="img_box">
         <mat-icon>auto_awesome</mat-icon>
@@ -63,6 +63,7 @@
           <img #img>
         </div>
         <input
+          (focus)="scrollDown()"
           matInput
           formControlName="message"
           placeholder="Type your message..."
@@ -74,7 +75,7 @@
         </button>
         <label>
         <span class="select_image">
-          <mat-icon>photo_library</mat-icon>
+          <mat-icon>photo_camera</mat-icon>
         </span>
           <input
             capture="camera"

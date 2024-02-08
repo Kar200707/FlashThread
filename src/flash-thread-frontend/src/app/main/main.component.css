@@ -4,3 +4,10 @@
   justify-content: normal;
   align-items: center;
 }
+
+.move_line {
+  height: 100vh;
+  width: 3px;
+  background-color: white;
+  cursor: e-resize;
+}

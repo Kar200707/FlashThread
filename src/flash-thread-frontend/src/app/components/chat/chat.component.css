@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 80px 20px 0 20px;
+  padding: 58px 20px 0 20px;
   position: relative;
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
@@ -63,7 +63,7 @@
   position: fixed;
   bottom: 0;
   background-color: black;
-  padding: 25px 30px;
+  padding: 16px 30px;
   width: 100%;
   border-top-left-radius: 32px;
   border-top-right-radius: 32px;
@@ -161,7 +161,7 @@
   justify-content: center;
   z-index: 500;
   padding: 10px 25px;
-  background-color: #0a0a0a;
+  background-color: #000000;
   position: absolute;
   left: 0;
   top: 0;
@@ -292,11 +292,11 @@
 
 @media screen and (max-width: 940px) {
   .lear {
-    padding: 145px 5px 0 5px;
+    padding: 70px 16px 0 16px;
   }
 
   .selected_chat_user {
-    padding: 63px 25px 22px 25px;
+    padding: 16px 25px;
   }
 
   .selected_chat_user > a {

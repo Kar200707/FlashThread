@@ -134,6 +134,14 @@ export class FlashAiComponent implements OnInit {
     }
   }
 
+  scrollDown() {
+    setTimeout(() => {
+      if (this.messagesBoxScroll) {
+        this.messagesBoxScroll.nativeElement.scrollTop = this.messagesBoxScroll.nativeElement.scrollHeight;
+      }
+    }, 100)
+  }
+
   send(e?: any) {
     this.isCopied = false;
     this.isSpeak = false;

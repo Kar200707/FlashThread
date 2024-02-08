@@ -1,6 +1,52 @@
-<p>profile-edit works!</p>
-<form [formGroup]="form" (ngSubmit)="send(avatarFile)">
-  <input #avatarFile formControlName="avatar" name="avatar" type="file">
-  <button>save</button>
-</form>
-<video autoplay src="blob:https://www.youtube.com/30b23e26-077f-496e-91ec-01f0d5e999ef"></video>
+<div class="main-div">
+  <div class="header-block">
+    <mat-icon routerLink="/chats-menu" class="back_icon" >arrow_back_ios</mat-icon>
+    <h4>Profile</h4>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="send(avatarFile)">
+    <div class="img_box">
+      <img #img class="user_img" [src]="profileData ? profileData.avatar : ''" alt="profile avatar">
+      <label>
+        <input
+          (change)="setImage(img, avatarFile)"
+          class="input_select_img"
+          #avatarFile formControlName="avatar"
+          name="avatar"
+          type="file">
+        <mat-icon class="edit_button">edit</mat-icon>
+      </label>
+    </div>
+    <div class="info_inputs_block">
+      <div>
+        <label>
+          <p>Name</p>
+          <input
+            [value]="profileData ? profileData.name : 'loading...'"
+            type="text"
+            placeholder="Type your first name"
+            formControlName="f_name"
+            name="f_name">
+        </label>
+        <label>
+          <p>Last Name</p>
+          <input
+            [value]="profileData ? profileData.l_name : 'loading...'"
+            type="text"
+            placeholder="Type your last name"
+            formControlName="l_name"
+            name="l_name">
+        </label>
+      </div>
+      <label style="margin-top: 25px; display: block">
+        <p>Biography</p>
+        <input
+          [value]="profileData ? profileData.bio : 'loading...'"
+          type="text"
+          placeholder="Type your biography name"
+          formControlName="bio"
+          name="l_name">
+      </label>
+    </div>
+    <button class="send_button">save</button>
+  </form>
+</div>
