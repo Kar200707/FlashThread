@@ -21,11 +21,13 @@ form {
 .user_img {
   width: 100px;
   height: 100px;
+  object-fit: cover;
   border-radius: 50%;
 }
 
 .back_icon {
   color: white;
+  display: none;
   position: absolute;
   left: 25px;
   top: 20px;
@@ -41,7 +43,7 @@ form {
 }
 
 .img_box {
-  margin-top: 50px;
+  margin-top: 30px;
   position: relative;
   width: 100px;
 }
@@ -83,10 +85,15 @@ form {
 }
 
 .info_inputs_block > div > label > p,
-.info_inputs_block > label > p {
+.info_inputs_block > label > p,
+.info_inputs_block > p {
   font-family: Poppins;
   color: white;
   margin-bottom: 5px;
+}
+
+.info_inputs_block > p {
+  margin-top: 15px;
 }
 
 .info_inputs_block > div > label > input,
@@ -120,6 +127,39 @@ form {
   color: white;
   background-color: #2a2a2a;
   background:  linear-gradient(to left, rgba(0, 58, 255, 0.68), rgba(255, 0, 251, 0.68));
+}
+
+.email_verify_button {
+  width: 40px;
+  height: 40px;
+  background-color: #8a1414;
+  border-radius: 50%;
+}
+
+.email_block {
+  outline: none;
+  height: 15px;
+  border: none;
+  width: 100%;
+  font-family: Poppins;
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  padding: 25px 10px 25px 25px;
+  transition: .3s;
+  border-radius: 100px;
+  background: rgb(63, 63, 63);
+}
+
+@media screen and (max-width: 940px) {
+  .back_icon {
+    display: block;
+  }
 }
 
 @media screen and (max-width: 585px) {

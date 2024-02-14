@@ -35,11 +35,13 @@ export class ChatComponent implements OnInit {
   chatMessaging!: ChatInterface;
   isPrint: boolean = false;
   userInfo!: User;
+  isOpenedMessageOptions: boolean = false;
   chatInfo!: ChatInterface;
   thisUser!: User;
   idParam!: string;
   isChackChatValid: boolean = true;
   token: string | null = localStorage.getItem('token');
+  messageSelectTimeOut: any;
 
   form: FormGroup = new FormGroup({
     message: new FormControl('', Validators.required)
@@ -147,7 +149,6 @@ export class ChatComponent implements OnInit {
         this.webSocket.emit('message', obj);
       } else {
         this.addNewChat();
-        console.log('ads');
       }
     }
 
@@ -158,38 +159,57 @@ export class ChatComponent implements OnInit {
   }
 
   printing() {
-    // this.webSocket.emit('message', { printing: true });
+    // this.isPrint = true
+    // let timeOut = setTimeout(() => {
+    //   clearTimeout(timeOut);
+    //   this.isPrint = false
+    //   console.log(this.isPrint);
+    // }, 1000);
+    // console.log(this.isPrint);
   }
 
   addNewChat() {
     const userId:string = this.idParam;
-    const date:Date = new Date();
-    const chatObj = {
-      clientToken: this.token,
-      usersId: [
-        userId,
-        this.thisUser.id
-      ],
-      messages: [
-        {
-          userId: this.thisUser.id,
-          message: this.form.value.message,
-          date: {
-            day: date.getDay(),
-            month: date.getMonth(),
-            year: date.getFullYear(),
-            hours: date.getHours(),
-            minutes: date.getMinutes(),
-            date: date.getDate()
-          }
-        }]
-    }
 
-    this.reqService.post<any>(environment.chat, chatObj).subscribe(chatData => {
+    this.reqService.post<any>(environment.chat,
+      {
+        clientToken: this.token,
+        message: this.form.value.message,
+        userId: userId
+      }
+    ).subscribe(chatData => {
       this.chatMessaging = chatData;
     })
 
     this.isChackChatValid = true;
+  }
+
+  deleteMessage(id: string | undefined) {
+    if (confirm('delete this message?')) {
+      this.reqService.delete<any>(environment.chatMessagesDelete, {
+        token: this.token,
+        chatId: this.chatMessaging.id,
+        messageId: id
+      }).subscribe((data) => {
+        this.isOpenedMessageOptions = false;
+        console.log(data);
+        this.chatMessaging.messages = data;
+      })
+    }
+  }
+
+  selectMessage(messageElement: HTMLElement) {
+    messageElement.style.transition = '.3s'
+    messageElement.style.scale = '.96'
+    this.messageSelectTimeOut = setTimeout(() => {
+      this.isOpenedMessageOptions = true;
+    }, 800)
+  }
+
+  unselectMessage(messageElement: HTMLElement) {
+    messageElement.style.transition = '.3s'
+    messageElement.style.scale = '1'
+    clearTimeout(this.messageSelectTimeOut);
   }
 
   protected readonly innerWidth = innerWidth;

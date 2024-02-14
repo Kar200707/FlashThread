@@ -14,6 +14,8 @@ import { ChatModule } from "./app/chat/chat.module";
 import { GetUserByTokenModule } from './app/get_user_by_token/get_user_by_token.module';
 import { UserModule } from './app/user/user.module';
 import { AiModule } from './app/ai/ai.module';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { EmailVerifyModule } from './app/email-verify/email-verify.module';
 
 @Module({
   imports: [
@@ -26,6 +28,16 @@ import { AiModule } from './app/ai/ai.module';
     }),
     MongooseModule.forRoot(process.env.DB_URI),
     GatewayModule,
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.gmail.com',
+        secure: true,
+        auth: {
+          user: process.env.MAIL_LOG,
+          pass: process.env.MAIL_PASS,
+        },
+      }
+    }),
 
     // api modules
 
@@ -37,6 +49,7 @@ import { AiModule } from './app/ai/ai.module';
     GetUserByTokenModule,
     UserModule,
     AiModule,
+    EmailVerifyModule
   ],
   controllers: [AppController],
   providers: [AppService],

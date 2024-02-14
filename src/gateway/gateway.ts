@@ -14,6 +14,7 @@ import { Model } from 'mongoose';
 import { User } from '../app/models/user.model';
 import { Chat, ChatDocumnet } from '../app/chat/schemas/chat.schema';
 import { HttpService } from '@nestjs/axios';
+import * as mongoose from 'mongoose';
 
 @WebSocketGateway({ cors: true })
 export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -44,10 +45,11 @@ export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect {
         const chatId: string = body.chatId;
         const chat = await this.chatModel.findById(chatId);
         const date: Date = new Date();
-        const obj = chat.toObject();
+        const obj:any = chat.toObject();
 
         const newMesage = {
           message: body.message,
+          id: new mongoose.Types.ObjectId().toString(),
           userId: clientId,
           date: {
             day: date.getDay(),

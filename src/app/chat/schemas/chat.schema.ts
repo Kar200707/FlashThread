@@ -13,6 +13,7 @@ export class Chat {
     {
       message: string,
       userId: string,
+      id: string
       date: {
         day: number,
         month: number,

@@ -20,6 +20,7 @@
 }
 
 .message {
+  position: relative;
   padding: 10px 20px;
   border-radius: 20px 20px 0 20px;
   background: rgb(0, 80, 239);
@@ -360,4 +361,9 @@
   font-family: Poppins;
   font-weight: 700;
   margin-top: 10px;
+}
+
+.message_options {
+  position: absolute;
+  left: -25px;
 }

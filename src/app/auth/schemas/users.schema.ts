@@ -6,6 +6,9 @@ export type UsersDocument = Users & Document;
 @Schema({ collection: 'users' })
 export class Users {
   @Prop()
+  mailVerifyCode: string
+
+  @Prop()
   isOnline: boolean
 
   @Prop({ required: true })

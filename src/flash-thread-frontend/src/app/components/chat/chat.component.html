@@ -23,9 +23,25 @@
           <p>{{ userInfo.bio }}</p>
         </div>
         <div
+          (mousedown)="thisUser.id === item.userId ? selectMessage(myMessage): false"
+          (mouseup)="thisUser.id === item.userId ? unselectMessage(myMessage): false"
+          (touchstart)="thisUser.id === item.userId ? selectMessage(myMessage): false"
+          (touchend)="thisUser.id === item.userId ? unselectMessage(myMessage): false"
           *ngFor="let item of chatMessaging.messages, let i = index"
+          (click)="thisUser.id !== item.userId ? isOpenedMessageOptions = false : false"
+          [style.border-top]="thisUser.id === item.userId && isOpenedMessageOptions ? '1px solid rgba(255,255,255,0.4)' : '0'"
+          [style.border-bottom]="thisUser.id === item.userId && isOpenedMessageOptions ? '1px solid rgba(255,255,255,0.4)' : '0'"
+          [style.padding]="thisUser.id === item.userId && isOpenedMessageOptions ? '3px 0' : '0'"
+          [style.background-color]="thisUser.id === item.userId && isOpenedMessageOptions ? 'rgba(255,255,255,0.12)' : 'transparent'"
           [class]="thisUser.id !== item.userId ? 'message_box_reverce' : 'message_box'">
-          <div class="message">
+          <div
+            #myMessage
+            class="message">
+            @if (thisUser.id === item.userId && isOpenedMessageOptions) {
+              <div class="message_options">
+                <mat-icon (click)="deleteMessage(item.id)" color="warn">delete</mat-icon>
+              </div>
+            }
             @if (chatMessaging.usersId.length === 2 && thisUser.id !== item.userId) {
               <img class="in-chat-user-avatar" [src]="userInfo.avatar" alt="user img">
             }

@@ -21,6 +21,12 @@ export const routes: Routes = [
     children: [
       {
         canActivate: [mainPageGuard],
+        loadComponent: () => import('./pages/settings/settings.component').then(x => x.SettingsComponent),
+        path: 'settings',
+        title: 'Settings'
+      },
+      {
+        canActivate: [mainPageGuard],
         loadComponent: () => import('./components/chat/chat.component').then(x => x.ChatComponent),
         path: 'chat/:id'
       },

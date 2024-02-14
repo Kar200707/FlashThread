@@ -6,6 +6,7 @@ export interface ChatInterface {
   messages: {
       message: string;
       userId: string;
+      id?: string;
       date: {
         day: number;
         month: number;

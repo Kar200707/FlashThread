@@ -83,6 +83,7 @@ export class ChatsMenuComponent implements OnInit {
         data.forEach(item => {
           if (item) {
             this.chatsData.push(item);
+            console.log();
           }
         })
 

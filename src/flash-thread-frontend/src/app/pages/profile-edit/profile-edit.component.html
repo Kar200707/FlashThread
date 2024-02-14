@@ -21,7 +21,7 @@
         <label>
           <p>Name</p>
           <input
-            [value]="profileData ? profileData.name : 'loading...'"
+            [value]="profileData ? profileData.name : ''"
             type="text"
             placeholder="Type your first name"
             formControlName="f_name"
@@ -30,21 +30,26 @@
         <label>
           <p>Last Name</p>
           <input
-            [value]="profileData ? profileData.l_name : 'loading...'"
+            [value]="profileData ? profileData.l_name : ''"
             type="text"
             placeholder="Type your last name"
             formControlName="l_name"
             name="l_name">
         </label>
       </div>
-      <label style="margin-top: 25px; display: block">
+      <p>Email</p>
+      <div class="email_block">
+        <p>{{ profileData ? profileData.email : '' }}</p>
+        <div class="email_verify_button"></div>
+      </div>
+      <label style="margin-top: 15px; display: block">
         <p>Biography</p>
         <input
-          [value]="profileData ? profileData.bio : 'loading...'"
+          [value]="profileData ? profileData.bio : ''"
           type="text"
           placeholder="Type your biography name"
           formControlName="bio"
-          name="l_name">
+          name="bio">
       </label>
     </div>
     <button class="send_button">save</button>

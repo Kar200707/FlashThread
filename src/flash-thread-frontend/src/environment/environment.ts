@@ -16,5 +16,6 @@ export const environment = {
   userLogout: host + 'user/logout',
   ai: host + 'ai',
   aiGetChat: host + 'ai/chat/get',
-  aiDeleteChat: host + 'ai/chat/delete'
+  aiDeleteChat: host + 'ai/chat/delete',
+  chatMessagesDelete: host + 'chat/messages'
 }

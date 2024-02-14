@@ -4,10 +4,13 @@ import { Users, UsersDocument } from "../schemas/users.schema";
 import { Model } from "mongoose";
 import * as bcrypt from 'bcrypt';
 import { User } from "../../models/user.model";
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class RegisterService {
-  constructor(@InjectModel(Users.name) private readonly userModel: Model<UsersDocument>) {}
+  constructor(
+    private readonly mailerService: MailerService,
+    @InjectModel(Users.name) private readonly userModel: Model<UsersDocument>) {}
 
   async signUp(body) {
     if (body.email && body.password && body.name) {
@@ -39,6 +42,13 @@ export class RegisterService {
       }
 
       const createdData = this.userModel.create(sendObj);
+
+      await this.mailerService.sendMail({
+        to: body.email,
+        subject: 'Welcome to Flash Thread',
+        text: 'welcome',
+        html: `<h1 style="color: #3f51b5">Hello! ${ body.name }. Thanks for register</h1>`
+      })
 
       return {
         messgae: 'register successfully',

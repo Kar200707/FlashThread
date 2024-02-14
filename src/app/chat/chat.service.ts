@@ -4,6 +4,7 @@ import { Chat, ChatDocumnet } from "./schemas/chat.schema";
 import { Model } from "mongoose";
 import { ChatInterface } from "../models/chat.model";
 import { Users, UsersDocument } from '../auth/schemas/users.schema';
+import mongoose from 'mongoose';
 
 @Injectable()
 export class ChatService {
@@ -48,8 +49,8 @@ export class ChatService {
     }
   }
 
-  async addChat(body: ChatInterface) {
-    const { clientToken } = body;
+  async addChat(body) {
+    const { clientToken, userId, message } = body;
 
     if (!clientToken) {
       throw new HttpException('client token not selected', HttpStatus.BAD_REQUEST);
@@ -61,11 +62,29 @@ export class ChatService {
       throw new HttpException('User with this token does not exist', HttpStatus.BAD_REQUEST)
     }
 
-    console.log(body);
-    let modifiedBody: any = body;
-    delete modifiedBody.clientToken;
+    const date:Date = new Date();
+    const chatObj = {
+      usersId: [
+        userId,
+        user.id
+      ],
+      messages: [
+        {
+          userId: user.id,
+          message: message,
+          id: new mongoose.Types.ObjectId().toString(),
+          date: {
+            day: date.getDay(),
+            month: date.getMonth(),
+            year: date.getFullYear(),
+            hours: date.getHours(),
+            minutes: date.getMinutes(),
+            date: date.getDate()
+          }
+        }]
+    }
 
-    const createdChat = await this.chatModel.create(modifiedBody);
+    const createdChat = await this.chatModel.create(chatObj);
 
     let modifiedData:any = createdChat.toObject();
 
@@ -133,5 +152,49 @@ export class ChatService {
     })
 
     return modifiedChats;
+  }
+
+  async removeMessage(token:string, chatId: string, messageId: string) {
+    if (!token) {
+      throw new HttpException('not selected token', HttpStatus.BAD_REQUEST);
+    }
+    if (!chatId) {
+      throw new HttpException('not selected chatId', HttpStatus.BAD_REQUEST);
+    }
+    if (!messageId) {
+      throw new HttpException('not selected messageId', HttpStatus.BAD_REQUEST);
+    }
+
+    const userData = await this.usersModel.findOne({ password: token });
+
+    if (!userData) {
+      throw new HttpException('User with this token does not exist', HttpStatus.BAD_REQUEST)
+    }
+
+    try {
+      const chatData = await this.chatModel.findOne({ _id: chatId });
+
+      const modifiedMessages:any = [];
+
+      chatData.messages.forEach(item => {
+        if (item.id.toString() === messageId) {
+          if (item.userId !== userData.id) {
+            throw new HttpException('delete not', HttpStatus.BAD_REQUEST);
+          }
+        }
+        if (item.id.toString() !== messageId) {
+          modifiedMessages.push(item)
+        }
+      })
+
+      const newChat = chatData.toObject();
+      newChat.messages = modifiedMessages;
+
+      await this.chatModel.findOneAndUpdate({ _id: chatId }, newChat)
+
+      return modifiedMessages
+    } catch (e) {
+      throw new HttpException('Chat or Message with this id does not exist', HttpStatus.BAD_REQUEST);
+    }
   }
 }

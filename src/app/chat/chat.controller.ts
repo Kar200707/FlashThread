@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Post } from '@nestjs/common';
 import { ChatService } from "./chat.service";
 import { ChatInterface } from "../models/chat.model";
 
@@ -24,5 +24,12 @@ export class ChatController {
   @Post('/get-active-chats')
   getClientActiveChats(@Body() body) {
     return this.chatService.getClientActiveChats(body);
+  }
+
+  @Delete('/messages')
+  removeMessage(@Body() body) {
+    const { token, messageId, chatId } = body;
+
+    return this.chatService.removeMessage(token, chatId, messageId);
   }
 }
