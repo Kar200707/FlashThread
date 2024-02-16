@@ -6,7 +6,10 @@ export type UsersDocument = Users & Document;
 @Schema({ collection: 'users' })
 export class Users {
   @Prop()
-  mailVerifyCode: string
+  mailVerifyCode: string | undefined
+
+  @Prop()
+  isMailVerify: boolean
 
   @Prop()
   isOnline: boolean

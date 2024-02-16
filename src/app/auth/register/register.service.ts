@@ -28,6 +28,7 @@ export class RegisterService {
         email: body.email,
         password: hash,
         name: body.name,
+        isMailVerify: false,
         avatar: !body.avatar ? `/uploads/images/default-user.jpg` : body.avatar,
         last_connection: {
           day: date.getDay(),
