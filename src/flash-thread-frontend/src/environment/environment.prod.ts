@@ -16,5 +16,7 @@ export const environment = {
   ai: host + 'ai',
   aiGetChat: host + 'ai/chat/get',
   aiDeleteChat: host + 'ai/chat/delete',
-  chatMessagesDelete: host + 'chat/messages'
+  chatMessagesDelete: host + 'chat/messages',
+  emailSendVerifyCode: host + 'email-verify/code/send',
+  emailCheckVerifyCode: host + 'email-verify/code/check'
 }

@@ -22,6 +22,9 @@ export class GetUserByTokenService {
     delete modifeiedData.password;
     delete modifeiedData.isOnline;
     delete modifeiedData.last_connection;
+    delete modifeiedData.mailVerifyCode;
+    delete modifeiedData.device;
+    delete modifeiedData.devices;
     modifeiedData.avatar = process.env.HOST + data.avatar;
 
     return modifeiedData;

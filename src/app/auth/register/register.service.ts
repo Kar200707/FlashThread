@@ -42,14 +42,7 @@ export class RegisterService {
         bio: ""
       }
 
-      const createdData = this.userModel.create(sendObj);
-
-      await this.mailerService.sendMail({
-        to: body.email,
-        subject: 'Welcome to Flash Thread',
-        text: 'welcome',
-        html: `<h1 style="color: #3f51b5">Hello! ${ body.name }. Thanks for register</h1>`
-      })
+      await this.userModel.create(sendObj);
 
       return {
         messgae: 'register successfully',

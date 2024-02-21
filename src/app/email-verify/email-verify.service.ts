@@ -3,8 +3,6 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { InjectModel } from '@nestjs/mongoose';
 import { Users, UsersDocument } from '../auth/schemas/users.schema';
 import { Model } from 'mongoose';
-import { User } from '../models/user.model';
-import { loginRegGuard } from '../../flash-thread-frontend/src/app/guards/login-reg.guard';
 
 @Injectable()
 export class EmailVerifyService {
@@ -41,7 +39,7 @@ export class EmailVerifyService {
         `
     })
 
-    return { message: 'code sended. Check email' }
+    return { message: 'code has ben send. Check email' }
   }
 
   async checkVerifyCode(body: { token: string, code: string }) {
@@ -62,17 +60,23 @@ export class EmailVerifyService {
     }
 
     if (code === userData.mailVerifyCode) {
-      const modifiedData = userData;
+      const modifiedData = userData.toObject();
       modifiedData.isMailVerify = true;
+      await this.userModel.findByIdAndUpdate(userData.id , modifiedData, { new: true });
 
-      await this.userModel.findOneAndUpdate({ password: token }, modifiedData);
+      await this.mailerService.sendMail({
+        to: userData.email,
+        subject: 'Welcome to Flash Thread',
+        text: 'welcome',
+        html: `<h1 style="color: #3f51b5">Hello! ${ userData.name }. Thanks for email verifying</h1>`
+      })
 
       return { message: 'email verify successfully' };
     } else {
       const modifiedData = userData;
       modifiedData.isMailVerify = false;
 
-      await this.userModel.findOneAndUpdate({ password: token }, modifiedData);
+      await this.userModel.findByIdAndUpdate(userData.id , modifiedData, { new: true });
 
       throw new HttpException('email verify not successfully', HttpStatus.BAD_REQUEST)
     }

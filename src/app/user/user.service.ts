@@ -47,7 +47,7 @@ export class UserService {
 
     modifiedData.device = "";
 
-    const update = await this.userModel.findByIdAndUpdate(logoutUser.id, modifiedData);
+    await this.userModel.findByIdAndUpdate(logoutUser.id, modifiedData);
 
     return 'logout successfully';
   }

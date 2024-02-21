@@ -1,4 +1,10 @@
-<div class="main-div">
+<div style="position: relative" class="main-div">
+  <div [style.top]="isProfileEdited ? '15px' : '-500px'" class="profile_edited_panel">
+    <h2>Your Profile Edited <mat-icon>done_circle</mat-icon></h2>
+  </div>
+  @if (mainLoader) {
+    <app-main-loader style="position: absolute; z-index: 1000; width: 100%; height: 100%"></app-main-loader>
+  }
   <div class="header-block">
     <mat-icon routerLink="/chats-menu" class="back_icon" >arrow_back_ios</mat-icon>
     <h4>Profile</h4>
@@ -38,10 +44,40 @@
         </label>
       </div>
       <p>Email</p>
-      <div class="email_block">
-        <p>{{ profileData ? profileData.email : '' }}</p>
-        <div class="email_verify_button"></div>
-      </div>
+      <form style="position: relative; width: 100%" (ngSubmit)="checkVerifyCode(verifyCodeInput)">
+        <input
+          #verifyCodeInput
+          [type]="isVerifyCodeHasArrived ? 'number' : 'text'"
+          [placeholder]="isVerifyCodeHasArrived ? 'Enter your verify code' : ''"
+          [disabled]="!isVerifyCodeHasArrived"
+          [value]="profileData && !isVerifyCodeHasArrived ? profileData.email : ''" class="email_block">
+        @if (isVerifyCodeHasArrived) {
+          <button class="send_verify_code_button">
+            <mat-icon>send</mat-icon>
+          </button>
+        }
+        @if (profileData ? profileData.isMailVerify : false) {
+          <mat-icon class="email_has_ben_verify">task_alt</mat-icon>
+        }
+      </form>
+      @if (!isClickedToSendVerifyEmailLink && profileData ? !profileData.isMailVerify && !noCorrectVerifyCode : false) {
+        <span
+          (click)="sendVerifyCode()"
+          class="email_verify_link">
+          Your email is not verified - send verify code
+          <mat-icon>info</mat-icon>
+        </span>
+      }
+      @if (isVerifyCodeHasArrived) {
+        <span
+          class="email_check_email_link">
+          Verify code has been sent. Please check your email
+          <mat-icon>done</mat-icon>
+        </span>
+      }
+      @if (loaderMailVerify) {
+        <span class="loader"></span>
+      }
       <label style="margin-top: 15px; display: block">
         <p>Biography</p>
         <input

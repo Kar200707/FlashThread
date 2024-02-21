@@ -1,4 +1,7 @@
-<div class="main_div">
+<div style="position: relative" class="main_div">
+  @if (mainLoader) {
+    <app-main-loader style="position: absolute; z-index: 1000; width: 100%; height: 100%"></app-main-loader>
+  }
   <img class="side_image" src="assets/images/icons/side-icons/flash-thread-colors.png">
   <div class="layer"></div>
   <div class="container">

@@ -1,5 +1,6 @@
 export interface User {
   isOnline?: boolean;
+  isMailVerify?: boolean;
   id?: string;
   email: string;
   name: string;

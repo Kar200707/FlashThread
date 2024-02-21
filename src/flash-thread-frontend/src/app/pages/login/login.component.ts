@@ -7,7 +7,7 @@ import { RequestService } from "../../services/request.service";
 import { environment } from "../../../environment/environment";
 import { HttpClientModule } from "@angular/common/http";
 import { MatIconModule } from "@angular/material/icon";
-import { SetThemesService } from '../../services/set-themes.service';
+import { MainLoaderComponent } from '../../components/main-loader/main-loader.component';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,8 @@ import { SetThemesService } from '../../services/set-themes.service';
     ReactiveFormsModule,
     MatButtonModule,
     HttpClientModule,
-    MatIconModule
+    MatIconModule,
+    MainLoaderComponent,
   ],
   providers: [
     RequestService
@@ -29,6 +30,7 @@ import { SetThemesService } from '../../services/set-themes.service';
 export class LoginComponent {
   hide = true;
   isFalseLogin: boolean = false;
+  mainLoader:boolean = false;
 
   form: FormGroup = new FormGroup({
     email: new FormControl('', Validators.required),
@@ -40,8 +42,10 @@ export class LoginComponent {
     private requestService: RequestService) {  }
 
   send(formDirective: FormGroupDirective) {
+    this.mainLoader = true;
     if(this.form.valid) {
       this.requestService.post<any>(environment.signIn, this.form.value).subscribe((d) => {
+        this.mainLoader = false;
         localStorage.setItem('token', d.access_token);
         this.router.navigate(['./']);
 

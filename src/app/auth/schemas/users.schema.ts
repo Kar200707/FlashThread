@@ -9,7 +9,7 @@ export class Users {
   mailVerifyCode: string | undefined
 
   @Prop()
-  isMailVerify: boolean
+  isMailVerify: boolean;
 
   @Prop()
   isOnline: boolean

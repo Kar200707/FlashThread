@@ -29,7 +29,10 @@ export class GetUserByIdService {
       modifedData.avatar = process.env.HOST + user.avatar;
       delete modifedData._id
       delete modifedData.__v
-      delete modifedData.password
+      delete modifedData.mailVerifyCode;
+      delete modifedData.device;
+      delete modifedData.devices;
+      delete modifedData.password;
 
       return modifedData;
     } catch (error) {

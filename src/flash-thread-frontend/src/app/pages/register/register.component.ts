@@ -7,7 +7,7 @@ import { FormControl, FormGroup, FormGroupDirective, ReactiveFormsModule, Valida
 import { RequestService } from "../../services/request.service";
 import { environment } from "../../../environment/environment";
 import { HttpClientModule } from "@angular/common/http";
-import { SetThemesService } from '../../services/set-themes.service';
+import { MainLoaderComponent } from '../../components/main-loader/main-loader.component';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +18,8 @@ import { SetThemesService } from '../../services/set-themes.service';
     MatButtonModule,
     MatIconModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MainLoaderComponent,
   ],
   providers: [
     RequestService
@@ -29,6 +30,7 @@ import { SetThemesService } from '../../services/set-themes.service';
 export class RegisterComponent {
   hide = true;
   isFalseRegister: boolean = false;
+  mainLoader:boolean = false;
 
   form: FormGroup = new FormGroup({
     email: new FormControl('', Validators.required),
@@ -41,8 +43,10 @@ export class RegisterComponent {
     private requestService: RequestService) {  }
 
   send(formDirective: FormGroupDirective) {
+    this.mainLoader = true;
     if(this.form.valid) {
       this.requestService.post<any>(environment.signUp, this.form.value).subscribe((d) => {
+        this.mainLoader = false;
         localStorage.setItem('token', d.access_token);
         this.router.navigate(['./']);
       }, (error) => {
