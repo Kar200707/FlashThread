@@ -2,7 +2,6 @@ import { Body, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from "@nestjs/mongoose";
 import { Chat, ChatDocumnet } from "./schemas/chat.schema";
 import { Model } from "mongoose";
-import { ChatInterface } from "../models/chat.model";
 import { Users, UsersDocument } from '../auth/schemas/users.schema';
 import mongoose from 'mongoose';
 
@@ -73,6 +72,7 @@ export class ChatService {
           userId: user.id,
           message: message,
           id: new mongoose.Types.ObjectId().toString(),
+          emoji: false,
           date: {
             day: date.getDay(),
             month: date.getMonth(),
@@ -181,6 +181,102 @@ export class ChatService {
           if (item.userId !== userData.id) {
             throw new HttpException('delete not', HttpStatus.BAD_REQUEST);
           }
+        }
+        if (item.id.toString() !== messageId) {
+          modifiedMessages.push(item)
+        }
+      })
+
+      const newChat = chatData.toObject();
+      newChat.messages = modifiedMessages;
+
+      await this.chatModel.findOneAndUpdate({ _id: chatId }, newChat)
+
+      return modifiedMessages
+    } catch (e) {
+      throw new HttpException('Chat or Message with this id does not exist', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async setMessageEmoji(token:string, chatId: string, messageId: string) {
+    if (!token) {
+      throw new HttpException('not selected token', HttpStatus.BAD_REQUEST);
+    }
+    if (!chatId) {
+      throw new HttpException('not selected chatId', HttpStatus.BAD_REQUEST);
+    }
+    if (!messageId) {
+      throw new HttpException('not selected messageId', HttpStatus.BAD_REQUEST);
+    }
+
+    const userData = await this.usersModel.findOne({ password: token });
+
+    if (!userData) {
+      throw new HttpException('User with this token does not exist', HttpStatus.BAD_REQUEST)
+    }
+
+    try {
+      const chatData = await this.chatModel.findOne({ _id: chatId });
+
+      const modifiedMessages:any = [];
+
+      chatData.messages.forEach(item => {
+        if (item.id.toString() === messageId) {
+          if (item.userId === userData.id) {
+            throw new HttpException('set emoji not successfully', HttpStatus.BAD_REQUEST);
+          }
+
+          let newEmojiMessage = item
+          newEmojiMessage.emoji = true;
+          modifiedMessages.push(newEmojiMessage);
+        }
+        if (item.id.toString() !== messageId) {
+          modifiedMessages.push(item)
+        }
+      })
+
+      const newChat = chatData.toObject();
+      newChat.messages = modifiedMessages;
+
+      await this.chatModel.findOneAndUpdate({ _id: chatId }, newChat)
+
+      return modifiedMessages
+    } catch (e) {
+      throw new HttpException('Chat or Message with this id does not exist', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async removeMessageEmoji(token:string, chatId: string, messageId: string) {
+    if (!token) {
+      throw new HttpException('not selected token', HttpStatus.BAD_REQUEST);
+    }
+    if (!chatId) {
+      throw new HttpException('not selected chatId', HttpStatus.BAD_REQUEST);
+    }
+    if (!messageId) {
+      throw new HttpException('not selected messageId', HttpStatus.BAD_REQUEST);
+    }
+
+    const userData = await this.usersModel.findOne({ password: token });
+
+    if (!userData) {
+      throw new HttpException('User with this token does not exist', HttpStatus.BAD_REQUEST)
+    }
+
+    try {
+      const chatData = await this.chatModel.findOne({ _id: chatId });
+
+      const modifiedMessages:any = [];
+
+      chatData.messages.forEach(item => {
+        if (item.id.toString() === messageId) {
+          if (item.userId === userData.id) {
+            throw new HttpException('set emoji not successfully', HttpStatus.BAD_REQUEST);
+          }
+
+          let newEmojiMessage = item
+          newEmojiMessage.emoji = false;
+          modifiedMessages.push(newEmojiMessage);
         }
         if (item.id.toString() !== messageId) {
           modifiedMessages.push(item)

@@ -39,6 +39,7 @@ export class ChatComponent implements OnInit {
   chatInfo!: ChatInterface;
   thisUser!: User;
   idParam!: string;
+  private touchTime = 0;
   isChackChatValid: boolean = true;
   token: string | null = localStorage.getItem('token');
   messageSelectTimeOut: any;
@@ -76,10 +77,6 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.webSocket.listen('connect').subscribe((data) => {
-      this.webSocket.emit('join', { id: this.thisUser.id });
-    })
-
     this.activatedRoute.params.subscribe((params: any) => {
       this.idParam = params.id;
       const userId: string = params.id;
@@ -122,34 +119,43 @@ export class ChatComponent implements OnInit {
 
   send() {
     if (this.form.value.message) {
-      if (this.isChackChatValid) {
-        const date:Date = new Date();
-
-        const newMesage = {
-          message: this.form.value.message,
-          userId: this.thisUser.id ? this.thisUser.id : '',
-          date: {
-            day: date.getDay(),
-            month: date.getMonth(),
-            year: date.getFullYear(),
-            hours: date.getHours(),
-            minutes: date.getMinutes(),
-            date: date.getDate()
-          }
+      if (!this.isChackChatValid) {
+        const demoChat: ChatInterface = {
+          id: 0,
+          usersId: [],
+          messages: []
         }
+        this.chatMessaging = demoChat;
 
-        this.chatMessaging.messages.push(newMesage);
-
-        const obj = {
-          message: this.form.value.message,
-          chatId: this.chatInfo.id,
-          token: this.token
-        }
-
-        this.webSocket.emit('message', obj);
-      } else {
-        this.addNewChat();
+        this.addNewChat().subscribe(chatData => {
+          this.chatMessaging = chatData;
+          this.chatInfo = chatData;
+          this.isChackChatValid = true;
+        });
       }
+
+      const date:Date = new Date();
+      const newMessage = {
+        message: this.form.value.message,
+        userId: this.thisUser.id ? this.thisUser.id : '',
+        date: {
+          day: date.getDay(),
+          month: date.getMonth(),
+          year: date.getFullYear(),
+          hours: date.getHours(),
+          minutes: date.getMinutes(),
+          date: date.getDate()
+        }
+      }
+
+      this.chatMessaging.messages.push(newMessage);
+      const obj = {
+        message: this.form.value.message,
+        chatId: this.chatInfo.id,
+        token: this.token
+      }
+
+      this.webSocket.emit('message', obj);
     }
 
     this.form.reset();
@@ -171,17 +177,13 @@ export class ChatComponent implements OnInit {
   addNewChat() {
     const userId:string = this.idParam;
 
-    this.reqService.post<any>(environment.chat,
+    return this.reqService.post<any>(environment.chat,
       {
         clientToken: this.token,
         message: this.form.value.message,
         userId: userId
       }
-    ).subscribe(chatData => {
-      this.chatMessaging = chatData;
-    })
-
-    this.isChackChatValid = true;
+    )
   }
 
   deleteMessage(id: string | undefined) {
@@ -192,7 +194,6 @@ export class ChatComponent implements OnInit {
         messageId: id
       }).subscribe((data) => {
         this.isOpenedMessageOptions = false;
-        console.log(data);
         this.chatMessaging.messages = data;
       })
     }
@@ -210,6 +211,39 @@ export class ChatComponent implements OnInit {
     messageElement.style.transition = '.3s'
     messageElement.style.scale = '1'
     clearTimeout(this.messageSelectTimeOut);
+  }
+
+  emoji(isCalled: boolean, isEmojiSended: boolean | undefined, messageId: string | undefined) {
+    if (this.touchTime == 0) {
+      this.touchTime = new Date().getTime();
+    } else {
+      if (((new Date().getTime()) - this.touchTime) < 800) {
+        if (isCalled) {
+          if (!isEmojiSended) {
+            this.reqService.post<any>(environment.setEmoji, {
+              token: this.token,
+              chatId: this.chatMessaging.id,
+              messageId: messageId
+            }).subscribe((data) => {
+              this.isOpenedMessageOptions = false;
+              this.chatMessaging.messages = data;
+            })
+          } else {
+            this.reqService.post<any>(environment.removeEmoji, {
+              token: this.token,
+              chatId: this.chatMessaging.id,
+              messageId: messageId
+            }).subscribe((data) => {
+              this.isOpenedMessageOptions = false;
+              this.chatMessaging.messages = data;
+            })
+          }
+        }
+
+      } else {
+        this.touchTime = new Date().getTime();
+      }
+    }
   }
 
   protected readonly innerWidth = innerWidth;

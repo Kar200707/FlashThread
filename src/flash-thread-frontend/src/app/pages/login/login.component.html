@@ -36,8 +36,8 @@
         </div>
         @if (isFalseLogin && !form.touched && !form.dirty) {
           <strong
-            style="margin-bottom: 10px; color: #e01212"
-          >false email or password</strong>
+            style="margin-top: 5px; color: #d23b3b; font-family: Poppins"
+          >Incorrect email or password</strong>
         }
         <button [disabled]="form.invalid" class="send_button">SEND</button>
       </form>

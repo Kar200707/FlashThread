@@ -1,19 +1,20 @@
 export interface ChatInterface {
   clientToken?: string;
 
-  usersId: string[]
+  usersId: string[];
 
   messages: [
     {
-      message: string,
-      userId: string,
+      emoji: boolean;
+      message: string;
+      userId: string;
       date: {
-        day: number,
-        month: number,
-        year: number,
-        date: number,
-        hours: number,
-        minutes: number
+        day: number;
+        month: number;
+        year: number;
+        date: number;
+        hours: number;
+        minutes: number;
       }
     }
   ]

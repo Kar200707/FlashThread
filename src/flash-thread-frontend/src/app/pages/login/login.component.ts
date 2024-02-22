@@ -51,6 +51,7 @@ export class LoginComponent {
 
       }, (error) => {
         if (error.status == 401) {
+          this.mainLoader = false;
           this.isFalseLogin = true;
         }
       })

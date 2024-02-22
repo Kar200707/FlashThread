@@ -51,6 +51,7 @@ export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect {
           message: body.message,
           id: new mongoose.Types.ObjectId().toString(),
           userId: clientId,
+          emoji: false,
           date: {
             day: date.getDay(),
             month: date.getMonth(),

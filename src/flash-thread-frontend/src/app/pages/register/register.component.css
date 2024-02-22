@@ -92,6 +92,7 @@ h1 {
 }
 
 .block {
+  transition: .3s;
   border-radius: 20px;
   padding: 30px;
   background-color: #ffffff;

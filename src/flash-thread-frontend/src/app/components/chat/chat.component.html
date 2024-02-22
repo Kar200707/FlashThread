@@ -25,8 +25,6 @@
         <div
           (mousedown)="thisUser.id === item.userId ? selectMessage(myMessage): false"
           (mouseup)="thisUser.id === item.userId ? unselectMessage(myMessage): false"
-          (touchstart)="thisUser.id === item.userId ? selectMessage(myMessage): false"
-          (touchend)="thisUser.id === item.userId ? unselectMessage(myMessage): false"
           *ngFor="let item of chatMessaging.messages, let i = index"
           (click)="thisUser.id !== item.userId ? isOpenedMessageOptions = false : false"
           [style.border-top]="thisUser.id === item.userId && isOpenedMessageOptions ? '1px solid rgba(255,255,255,0.4)' : '0'"
@@ -36,7 +34,9 @@
           [class]="thisUser.id !== item.userId ? 'message_box_reverce' : 'message_box'">
           <div
             #myMessage
-            class="message">
+            (click)="emoji(thisUser.id !== item.userId, item.emoji, item.id)"
+            [class.emoji_reverse]="thisUser.id === item.userId && item.emoji"
+            [class]="thisUser.id !== item.userId && item.emoji ? 'message emoji' : 'message'">
             @if (thisUser.id === item.userId && isOpenedMessageOptions) {
               <div class="message_options">
                 <mat-icon (click)="deleteMessage(item.id)" color="warn">delete</mat-icon>

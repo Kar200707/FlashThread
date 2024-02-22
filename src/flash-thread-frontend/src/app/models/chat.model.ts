@@ -7,6 +7,7 @@ export interface ChatInterface {
       message: string;
       userId: string;
       id?: string;
+      emoji?: boolean;
       date: {
         day: number;
         month: number;

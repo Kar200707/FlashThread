@@ -33,9 +33,16 @@ export class RegisterComponent {
   mainLoader:boolean = false;
 
   form: FormGroup = new FormGroup({
-    email: new FormControl('', Validators.required),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.email
+    ]),
     password: new FormControl('', Validators.required),
-    name: new FormControl('', Validators.required)
+    name: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^[a-zA-Z]+$/),
+      Validators.max(10)
+    ])
   })
 
   constructor(
@@ -49,8 +56,10 @@ export class RegisterComponent {
         this.mainLoader = false;
         localStorage.setItem('token', d.access_token);
         this.router.navigate(['./']);
+
       }, (error) => {
         if (error.status == 401) {
+          this.mainLoader = false;
           this.isFalseRegister = true;
         }
       })

@@ -11,6 +11,7 @@ export class Chat {
   @Prop()
   messages: [
     {
+      emoji: boolean
       message: string,
       userId: string,
       id: string

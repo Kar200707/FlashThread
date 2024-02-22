@@ -32,4 +32,18 @@ export class ChatController {
 
     return this.chatService.removeMessage(token, chatId, messageId);
   }
+
+  @Post('/messages/set-emoji')
+  setEmoji(@Body() body) {
+    const { token, messageId, chatId } = body;
+
+    return this.chatService.setMessageEmoji(token, chatId, messageId)
+  }
+
+  @Post('/messages/remove-emoji')
+  removeEmoji(@Body() body) {
+    const { token, messageId, chatId } = body;
+
+    return this.chatService.removeMessageEmoji(token, chatId, messageId)
+  }
 }

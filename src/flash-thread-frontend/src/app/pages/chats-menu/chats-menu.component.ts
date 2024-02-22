@@ -11,6 +11,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { AiChatInterface } from '../../../../../app/models/ai-chat.model';
+import { WebSocketService } from '../../services/web-socket.service';
 
 @Component({
   selector: 'app-chats-menu',
@@ -51,7 +52,13 @@ export class ChatsMenuComponent implements OnInit {
   searchData: User[] = [];
   chatUsersData: User[] = [];
 
-  constructor(private reqService: RequestService) {  }
+  constructor(
+    private webSocket: WebSocketService,
+    private reqService: RequestService) {
+    this.webSocket.listen('message').subscribe(() => {
+      this.getActiveChats();
+    })
+  }
 
   ngOnInit() {
     const obj:any = {
@@ -68,24 +75,26 @@ export class ChatsMenuComponent implements OnInit {
 
       })
 
-    // this.chat.addEventListener('click', () => {
-    //   this.isOpenedSearchBlock = false;
-    // })
-
     this.reqService.post<User>(environment.getUserByToken, obj)
       .subscribe((data: User) => {
         this.tokenUser = data;
         this.userData = data;
       })
 
+    this.getActiveChats();
+  }
+
+  getActiveChats() {
+    this.chatsData = [];
+    this.chatUsersData = [];
+
+    const obj:any = {
+      token: this.token
+    }
+
     this.reqService.post<ChatInterface[]>(environment.getActiveChats, obj)
       .subscribe((data: ChatInterface[]) => {
-        data.forEach(item => {
-          if (item) {
-            this.chatsData.push(item);
-            console.log();
-          }
-        })
+        this.chatsData = data;
 
         data.forEach((item: ChatInterface, i: number) => {
           if (item) {
