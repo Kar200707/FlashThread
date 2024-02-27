@@ -1,12 +1,11 @@
 import {
   ConnectedSocket,
   MessageBody,
-  OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit,
+  OnGatewayConnection, OnGatewayDisconnect,
   SubscribeMessage,
   WebSocketGateway,
-  WebSocketServer, WebSocketServerOptions,
+  WebSocketServer,
 } from '@nestjs/websockets';
-import { Logger } from "@nestjs/common";
 import { GatewayService } from "./gateway.service";
 import { InjectModel } from '@nestjs/mongoose';
 import { Users, UsersDocument } from '../app/auth/schemas/users.schema';

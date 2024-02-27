@@ -387,6 +387,7 @@
 .ai_loading > img {
   width: 130px;
   border-radius: 20px;
+  filter: saturate(4.3);
 }
 
 .animated-message {

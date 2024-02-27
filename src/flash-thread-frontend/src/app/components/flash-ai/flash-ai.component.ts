@@ -203,6 +203,10 @@ export class FlashAiComponent implements OnInit {
         setTimeout(() => {
           this.messagesBoxScroll?.nativeElement.scrollTo(0, this.messagesBoxScroll?.nativeElement.scrollHeight)
         }, 100)
+      }, (error) => {
+        if (error.status === 401) {
+          this.isLoadedAiAnswer = true;
+        }
       })
     }
     this.form.reset();
