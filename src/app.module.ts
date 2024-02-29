@@ -40,7 +40,6 @@ import { EmailVerifyModule } from './app/email-verify/email-verify.module';
     }),
 
     // api modules
-
     AuthModule,
     ClientInfoModule,
     SearchUserModule,

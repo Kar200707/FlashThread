@@ -77,6 +77,17 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.webSocket.listen('emoji').subscribe((data: any) => {
+      this.reqService.post<ChatInterface>(environment.getChat,
+        {
+          clientToken: this.token,
+          chatId: this.chatInfo.id
+        })
+        .subscribe(data => {
+          this.chatMessaging = data;
+        })
+    })
+
     this.activatedRoute.params.subscribe((params: any) => {
       this.idParam = params.id;
       const userId: string = params.id;
@@ -219,6 +230,12 @@ export class ChatComponent implements OnInit {
     } else {
       if (((new Date().getTime()) - this.touchTime) < 800) {
         if (isCalled) {
+          this.webSocket.emit('emoji',
+            {
+              token: this.token,
+              chatId: this.chatMessaging.id
+            })
+
           if (!isEmojiSended) {
             this.reqService.post<any>(environment.setEmoji, {
               token: this.token,

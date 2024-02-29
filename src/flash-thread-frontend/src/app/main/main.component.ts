@@ -13,7 +13,6 @@ import { RouterOutlet } from "@angular/router";
 import { MessagingService } from '../services/messaging.service';
 import { AngularFireMessaging, AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 import { MessagingModule } from '@angular/fire/messaging';
-import { SetThemesService } from '../services/set-themes.service';
 import { ChatsMenuComponent } from '../pages/chats-menu/chats-menu.component';
 
 @Component({
@@ -58,7 +57,6 @@ export class MainComponent implements  OnInit {
   }
 
   constructor(
-    private setMobileThemes: SetThemesService,
     private messagingService: MessagingService,
     private webSocket: WebSocketService,
     private reqService: RequestService) {
@@ -85,10 +83,6 @@ export class MainComponent implements  OnInit {
 
 
   }
-
-  // onMove(e: any) {
-  //   console.log(e);
-  // }
 
   protected readonly innerWidth = innerWidth;
 }

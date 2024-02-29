@@ -100,6 +100,11 @@ export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect {
     client.join(body.id);
   }
 
+  @SubscribeMessage('emoji')
+  async setEmoji(@MessageBody() body) {
+    await this.gatewayService.isEmojiHasBenSet(body, this.server);
+  }
+
   async handleConnection(client: any) {
     this.server.emit('isOnline', true);
     const socketToken:string = client.handshake.auth?.token;;
