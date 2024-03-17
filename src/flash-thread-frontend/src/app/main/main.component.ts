@@ -68,6 +68,10 @@ export class MainComponent implements  OnInit {
   }
 
   ngOnInit() {
+    this.webSocket.listen("connect").subscribe(() => {
+      console.log('socket connected');
+      this.webSocket.emit('join', { id: this.userData.id });
+    })
     this.messagingService.callRequestPermission.subscribe((token) => {
       if (token && this.token) {
         this.reqService.put(environment.userEdit, { device: token, token: this.token }).subscribe(() => {})

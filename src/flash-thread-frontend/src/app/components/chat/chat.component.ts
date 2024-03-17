@@ -108,8 +108,6 @@ export class ChatComponent implements OnInit {
 
       this.reqService.post<User>(environment.getUserByToken,  obj2)
         .subscribe((userData: User) =>{
-          this.webSocket.emit('join', { id: userData.id });
-
           this.thisUser = userData;
 
           this.reqService.post<any>(environment.checkChat, { id1: userId, id2: userData.id})

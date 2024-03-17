@@ -55,9 +55,9 @@ export class ChatsMenuComponent implements OnInit {
   constructor(
     private webSocket: WebSocketService,
     private reqService: RequestService) {
-    this.webSocket.listen('message').subscribe(() => {
-      this.getActiveChats();
-    })
+    // this.webSocket.listen('message').subscribe(() => {
+    //   this.getActiveChats();
+    // })
   }
 
   ngOnInit() {

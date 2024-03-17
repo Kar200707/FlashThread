@@ -1,0 +1,1 @@
+import{Cb as a,fa as o,lb as i}from"./chunk-MYIS5EFB.js";import"./chunk-JMZ7DUBM.js";var m=(()=>{let e=class e{};e.\u0275fac=function(n){return new(n||e)},e.\u0275cmp=o({type:e,selectors:[["app-home"]],standalone:!0,features:[a],decls:1,vars:0,consts:[[1,"main-div"]],template:function(n,s){n&1&&i(0,"div",0)}});let t=e;return t})();export{m as HomeComponent};

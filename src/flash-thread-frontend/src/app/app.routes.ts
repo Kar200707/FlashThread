@@ -55,5 +55,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/register/register.component').then(x => x.RegisterComponent),
     path: 'register',
     title: 'Flash Thread Register',
+  },
+  {
+    canActivate: [mainPageGuard],
+    loadComponent: () => import('./pages/home/home.component').then(x => x.HomeComponent),
+    path: 'home',
+    title: 'Flash Thread'
   }
 ];

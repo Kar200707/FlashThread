@@ -14,12 +14,13 @@ import { User } from '../app/models/user.model';
 import { Chat, ChatDocumnet } from '../app/chat/schemas/chat.schema';
 import { HttpService } from '@nestjs/axios';
 import * as mongoose from 'mongoose';
+import { Server, Socket } from 'socket.io';
 
 @WebSocketGateway({ cors: true })
 export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   @WebSocketServer()
-  server;
+  server: Server
 
   constructor(
     private httpService: HttpService,
@@ -71,7 +72,7 @@ export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
         chat.usersId.forEach((item: string) => {
           if (item != clientId) {
-            this.server.in(item).emit('message', newMesage);
+            this.server.to(item).emit('message', newMesage);
 
             async function sendNotification (userModel, httpService) {
               const senderUser:any = await userModel.findById(clientId);
@@ -105,8 +106,9 @@ export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect {
     await this.gatewayService.isEmojiHasBenSet(body, this.server);
   }
 
-  async handleConnection(client: any) {
+  async handleConnection(client: Socket) {
     this.server.emit('isOnline', true);
+    console.log(client.id);
     const socketToken:string = client.handshake.auth?.token;;
     const socket:any = await this.userModel.findOne({ password: socketToken });
 
@@ -120,7 +122,7 @@ export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect {
     }
   }
 
-  async handleDisconnect(client: any) {
+  async handleDisconnect(client: Socket) {
     const socketToken:string = client.handshake.auth?.token
     const socket:any = await this.userModel.findOne({ password: socketToken });
 

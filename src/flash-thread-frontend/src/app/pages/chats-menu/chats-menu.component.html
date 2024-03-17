@@ -99,7 +99,7 @@
         [routerLink]="['/messenger/chat', chatUser.id]"
         *ngIf="chatUser != null" class="chat">
         <img [src]="chatUser.avatar" alt="chat">
-        <div>
+        <div *ngIf="chatsData">
           <div>
             <h3>{{ chatUser.name }}</h3>
             <p>

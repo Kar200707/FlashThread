@@ -102,7 +102,7 @@ export class FlashAiComponent implements OnInit {
     }
   }
 
-  copyText(text: string, icon:any) {
+  copyText(text: string, icon: any) {
     icon.innerText = 'done'
     this.isCopied = true;
     navigator.clipboard.writeText(text);
