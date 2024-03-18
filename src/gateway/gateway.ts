@@ -107,8 +107,7 @@ export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   async handleConnection(client: Socket) {
-    this.server.emit('isOnline', true);
-    console.log(client.id);
+    // this.server.emit('isOnline', true);
     const socketToken:string = client.handshake.auth?.token;;
     const socket:any = await this.userModel.findOne({ password: socketToken });
 

@@ -1,6 +1,11 @@
 <div
   appResizeHeight [size]="1"
+  [style.width]="innerWidth > 940 ? panelWidth : '100%'"
   class="main-div">
+  <div
+    (mousedown)="selected()"
+    (mouseup)="unselected()"
+    class="resize_panel"></div>
   <div class="box">
     <div class="header_box">
       <h1>Messages</h1>

@@ -1,6 +1,7 @@
 .main-div {
   background: rgb(38, 38, 38);
   width: 100%;
+  position: relative;
 }
 
 .main-div::-webkit-scrollbar {
@@ -280,4 +281,26 @@ app-user-details {
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
+}
+
+.resize_panel {
+  width: 4px;
+  height: 98vh;
+  position: absolute;
+  right: -2px;
+  top: 6px;
+  cursor: e-resize;
+  z-index: 10;
+  border-radius: 20px;
+  transition: .4s;
+}
+
+.resize_panel:hover {
+  background-color: #c9c9c9;
+}
+
+@media screen and (max-width: 940px) {
+  .resize_panel {
+    display: none;
+  }
 }

@@ -1,9 +1,6 @@
 <div class="container">
   @if (windowSize > 940) {
-    <div  style="width: 40%;">
-      <app-chats-menu></app-chats-menu>
-    </div>
-<!--    <div (mousemove)="onMove($event)" class="move_line"></div>-->
+    <app-chats-menu></app-chats-menu>
   }
   <div style="width: 100%">
     <router-outlet></router-outlet>

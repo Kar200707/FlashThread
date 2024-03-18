@@ -38,6 +38,8 @@ export class ChatsMenuComponent implements OnInit {
 
   isOpenedSearchBlock:boolean = false;
   tokenUser!: User;
+  panelWidth: string = '380px';
+  isPanelResizeSelected: boolean = false;
   aiLastMessage: string = '';
   chatsData: ChatInterface[] = [];
   token: string | null = localStorage.getItem('token');
@@ -61,6 +63,21 @@ export class ChatsMenuComponent implements OnInit {
   }
 
   ngOnInit() {
+    window.addEventListener('mouseup', () => this.isPanelResizeSelected = false);
+    window.addEventListener('mousemove', (e) => {
+      if (this.isPanelResizeSelected) {
+        if (e.clientX < 800) {
+          if (e.clientX > 300) {
+            this.panelWidth = e.clientX + 'px';
+          } else {
+            this.panelWidth = '300px';
+          }
+        } else {
+          this.panelWidth = '800px';
+        }
+      }
+    });
+
     const obj:any = {
       token: this.token
     }
@@ -116,6 +133,14 @@ export class ChatsMenuComponent implements OnInit {
         })
       })
   }
+
+  selected() {
+    this.isPanelResizeSelected = true;
+  }
+  unselected() {
+    this.isPanelResizeSelected = false;
+  }
+
 
   searchValue() {
     const obj: any = { name: this.input?.nativeElement.value.split('').filter(e => e.trim().length).join('') };

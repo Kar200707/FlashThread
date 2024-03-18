@@ -293,4 +293,36 @@ export class ChatService {
       throw new HttpException('Chat or Message with this id does not exist', HttpStatus.BAD_REQUEST);
     }
   }
+
+  async removeChat(token: string, chatId: string) {
+    if (!token || !chatId || !token && !chatId) {
+      throw new HttpException({ message: "invalid request" }, HttpStatus.BAD_REQUEST);
+    }
+    const user = await this.usersModel.findOne({ password: token });
+    if (!user) {
+      throw new HttpException('User with this token does not registered', HttpStatus.BAD_REQUEST);
+    }
+    console.log(token, chatId);
+
+    try {
+      const chat = await this.chatModel.findOne({ _id: chatId });
+
+      console.log(chat, chatId);
+
+      async function deleteChat(chatModel) {
+        await chatModel.findOneAndDelete({ _id: chatId });
+      }
+
+      chat.usersId.forEach(id => {
+        if (id === user.id) {
+          deleteChat(this.chatModel);
+        }
+      })
+      return { message: "Delete Successfully" };
+
+    } catch (e) {
+      console.log(e);
+      throw new HttpException('Chat with this id does not exist', HttpStatus.BAD_REQUEST);
+    }
+  }
 }
