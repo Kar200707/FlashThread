@@ -126,6 +126,7 @@ app-user-details {
 }
 
 .chat_block > .chat {
+  position: relative;
   width: 100%;
   display: flex;
   align-items: center;
@@ -192,7 +193,7 @@ app-user-details {
   width: 100%;
 }
 
-.chat_block > .chat > div > div {
+.chat_block > .chat > div > .list_block {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -297,6 +298,20 @@ app-user-details {
 
 .resize_panel:hover {
   background-color: #c9c9c9;
+}
+
+.more_list_icon_box {
+  justify-content: flex-end;
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  right: -6px;
+  bottom: -6px;
+  cursor: pointer;
+}
+
+.more_list_icon_box > mat-icon {
+  font-size: 19px;
 }
 
 @media screen and (max-width: 940px) {

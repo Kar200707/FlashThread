@@ -105,7 +105,10 @@
         *ngIf="chatUser != null" class="chat">
         <img [src]="chatUser.avatar" alt="chat">
         <div *ngIf="chatsData">
-          <div>
+          <button (click)="deleteChat(chatsData[i]._id)" mat-icon-button class="more_list_icon_box">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+          <div class="list_block">
             <h3>{{ chatUser.name }}</h3>
             <p>
               {{

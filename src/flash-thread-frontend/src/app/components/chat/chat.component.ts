@@ -42,6 +42,7 @@ export class ChatComponent implements OnInit {
   private touchTime = 0;
   isChackChatValid: boolean = true;
   token: string | null = localStorage.getItem('token');
+  inputChangeTimeOut: any;
   messageSelectTimeOut: any;
 
   form: FormGroup = new FormGroup({
@@ -77,6 +78,10 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.webSocket.listen('printing').subscribe((data: any) => {
+      this.isPrint = data.printing;
+      this.scrollDown();
+    });
     this.webSocket.listen('emoji').subscribe((data: any) => {
       this.reqService.post<ChatInterface>(environment.getChat,
         {
@@ -126,11 +131,53 @@ export class ChatComponent implements OnInit {
     })
   }
 
+  changeSendInput() {
+    this.scrollDown();
+    const obj = {
+      chatId: this.chatInfo.id,
+      token: this.token,
+      printing: true
+    }
+
+    this.webSocket.emit('printing', obj);
+    if (this.inputChangeTimeOut) {
+      clearTimeout(this.inputChangeTimeOut);
+    }
+    this.inputChangeTimeOut = setTimeout(() => {
+      this.scrollDown();
+      const obj = {
+        chatId: this.chatInfo.id,
+        token: this.token,
+        printing: false
+      }
+
+      this.webSocket.emit('printing', obj);
+    }, 2000);
+  }
+
+  focusedSendInput() {
+
+  }
+
+  blurSendInput() {
+    // this.scrollDown();
+    // const obj = {
+    //   chatId: this.chatInfo.id,
+    //   token: this.token,
+    //   printing: false
+    // }
+    //
+    // this.webSocket.emit('printing', obj);
+  }
+
   send() {
     if (this.form.value.message) {
+      const audio:HTMLAudioElement = new Audio();
+      audio.src = 'assets/audios/send-tone.mp3';
+      audio.load();
+      audio.play();
       if (!this.isChackChatValid) {
         const demoChat: ChatInterface = {
-          id: 0,
           usersId: [],
           messages: []
         }
@@ -171,16 +218,6 @@ export class ChatComponent implements OnInit {
     setTimeout(() => {
       this.messagesBoxScroll?.nativeElement.scrollTo(0, this.messagesBoxScroll?.nativeElement.scrollHeight)
     }, 100)
-  }
-
-  printing() {
-    // this.isPrint = true
-    // let timeOut = setTimeout(() => {
-    //   clearTimeout(timeOut);
-    //   this.isPrint = false
-    //   console.log(this.isPrint);
-    // }, 1000);
-    // console.log(this.isPrint);
   }
 
   addNewChat() {

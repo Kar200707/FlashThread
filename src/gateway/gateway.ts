@@ -42,58 +42,88 @@ export class MyGateway implements OnGatewayConnection, OnGatewayDisconnect {
       const clientId: string = clientData._id.toString();
 
       if (body.chatId) {
-        const chatId: string = body.chatId;
-        const chat = await this.chatModel.findById(chatId);
-        const date: Date = new Date();
-        const obj:any = chat.toObject();
+        await this.sendToClient(body, clientId);
+      }
+    }
+  }
 
-        const newMesage = {
-          message: body.message,
-          id: new mongoose.Types.ObjectId().toString(),
-          userId: clientId,
-          emoji: false,
-          date: {
-            day: date.getDay(),
-            month: date.getMonth(),
-            year: date.getFullYear(),
-            hours: date.getHours(),
-            minutes: date.getMinutes(),
-            date: date.getDate()
-          }
-        }
+  @SubscribeMessage('printing')
+  async handelPrint(
+    @MessageBody() body: any,
+    @ConnectedSocket() client:any
+  ) {
+    const clientToken: string = body.token;
+    const chatId: string = body.chatId;
+    const clientData = await this.userModel.findOne({ password: clientToken });
 
-        obj.messages.push(newMesage);
+    if (!clientData) {
+      client.disconnect();
+    } else {
+      const clientId: string = clientData._id.toString();
+      const chat = await this.chatModel.findById(chatId);
 
-        const updatedChat = await this.chatModel.findByIdAndUpdate(chatId, obj, { new: true })
-
-        const headersRequest = {
-          'Authorization': `key=AAAAzx6jK8E:APA91bFpbSR3Uw6xH4aKn4BjwLBF1r7dk9xC0ogrOwtkKplhdirkmkxFXSNzhxRDZ1dY9uo0oEWHO23NCCbpVHl9QAu14cne28lf2kpRnaifYCN3znPqCoEiKnZHgRm_96Pw_5tf2dHV`,
-        };
-
+      if (body.chatId) {
         chat.usersId.forEach((item: string) => {
           if (item != clientId) {
-            this.server.to(item).emit('message', newMesage);
-
-            async function sendNotification (userModel, httpService) {
-              const senderUser:any = await userModel.findById(clientId);
-              const receiverUser:any = await userModel.findById(item);
-
-              const message = {
-                notification: {
-                  title: senderUser.name,
-                  body: body.message,
-                },
-                to : receiverUser.device
-              }
-
-              httpService.post('https://fcm.googleapis.com/fcm/send',  message,
-                { headers: headersRequest }).subscribe();
-            }
-            sendNotification(this.userModel, this.httpService);
+            this.server.to(item).emit('printing', { printing: body.printing });
           }
         })
       }
     }
+  }
+
+  async sendToClient(body, clientId: string, isPrinting?: boolean) {
+    const chatId: string = body.chatId;
+    const chat = await this.chatModel.findById(chatId);
+    const date: Date = new Date();
+    const obj:any = chat.toObject();
+
+    const newMesage = {
+      isPrinting: isPrinting ? isPrinting : false,
+      message: body.message,
+      id: new mongoose.Types.ObjectId().toString(),
+      userId: clientId,
+      emoji: false,
+      date: {
+        day: date.getDay(),
+        month: date.getMonth(),
+        year: date.getFullYear(),
+        hours: date.getHours(),
+        minutes: date.getMinutes(),
+        date: date.getDate()
+      }
+    }
+
+    obj.messages.push(newMesage);
+
+    const updatedChat = await this.chatModel.findByIdAndUpdate(chatId, obj, { new: true })
+
+    const headersRequest = {
+      'Authorization': `key=AAAAzx6jK8E:APA91bFpbSR3Uw6xH4aKn4BjwLBF1r7dk9xC0ogrOwtkKplhdirkmkxFXSNzhxRDZ1dY9uo0oEWHO23NCCbpVHl9QAu14cne28lf2kpRnaifYCN3znPqCoEiKnZHgRm_96Pw_5tf2dHV`,
+    };
+
+    chat.usersId.forEach((item: string) => {
+      if (item != clientId) {
+        this.server.to(item).emit('message', newMesage);
+
+        async function sendNotification (userModel, httpService) {
+          const senderUser:any = await userModel.findById(clientId);
+          const receiverUser:any = await userModel.findById(item);
+
+          const message = {
+            notification: {
+              title: senderUser.name,
+              body: body.message,
+            },
+            to : receiverUser.device
+          }
+
+          httpService.post('https://fcm.googleapis.com/fcm/send',  message,
+            { headers: headersRequest }).subscribe();
+        }
+        sendNotification(this.userModel, this.httpService);
+      }
+    })
   }
 
   @SubscribeMessage('join')

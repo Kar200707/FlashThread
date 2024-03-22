@@ -63,8 +63,9 @@
     <div class="message_sending_panel">
       <form [formGroup]="form" (ngSubmit)="send()">
         <input
-          (focus)="scrollDown()"
-          (input)="printing()"
+          (input)="changeSendInput()"
+          (blur)="blurSendInput()"
+          (focus)="focusedSendInput()"
           matInput
           formControlName="message"
           placeholder="Type your message..."

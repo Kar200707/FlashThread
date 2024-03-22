@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { AiChatInterface } from '../../../../../app/models/ai-chat.model';
 import { WebSocketService } from '../../services/web-socket.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-chats-menu',
@@ -26,6 +27,7 @@ import { WebSocketService } from '../../services/web-socket.service';
     MatInputModule,
     RouterLinkActive,
     MatIconModule,
+    MatButtonModule,
   ],
   providers: [
     RequestService,
@@ -141,6 +143,18 @@ export class ChatsMenuComponent implements OnInit {
     this.isPanelResizeSelected = false;
   }
 
+  deleteChat(chatId:any) {
+    if (chatId) {
+      if (confirm('Delete this chat?')) {
+        this.reqService.delete(environment.delChat, {
+          token: this.token,
+          chatId: chatId,
+        }).subscribe(() => {
+          this.getActiveChats();
+        });
+      }
+    }
+  }
 
   searchValue() {
     const obj: any = { name: this.input?.nativeElement.value.split('').filter(e => e.trim().length).join('') };

@@ -20,5 +20,6 @@ export const environment = {
   emailSendVerifyCode: host + 'email-verify/code/send',
   emailCheckVerifyCode: host + 'email-verify/code/check',
   setEmoji: host + 'chat/messages/set-emoji',
-  removeEmoji: host + 'chat/messages/remove-emoji'
+  removeEmoji: host + 'chat/messages/remove-emoji',
+  delChat: host + 'chat/del-chat',
 }

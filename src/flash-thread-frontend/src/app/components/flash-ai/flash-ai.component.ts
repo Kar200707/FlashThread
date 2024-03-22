@@ -147,6 +147,10 @@ export class FlashAiComponent implements OnInit {
     this.isSpeak = false;
     this.isLoadedAiAnswer = false;
     if (this.form.value.message) {
+      const audio:HTMLAudioElement = new Audio();
+      audio.src = 'assets/audios/send-tone.mp3';
+      audio.load();
+      audio.play();
       const date:Date = new Date();
 
       const newMesage = {
@@ -180,12 +184,12 @@ export class FlashAiComponent implements OnInit {
 
         if (data.aiGeneratedMessage === '') {
           const audio:HTMLAudioElement = new Audio();
-          audio.src = 'assets/audios/notifiaction/error-call-to-attention-129258.mp3'
+          audio.src = 'assets/audios/notifiaction/error-call-to-attention-129258.mp3';
           audio.load();
           audio.play();
         } else {
           const audio:HTMLAudioElement = new Audio();
-          audio.src = 'assets/audios/notifiaction/bloop-2-186531.mp3'
+          audio.src = 'assets/audios/notifiaction/bloop-2-186531.mp3';
           audio.load();
           audio.play();
         }
